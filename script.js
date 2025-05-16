@@ -50,6 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('donutMoodHistory', JSON.stringify(history));
 
     selectionBox.textContent = `✅ ${selectedDonut} added to ${today}`;
+    selectionBox.classList.add('fade-out');
+selectionBox.classList.remove('hidden');
+
+setTimeout(() => {
+  selectionBox.classList.add('hidden');
+}, 2000);
+
+setTimeout(() => {
+  selectionBox.textContent = '';
+  selectionBox.classList.remove('fade-out', 'hidden');
+}, 3000);
     addButton.style.display = 'none';
     datePickerArea.style.display = 'none';
 
@@ -79,6 +90,22 @@ document.addEventListener('DOMContentLoaded', () => {
     selectionBox.textContent = `✅ ${selectedDonut} added to ${chosenDate}`;
     addButton.style.display = 'none';
     datePickerArea.style.display = 'none';
+    
+setTimeout(() => {
+  selectionBox.classList.add('hidden');
+}, 2000);
+
+setTimeout(() => {
+  selectionBox.textContent = '';
+  selectionBox.classList.remove('fade-out', 'hidden');
+}, 3000);
+
+addButton.style.display = 'none';
+datePickerArea.style.display = 'none';
+
+if (isCalendarVisible) {
+  renderCalendar(); // refresh view if open
+}
   });
 });
 
