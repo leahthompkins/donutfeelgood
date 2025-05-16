@@ -23,6 +23,10 @@ p {
   margin: 0 auto 2rem;
 }
 
+.splide__pagination {
+  display: none;
+}
+
 /* Donut buttons */
 .donut {
   width: 100%;
