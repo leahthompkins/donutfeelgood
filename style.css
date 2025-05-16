@@ -78,3 +78,25 @@ p {
   border-color: #f4a8aa;
 }
 
+
+.donut-selection {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  color: #5b3a2f;
+}
+
+.add-button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #ffcfd2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #f4a8aa;
+}
+
