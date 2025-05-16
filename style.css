@@ -14,7 +14,8 @@ h1 {
 p {
   font-size: 1.2rem;
   color: #7a4c46;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+  margin-top: 0.25rem;  /* 👈 Shrink this */
 }
 
 /* Splide slide wrapper */
@@ -160,8 +161,8 @@ p {
 
 .logo-header {
   text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 
 
@@ -169,5 +170,5 @@ p {
   max-width: 500px !important;
   height: auto !important;
   display: block;
-margin: 1.5rem auto 0.5rem auto !important;
+margin: 0.5rem auto !important;
 }
