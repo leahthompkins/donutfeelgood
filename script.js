@@ -52,6 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
     selectionBox.textContent = `✅ ${selectedDonut} added to ${today}`;
     addButton.style.display = 'none';
     datePickerArea.style.display = 'none';
+
+    if (isCalendarVisible) {
+  renderCalendar(); // refresh the view if open
+}
   });
 
   addToDateBtn.addEventListener('click', () => {
