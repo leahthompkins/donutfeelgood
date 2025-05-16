@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const selectionBox = document.getElementById('donut-selection');
   const addButton = document.getElementById('add-to-today');
+  const dateToggle = document.getElementById('date-picker-toggle');
+  const showDatePicker = document.getElementById('show-date-picker');
   const datePickerArea = document.getElementById('date-picker-area');
   const dateInput = document.getElementById('mood-date');
   const addToDateBtn = document.getElementById('add-to-date');
@@ -29,26 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.donut-image').forEach(img => {
     img.addEventListener('click', () => {
       const donutName = img.alt || 'Unknown Donut';
+
       if (selectedDonut === donutName) {
-  // Unselect
-  selectedDonut = null;
-  selectionBox.textContent = '';
-  addButton.style.display = 'none';
-  datePickerArea.style.display = 'none';
-} else {
-  // New selection
-  selectedDonut = donutName;
-  selectionBox.textContent = `${donutName}`;
-  addButton.style.display = 'inline-block';
-  datePickerArea.style.display = 'block';
-}
+        // Unselect
+        selectedDonut = null;
+        selectionBox.textContent = '';
+        addButton.style.display = 'none';
+        dateToggle.style.display = 'none';
+        datePickerArea.style.display = 'none';
+      } else {
+        // Select
+        selectedDonut = donutName;
+        selectionBox.textContent = `${donutName}`;
+        addButton.style.display = 'inline-block';
+        dateToggle.style.display = 'block';
+        datePickerArea.style.display = 'none';
+      }
     });
+  });
+
+  showDatePicker.addEventListener('click', () => {
+    dateToggle.style.display = 'none';
+    datePickerArea.style.display = 'block';
   });
 
   addButton.addEventListener('click', () => {
     if (!selectedDonut) return;
 
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
     const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
 
     if (!history[today]) {
@@ -60,22 +70,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     selectionBox.textContent = `✅ ${selectedDonut} added to ${today}`;
     selectionBox.classList.add('fade-out');
-selectionBox.classList.remove('hidden');
+    selectionBox.classList.remove('hidden');
 
-setTimeout(() => {
-  selectionBox.classList.add('hidden');
-}, 2000);
+    setTimeout(() => {
+      selectionBox.classList.add('hidden');
+    }, 2000);
 
-setTimeout(() => {
-  selectionBox.textContent = '';
-  selectionBox.classList.remove('fade-out', 'hidden');
-}, 3000);
+    setTimeout(() => {
+      selectionBox.textContent = '';
+      selectionBox.classList.remove('fade-out', 'hidden');
+    }, 3000);
+
     addButton.style.display = 'none';
+    dateToggle.style.display = 'none';
     datePickerArea.style.display = 'none';
 
     if (isCalendarVisible) {
-  renderCalendar(); // refresh the view if open
-}
+      renderCalendar();
+    }
   });
 
   addToDateBtn.addEventListener('click', () => {
@@ -97,27 +109,27 @@ setTimeout(() => {
     localStorage.setItem('donutMoodHistory', JSON.stringify(history));
 
     selectionBox.textContent = `✅ ${selectedDonut} added to ${chosenDate}`;
+    selectionBox.classList.add('fade-out');
+    selectionBox.classList.remove('hidden');
+
+    setTimeout(() => {
+      selectionBox.classList.add('hidden');
+    }, 2000);
+
+    setTimeout(() => {
+      selectionBox.textContent = '';
+      selectionBox.classList.remove('fade-out', 'hidden');
+    }, 3000);
+
     addButton.style.display = 'none';
+    dateToggle.style.display = 'none';
     datePickerArea.style.display = 'none';
-    
-setTimeout(() => {
-  selectionBox.classList.add('hidden');
-}, 2000);
 
-setTimeout(() => {
-  selectionBox.textContent = '';
-  selectionBox.classList.remove('fade-out', 'hidden');
-}, 3000);
-
-addButton.style.display = 'none';
-datePickerArea.style.display = 'none';
-
-if (isCalendarVisible) {
-  renderCalendar(); // refresh view if open
-}
+    if (isCalendarVisible) {
+      renderCalendar();
+    }
   });
 });
-
 
 const toggleButton = document.getElementById('toggle-calendar');
 const calendarDiv = document.getElementById('calendar-history');
@@ -138,8 +150,8 @@ toggleButton.addEventListener('click', () => {
 
 function renderCalendar() {
   const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
-    console.log("📅 renderCalendar reading:", history);
-  const dates = Object.keys(history).sort().reverse(); // latest first
+  console.log("📅 renderCalendar reading:", history);
+  const dates = Object.keys(history).sort().reverse();
 
   if (dates.length === 0) {
     calendarDiv.innerHTML = "<p>No donut moods saved yet.</p>";
@@ -151,4 +163,3 @@ function renderCalendar() {
     return `<h4>📅 ${date}</h4><ul>${donuts}</ul>`;
   }).join('');
 }
-
