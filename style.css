@@ -119,3 +119,11 @@ p {
 .fade-out.hidden {
   opacity: 0;
 }
+
+#show-date-picker {
+  font-size: 0.9rem;
+  background-color: #f8f8f8;
+  color: #5b3a2f;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
