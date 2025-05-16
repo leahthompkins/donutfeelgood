@@ -128,11 +128,23 @@ p {
   border-radius: 6px;
 }
 
-#toggle-calendar {
-  font-size: 0.9rem;
+
+.calendar-toggle {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 0.75rem 1.5rem;
   background-color: #f8f8f8;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   color: #5b3a2f;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  cursor: pointer;
 }
 
+.calendar-toggle:hover {
+  background-color: #f4a8aa;
+}
