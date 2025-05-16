@@ -169,5 +169,5 @@ p {
   max-width: 500px !important;
   height: auto !important;
   display: block;
-
+margin: 1.5rem auto 0.5rem auto !important;
 }
