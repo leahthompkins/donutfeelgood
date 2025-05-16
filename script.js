@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 } else {
   // New selection
   selectedDonut = donutName;
-  selectionBox.textContent = `You selected: ${donutName}`;
+  selectionBox.textContent = `${donutName}`;
   addButton.style.display = 'inline-block';
   datePickerArea.style.display = 'block';
 }
