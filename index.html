@@ -36,11 +36,37 @@
       </div>
     </div>
   </div>
+<script>
+  window.addEventListener('load', () => {
+    const emblaReady = () => typeof EmblaCarousel !== 'undefined';
 
-  <!-- Embla JS -->
-  <! -- <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>-->
+    const waitForEmbla = () => {
+      if (emblaReady()) {
+        const emblaNode = document.querySelector('.embla');
+        const embla = EmblaCarousel(emblaNode, {
+          loop: true,
+          draggable: true,
+          align: 'center',
+          slidesToScroll: 1
+        });
 
-  <!-- Custom Script -->
-  <!--  <script src="script.js"></script>-->
+        document.querySelectorAll('.donut').forEach(button => {
+          button.addEventListener('click', () => {
+            const mood = button.innerText;
+            alert(`You selected: ${mood}`);
+          });
+        });
+      } else {
+        setTimeout(waitForEmbla, 50);
+      }
+    };
+
+    waitForEmbla();
+  });
+</script>
+
+<!-- Embla should load last -->
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+
 </body>
 </html>
