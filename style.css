@@ -17,34 +17,13 @@ p {
   margin-bottom: 2rem;
 }
 
-.embla {
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+/* Splide slide wrapper */
+.splide {
+  max-width: 700px;
+  margin: 0 auto 2rem;
 }
 
-.embla__viewport {
-  overflow: hidden;
-  width: 100%;
-}
-
-.embla__container {
-  display: flex;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-overflow-scrolling: touch;
-  will-change: transform;
-}
-
-.embla__slide {
-  flex: 0 0 20%;
-  max-width: 20%;
-  padding: 0 0.5rem;
-  box-sizing: border-box;
-}
-
-/* Donut button style */
+/* Donut buttons */
 .donut {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -59,6 +38,7 @@ p {
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease;
+  margin: 0 auto;
 }
 
 .donut:hover {
