@@ -38,8 +38,8 @@ p {
 }
 
 .embla__slide {
-  flex: 0 0 25%;
-  max-width: 25%;
+  flex: 0 0 22%;
+  max-width: 22%;
   padding: 0 0.5rem;
   box-sizing: border-box;
 }
