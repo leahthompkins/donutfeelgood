@@ -5,68 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donut Feel Good</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+  <!-- Splide CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
 
-  <!-- Embla CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/embla-carousel/embla-carousel.css" />
-
-  <!-- Custom Styles -->
+  <!-- Your Custom Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Cute Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 </head>
 <body>
   <h1>🍩 Donut Feel Good</h1>
   <p>Which donut matches your mood today?</p>
 
-  <div class="embla">
-    <div class="embla__viewport">
-      <div class="embla__container">
-        <div class="embla__slide"><button class="donut"><span>😋</span><div>Happy Glaze</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😢</span><div>Sad Sprinkle</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😤</span><div>Angry Apple</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😴</span><div>Sleepy Sugar</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🤩</span><div>Excited Eclair</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🥺</span><div>Shy Cinnamon</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😎</span><div>Cool Coconut</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🤯</span><div>Overwhelmed Oreo</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🥳</span><div>Party Powdered</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😇</span><div>Peaceful Pistachio</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😬</span><div>Anxious Almond</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😈</span><div>Cheeky Chocolate</div></button></div>
-      </div>
+  <div class="splide" id="donut-carousel">
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide"><button class="donut"><span>😋</span><div>Happy Glaze</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😢</span><div>Sad Sprinkle</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😤</span><div>Angry Apple</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😴</span><div>Sleepy Sugar</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>🤩</span><div>Excited Eclair</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>🥺</span><div>Shy Cinnamon</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😎</span><div>Cool Coconut</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>🤯</span><div>Overwhelmed Oreo</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>🥳</span><div>Party Powdered</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😇</span><div>Peaceful Pistachio</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😬</span><div>Anxious Almond</div></button></li>
+        <li class="splide__slide"><button class="donut"><span>😈</span><div>Cheeky Chocolate</div></button></li>
+      </ul>
     </div>
   </div>
-<script>
-  window.addEventListener('load', () => {
-    const emblaReady = () => typeof EmblaCarousel !== 'undefined';
 
-    const waitForEmbla = () => {
-      if (emblaReady()) {
-        const emblaNode = document.querySelector('.embla');
-        const embla = EmblaCarousel(emblaNode, {
-          loop: true,
-          draggable: true,
-          align: 'center',
-          slidesToScroll: 1
-        });
+  <!-- Splide JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 
-        document.querySelectorAll('.donut').forEach(button => {
-          button.addEventListener('click', () => {
-            const mood = button.innerText;
-            alert(`You selected: ${mood}`);
-          });
-        });
-      } else {
-        setTimeout(waitForEmbla, 50);
-      }
-    };
-
-    waitForEmbla();
-  });
-</script>
-
-<!-- Embla should load last -->
-<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-
+  <!-- Your JS -->
+  <script src="script.js"></script>
 </body>
 </html>
