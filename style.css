@@ -1,3 +1,24 @@
+body {
+  font-family: 'Baloo 2', cursive;
+  background-color: #fff5f7;
+  color: #5b3a2f;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #d86f72;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #7a4c46;
+  margin-bottom: 2rem;
+}
+
+
 /* Embla layout */
 .embla {
   overflow: hidden;
