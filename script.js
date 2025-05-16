@@ -29,10 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.donut-image').forEach(img => {
     img.addEventListener('click', () => {
       const donutName = img.alt || 'Unknown Donut';
-      selectedDonut = donutName;
-      selectionBox.textContent = `You selected: ${donutName}`;
-      addButton.style.display = 'inline-block';
-      datePickerArea.style.display = 'block';
+      if (selectedDonut === donutName) {
+  // Unselect
+  selectedDonut = null;
+  selectionBox.textContent = '';
+  addButton.style.display = 'none';
+  datePickerArea.style.display = 'none';
+} else {
+  // New selection
+  selectedDonut = donutName;
+  selectionBox.textContent = `You selected: ${donutName}`;
+  addButton.style.display = 'inline-block';
+  datePickerArea.style.display = 'block';
+}
     });
   });
 
