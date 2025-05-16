@@ -8,9 +8,9 @@ donutButtons.forEach(button => {
 });
 
 // Initialize Embla Carousel
-const emblaNode = document.querySelector('.embla');
 const embla = EmblaCarousel(emblaNode, {
   loop: true,
   align: 'center',
-  slidesToScroll: 1
+  slidesToScroll: 1,
+  draggable: true   // 👈 ensure this is set
 });
