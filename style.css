@@ -161,7 +161,7 @@ p {
 .logo-header {
   text-align: center;
   margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -169,6 +169,5 @@ p {
   max-width: 500px !important;
   height: auto !important;
   display: block;
-  margin: 2rem auto !important;
 
 }
