@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     focus: 'center',
     breakpoints: {
       768: {
-        perPage: 2,
+        perPage: 3.5,
       },
       480: {
-        perPage: 1.5,
+        perPage: 3.5,
       }
     }
   });
