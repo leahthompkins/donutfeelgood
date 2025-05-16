@@ -98,6 +98,7 @@ toggleButton.addEventListener('click', () => {
 
 function renderCalendar() {
   const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
+    console.log("📅 renderCalendar reading:", history);
   const dates = Object.keys(history).sort().reverse(); // latest first
 
   if (dates.length === 0) {
