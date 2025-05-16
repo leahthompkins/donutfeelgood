@@ -140,7 +140,7 @@ p {
   border: none;
   border-radius: 6px;
   font-size: 0.9rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
   color: #5b3a2f;
   cursor: pointer;
 }
