@@ -1,21 +1,64 @@
-<body>
-  <h1>🍩 Donut Feel Good</h1>
-  <p>Which donut matches your mood today?</p>
+/* Embla layout */
+.embla {
+  overflow: hidden;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
 
-  <div class="embla">
-    <div class="embla__viewport">
-      <div class="embla__container">
-        <!-- Each .embla__slide wraps a .donut button -->
-        <div class="embla__slide"><button class="donut"><span>😋</span><div>Happy Glaze</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😢</span><div>Sad Sprinkle</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😤</span><div>Angry Apple</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😴</span><div>Sleepy Sugar</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🤩</span><div>Excited Eclair</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🥺</span><div>Shy Cinnamon</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>😎</span><div>Cool Coconut</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🤯</span><div>Overwhelmed Oreo</div></button></div>
-        <div class="embla__slide"><button class="donut"><span>🥳</span><div>Party Powdered</div></button></div>
-      </div>
-    </div>
-  </div>
-</body>
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.embla__slide {
+  flex: 0 0 25%; /* Show ~3.5 donuts */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Donut button */
+.donut {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 120px;
+  height: auto;
+  font-size: 1rem;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 4px solid #ffcfd2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.donut:hover {
+  transform: scale(1.08);
+  background-color: #ffe7eb;
+}
+
+.donut span {
+  font-size: 2.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.donut div {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #5b3a2f;
+}
