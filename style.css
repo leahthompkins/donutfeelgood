@@ -21,6 +21,7 @@ p {
 .splide {
   max-width: 700px;
   margin: 0 auto 2rem;
+  padding: 1rem 0;
 }
 
 .splide__pagination {
