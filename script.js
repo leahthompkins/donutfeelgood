@@ -139,11 +139,11 @@ toggleButton.addEventListener('click', () => {
   isCalendarVisible = !isCalendarVisible;
 
   if (isCalendarVisible) {
-    toggleButton.textContent = "Hide Mood History";
+    toggleButton.textContent = "📖 Hide Mood History";
     renderCalendar();
     calendarDiv.style.display = 'block';
   } else {
-    toggleButton.textContent = "Show Mood History";
+    toggleButton.textContent = "📖 Show Mood History";
     calendarDiv.style.display = 'none';
   }
 });
