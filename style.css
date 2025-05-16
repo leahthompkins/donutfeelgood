@@ -110,3 +110,12 @@ p {
   margin: 1rem auto;
   color: #5b3a2f;
 }
+
+.fade-out {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.fade-out.hidden {
+  opacity: 0;
+}
