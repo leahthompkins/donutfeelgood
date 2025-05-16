@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   const emblaNode = document.querySelector('.embla');
   const embla = EmblaCarousel(emblaNode, {
     loop: true,
