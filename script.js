@@ -77,3 +77,37 @@ document.addEventListener('DOMContentLoaded', () => {
     datePickerArea.style.display = 'none';
   });
 });
+
+
+const toggleButton = document.getElementById('toggle-calendar');
+const calendarDiv = document.getElementById('calendar-history');
+let isCalendarVisible = false;
+
+toggleButton.addEventListener('click', () => {
+  isCalendarVisible = !isCalendarVisible;
+
+  if (isCalendarVisible) {
+    toggleButton.textContent = "📅 Hide Mood History";
+    renderCalendar();
+    calendarDiv.style.display = 'block';
+  } else {
+    toggleButton.textContent = "📅 Show Mood History";
+    calendarDiv.style.display = 'none';
+  }
+});
+
+function renderCalendar() {
+  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
+  const dates = Object.keys(history).sort().reverse(); // latest first
+
+  if (dates.length === 0) {
+    calendarDiv.innerHTML = "<p>No donut moods saved yet.</p>";
+    return;
+  }
+
+  calendarDiv.innerHTML = dates.map(date => {
+    const donuts = history[date].map(d => `<li>🍩 ${d}</li>`).join('');
+    return `<h4>📅 ${date}</h4><ul>${donuts}</ul>`;
+  }).join('');
+}
+
