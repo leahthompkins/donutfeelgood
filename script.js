@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const splide = new Splide('#donut-carousel', {
     type: 'loop',
-    perPage: 3,
+    perPage: 5,
     perMove: 1,
     gap: '1rem',
     focus: 'center',
