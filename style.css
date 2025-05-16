@@ -165,7 +165,8 @@ p {
 }
 
 .donut-logo {
-  max-width: 90%;
+  max-width: 300px;
   height: auto;
-  max-height: 120px;
+  display: block;
+  margin: 2rem auto 1rem auto;
 }
