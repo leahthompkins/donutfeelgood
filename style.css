@@ -43,8 +43,9 @@ p {
 /* Donut Buttons */
 .donut {
   width: 100%;
-  aspect-ratio: 1 / 1;           /* 👈 Keeps it a perfect circle */
-  font-size: 1rem;
+  aspect-ratio: 1 / 1;
+  max-width: 140px;
+  height: auto;
   background-color: #fff;
   border-radius: 50%;
   border: 4px solid #ffcfd2;
