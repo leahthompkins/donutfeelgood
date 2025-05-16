@@ -27,7 +27,13 @@ p {
 .splide__pagination {
   display: none;
 }
-
+.splide__slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 /* Donut buttons */
 .donut {
   width: 100%;
