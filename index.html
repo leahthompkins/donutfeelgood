@@ -46,10 +46,14 @@
 
   <div id="donut-selection" class="donut-selection"></div>
 <button id="add-to-today" class="add-button" style="display: none;">Add to Today’s Mood</button>
-  <div id="date-picker-area" style="display: none; margin-top: 1rem;">
-  <label for="mood-date">Or choose a date:</label><br>
+<div id="date-picker-toggle" style="margin-top: 1rem; display: none;">
+  <button id="show-date-picker" class="add-button" style="background-color: #eee; color: #5b3a2f;">📅</button>
+</div>
+
+<div id="date-picker-area" style="display: none; margin-top: 1rem;">
   <input type="date" id="mood-date" />
   <button id="add-to-date" class="add-button">Add to That Date</button>
+</div>
 </div>
 
 <button id="toggle-calendar" class="add-button" style="margin-top: 2rem;">📅 Show Mood History</button>
