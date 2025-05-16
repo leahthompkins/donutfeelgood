@@ -47,3 +47,43 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.style.display = 'none';
   });
 });
+
+
+const datePickerArea = document.getElementById('date-picker-area');
+const dateInput = document.getElementById('mood-date');
+const addToDateBtn = document.getElementById('add-to-date');
+
+// When a donut is selected, show both buttons
+document.querySelectorAll('.donut-image').forEach(img => {
+  img.addEventListener('click', () => {
+    const donutName = img.alt || 'Unknown Donut';
+    selectedDonut = donutName;
+    selectionBox.textContent = `You selected: ${donutName}`;
+    addButton.style.display = 'inline-block';
+    datePickerArea.style.display = 'block';
+  });
+});
+
+// Add to chosen date
+addToDateBtn.addEventListener('click', () => {
+  if (!selectedDonut) return;
+
+  const chosenDate = dateInput.value;
+  if (!chosenDate) {
+    alert("Please select a date first.");
+    return;
+  }
+
+  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
+
+  if (!history[chosenDate]) {
+    history[chosenDate] = [];
+  }
+
+  history[chosenDate].push(selectedDonut);
+  localStorage.setItem('donutMoodHistory', JSON.stringify(history));
+
+  selectionBox.textContent = `✅ ${selectedDonut} added to ${chosenDate}`;
+  addButton.style.display = 'none';
+  datePickerArea.style.display = 'none';
+});
