@@ -127,3 +127,12 @@ p {
   border: 1px solid #ddd;
   border-radius: 6px;
 }
+
+#toggle-calendar {
+  font-size: 0.9rem;
+  background-color: #f8f8f8;
+  color: #5b3a2f;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
