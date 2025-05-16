@@ -17,10 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   splide.mount();
 
-  document.querySelectorAll('.donut').forEach(button => {
-    button.addEventListener('click', () => {
-      const mood = button.innerText;
-      alert(`You selected: ${mood}`);
+ document.querySelectorAll('.donut-image').forEach(img => {
+  img.addEventListener('click', () => {
+    alert(`You selected: ${img.alt}`);
     });
   });
 });
