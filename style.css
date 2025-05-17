@@ -193,7 +193,9 @@ p {
  max-width: 320px;                      /* adjust to fit your image */
  /*height: 220px;    */                 /* adjust to fit your image */
  margin: 0 auto;
- display: flex;
+display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ grid-template-rows: repeat(2, auto);
  justify-content: center;
  align-items: center;
 }
