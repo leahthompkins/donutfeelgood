@@ -167,47 +167,21 @@ p {
 }
 
 /* Mood Dozen */
-/*.mood-dozen-box {
+.mood-dozen-box {
  display: grid;
  grid-template-columns: repeat(3, 1fr);
  grid-template-rows: repeat(2, auto);
  gap: .2rem;
  max-width: 320px;
  margin: 1rem auto;
- padding: 1rem;
-/* border-radius: 10px;*/
+ padding: 2rem;
+/*border-radius: 10px;*/
  /*background-color: #fffafc;*/
-/* background-image: url('images/box.png');
+background-image: url('images/box.png');
  background-size: contain;
  background-repeat: no-repeat;
  background-position: center;
- min-height: 250px;*/
-}
-*/
-
-.donut-box-wrapper {
- background-image: url('images/box.png'); /* your tray image */
- background-size: contain;
- background-repeat: no-repeat;
- background-position: center;
- max-width: 320px;                      /* adjust to fit your image */
- /*height: 220px;    */                 /* adjust to fit your image */
- margin: 0 auto;
-display: grid;
- grid-template-columns: repeat(3, 1fr);
- grid-template-rows: repeat(2, auto);
- justify-content: center;
- align-items: center;
-}
-
-.mood-dozen-box {
- display: grid;
- grid-template-columns: repeat(3, 1fr);
- grid-template-rows: repeat(2, 1fr);
- gap: 0.25rem;
- width: 200px;                      /* smaller than .donut-box-wrapper */
- height: 130px;
- padding: 0;
+ min-height: 250px;
 }
 
 .donut-slot {
