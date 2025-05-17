@@ -201,6 +201,7 @@ p {
  height: 100%;
  object-fit: cover;
  border-radius: 50%;
+  background-color: transparent;
 /* border: 3px solid #ffcfd2;*/
 }
 
