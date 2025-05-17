@@ -105,7 +105,7 @@ if (existingIndex >= 0) {
 }
 */
 
-  if (currentBox.length >= 6) {
+  if (currentBox.length > 6) {
     const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
     sealedBoxes.unshift({
       donuts: [...currentBox],
