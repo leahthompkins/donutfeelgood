@@ -146,14 +146,13 @@ p {
 .add-button {
  margin-top: 0.25rem;
  padding: 0.4rem 0.8rem;
- font-size: 95rem;
+ font-size: 0.9rem;
  background-color: #ffcfd2;
  border: none;
  border-radius: 8px;
  cursor: pointer;
  transition: background-color 0.2s ease;
  display: inline-block;
- max-width: 200px;
  white-space: nowrap;
   
 }
