@@ -175,8 +175,8 @@ p {
  max-width: 320px;
  margin: 1rem auto;
  padding: 1rem;
- border-radius: 10px;
- background-color: #fffafc;
+/* border-radius: 10px;*/
+ /*background-color: #fffafc;*/
  background-image: url('images/box.png');
  background-size: contain;
  background-repeat: no-repeat;
@@ -188,7 +188,7 @@ p {
  width: 80px;
  height: 80px;
  border-radius: 50%;
- background-color: #ffeef1;
+ background-color: transparent;
  display: flex;
  justify-content: center;
  align-items: center;
@@ -201,7 +201,7 @@ p {
  height: 100%;
  object-fit: cover;
  border-radius: 50%;
- border: 3px solid #ffcfd2;
+/* border: 3px solid #ffcfd2;*/
 }
 
 .mood-box-name {
