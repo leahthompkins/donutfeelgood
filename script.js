@@ -119,9 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dateToggle.style.display = 'none';
     datePickerArea.style.display = 'none';
 
-    if (isCalendarVisible) {
-      renderCalendar();
-    }
+   
   });
 });
 
