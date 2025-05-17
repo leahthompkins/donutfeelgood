@@ -29,25 +29,8 @@ function findImagePath(donutName) {
 }
 
 function generateMoodBoxName(donuts) {
-  const moodThemes = {
-    "Pink Sprinkly Donut": "happy",
-    "Peaceful Pistachiot": "calm",
-    "Moody Chocolate": "sad",
-    "Cruller": "neutral",
-    "Vanilla Vibes": "calm",
-    "Complex": "conflicted",
-    "Happy Glaze": "happy",
-    "Creamy Daydream": "dreamy",
-    "Overwhelmed Oreo": "stressed",
-    "Mellow Maple 🍁": "calm",
-    "Jelly Filled": "surprise",
-    "??": "mystery",
-    "Angry Apple": "angry",
-    "Sleepy Sugar": "tired",
-    "Twist": "weird"
-  };
-
-  const freq = {}, moodCount = {
+  const freq = {};
+  const moodCount = {
     happy: 0, sad: 0, calm: 0, angry: 0, stressed: 0,
     dreamy: 0, tired: 0, conflicted: 0, surprise: 0,
     mystery: 0, neutral: 0, weird: 0
@@ -63,6 +46,13 @@ function generateMoodBoxName(donuts) {
   if (sorted.length === 0) return "Empty Box";
 
   const [topDonut, count] = sorted[0];
+
+  // Handle special small-box cases
+  if (donuts.length === 1) return `${topDonut} Vibes`;
+  if (donuts.length === 2 && sorted.length === 1) return `Double ${topDonut}`;
+  if (donuts.length === 2 && sorted.length === 2) return `Split Start: ${sorted[0][0]} & ${sorted[1][0]}`;
+
+  // Regular naming logic
   if (count === 6) return `${topDonut} Overload`;
   if (count === 5) return `Stacked with ${topDonut}`;
   if (count === 4) return `Mostly ${topDonut}`;
