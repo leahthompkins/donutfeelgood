@@ -178,3 +178,47 @@ p {
   display: block;
 margin: 0.5rem auto !important;
 }
+
+.burger-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  height: 100%;
+  width: 200px;
+  background-color: #fff5f7;
+  color: #5b3a2f;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  padding: 2rem 1rem;
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  margin-bottom: 1.2rem;
+}
+
+.side-menu a {
+  text-decoration: none;
+  color: #5b3a2f;
+  font-weight: bold;
+}
