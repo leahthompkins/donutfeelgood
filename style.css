@@ -171,7 +171,7 @@ p {
  display: grid;
  grid-template-columns: repeat(3, 1fr);
  grid-template-rows: repeat(2, auto);
- gap: .2rem;
+ gap: .1rem;
  max-width: 320px;
  margin: 0.1rem auto;
  padding: 2.5rem;
@@ -185,8 +185,8 @@ background-image: url('images/box.png');
 }
 
 .donut-slot {
- width: 80px;
- height: 80px;
+ width: 75px;
+ height: 75px;
  border-radius: 50%;
  background-color: transparent;
  display: flex;
@@ -207,7 +207,7 @@ background-image: url('images/box.png');
 
 .mood-box-name {
  font-size: 1.2rem;
- margin-top: 1rem;
+ margin-top: .25rem;
  color: #7a4c46;
 }
 
