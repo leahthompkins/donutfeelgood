@@ -107,34 +107,19 @@ if (existingIndex >= 0) {
 
 
 
-if (currentBox.length === 6) {
-  const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
-  sealedBoxes.unshift({
-    donuts: [...currentBox],
-    name: generateMoodBoxName(currentBox.map(e => e.name)),
-    sealed: today
-  });
-  localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
-  localStorage.removeItem('donutMoodCurrent');
-
-  // Show celebration toast
-  const toast = document.getElementById('toast');
-  toast.classList.remove('hidden');
-  toast.classList.add('show');
-
-  // Fire confetti
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.classList.add('hidden'), 500);
-  }, 2000);
+  if (currentBox.length > 6) {
+    const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
+    sealedBoxes.unshift({
+      donuts: [...currentBox],
+      name: generateMoodBoxName(currentBox.map(e => e.name)),
+      sealed: today
+    });
+    localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
+    localStorage.removeItem('donutMoodCurrent');
+  } else {
+    localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
+  }
 }
-
 function displayCurrentBox() {
   const box = document.getElementById('mood-dozen-box');
   const boxName = document.getElementById('mood-box-name');
