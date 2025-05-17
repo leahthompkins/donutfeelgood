@@ -120,9 +120,6 @@ try {
    sealedBoxes.unshift(newBox);
    localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
    localStorage.removeItem('donutMoodCurrent');
-
-   // Celebration
-   triggerConfetti();
  } else {
    localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
  }
