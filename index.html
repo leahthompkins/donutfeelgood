@@ -1,89 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<button id="menu-toggle" class="burger-button">☰</button>
-<div id="side-menu" class="side-menu">
-  <ul>
-    <li><a href="#main">🍩 Today's Mood</a></li>
-    <li><a href=mood.html>📖 Mood History</a></li>
-    <li><a href="#builder">🎨 Make Your Own Donut</a></li>
-    <li><a href="#submit">➕ Submit a Donut</a></li>
-  </ul>
-</div>
-
-  
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Donut Feel Good</title>
 
-  <!-- Splide CSS -->
+  <!-- Splide Carousel -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
-
-  <!-- Your Custom Styles -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Cute Font -->
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- Header with Logo -->
   <header class="logo-header">
     <img src="images/donut-logo.png" alt="Donut Feel Good logo" class="donut-logo" />
-</header>
+  </header>
+
+  <!-- Mood Box Preview -->
+  <section id="mood-box-preview">
+    <h2>Your Current Mood Box</h2>
+    <div class="mood-dozen-box" id="mood-dozen-box"></div>
+    <p class="mood-box-name" id="mood-box-name">Today’s Mix: <strong>Loading...</strong></p>
+  </section>
+
   <p>Which donut matches your mood today?</p>
 
-  <div class="splide" id="donut-carousel">
+  <!-- Carousel -->
+  <div id="donut-carousel" class="splide">
     <div class="splide__track">
       <ul class="splide__list">
         <li class="splide__slide"><img class="donut-image" src="images/pink.jpg" alt="Pink Sprinkly Donut" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/pistachio.png" alt="Peaceful Pistachiot" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/chocolate.jpg" alt="Moody Chocolate" /></li>
-         <li class="splide__slide"><img class="donut-image" src="images/cruller.png" alt="Cruller" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/cruller.png" alt="Cruller" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/vanilla.png" alt="Vanilla Vibes" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/baconmaple.png" alt="Complex" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/glazed.png" alt="Happy Glaze" /></li>
-          <li class="splide__slide"><img class="donut-image" src="images/creme.png" alt=" Creamy Daydream" /></li>
-                <li class="splide__slide"><img class="donut-image" src="images/jelly.png" alt="Vanilla Vibes" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/creme.png" alt="Creamy Daydream" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/jelly.png" alt="Jelly Filled" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/powdered.png" alt="??" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/apple.png" alt="Angry Apple" /></li>
-          <li class="splide__slide"><img class="donut-image" src="images/beignet.png" alt=" Sleepy Sugar" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/beignet.png" alt="Sleepy Sugar" /></li>
         <li class="splide__slide"><img class="donut-image" src="images/twist.png" alt="Twist" /></li>
-        <!--  <li class="splide__slide"><button class="donut"><span>😤</span><div>Angry Apple</div></button></li>
-        <li class="splide__slide"><button class="donut"><span>😴</span><div>Sleepy Sugar</div></button></li>
-        <li class="splide__slide"><button class="donut"><span>🤩</span><div>Excited Eclair</div></button></li>
-        <li class="splide__slide"><button class="donut"><span>🥺</span><div>Shy Cinnamon</div></button></li>
-        <li class="splide__slide"><button class="donut"><span>😎</span><div>Cool Coconut</div></button></li>
-        
-        <li class="splide__slide"><button class="donut"><span>🥳</span><div>Party Powdered</div></button></li>
-        <li class="splide__slide"><button class="donut"><span>😬</span><div>Anxious Almond</div></button></li>-->
         <li class="splide__slide"><img class="donut-image" src="images/orea.png" alt="Overwhelmed Oreo" /></li>
-          <li class="splide__slide"><img class="donut-image" src="images/maple.png" alt="Mellow Maple 🍁" /></li>
-        
+        <li class="splide__slide"><img class="donut-image" src="images/maple.png" alt="Mellow Maple 🍁" /></li>
       </ul>
     </div>
   </div>
 
-<div id="donut-selection" class="donut-selection"></div>
+  <!-- Selection Box -->
+  <div id="donut-selection" class="donut-selection"></div>
+  <button id="add-to-today" class="add-button" style="display: none;">Add to Today’s Mood</button>
 
-<button id="add-to-today" class="add-button" style="display: none;">
-  Add to Today’s Mood
-</button>
+  <!-- Hamburger Menu -->
+  <nav class="hamburger">
+    <button id="menu-toggle">☰</button>
+    <ul id="side-menu" class="side-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mood.html">Mood History</a></li>
+    </ul>
+  </nav>
 
-<!-- Optional: This can be removed or uncommented later-->
-<div id="date-picker-toggle" style="margin-top: 1rem; display: none;">
-  <button id="show-date-picker" class="add-button" style="background-color: #eee; color: #5b3a2f;">📅 Choose another date</button>
-</div>
-
-
-<div id="date-picker-area" style="display: none; margin-top: 1rem;">
-  <input type="date" id="mood-date" />
-  <button id="add-to-date" class="add-button">Add to That Date</button>
-</div>
-</div>
-
-  <!-- Splide JS -->
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-
-  <!-- Your JS -->
   <script src="script.js"></script>
 </body>
 </html>
