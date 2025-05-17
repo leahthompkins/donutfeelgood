@@ -235,11 +235,12 @@ margin: 0.5rem auto !important;
   margin: 2rem auto;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);*/
   background-image: url('images/box.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  width: 400px;
 }
 
 .dozen-donut {
