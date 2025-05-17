@@ -125,11 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
 const menuToggle = document.getElementById('menu-toggle');
 const sideMenu = document.getElementById('side-menu');
 
-menuToggle.addEventListener('click', () => {
-  sideMenu.classList.toggle('open');
-});
-
+if (menuToggle && sideMenu) {
+  menuToggle.addEventListener('click', () => {
+    sideMenu.classList.toggle('open');
+  });
+}
