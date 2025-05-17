@@ -152,6 +152,7 @@ p {
  border-radius: 8px;
  cursor: pointer;
  transition: background-color 0.2s ease;
+ display: inline-block;
   
 }
 
