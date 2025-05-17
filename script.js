@@ -1,4 +1,4 @@
-// script.js (for index.html with celebration + real-time sealing)
+// script.js (for index.html)
 
 let selectedDonut = null;
 
@@ -66,6 +66,7 @@ function generateMoodBoxName(donuts) {
  if (donuts.length === 1) return `${topDonut} Vibes`;
  if (donuts.length === 2 && sorted.length === 1) return `Double ${topDonut}`;
  if (donuts.length === 2 && sorted.length === 2) return `Split Start: ${sorted[0][0]} & ${sorted[1][0]}`;
+
  if (count === 6) return `${topDonut} Overload`;
  if (count === 5) return `Stacked with ${topDonut}`;
  if (count === 4) return `Mostly ${topDonut}`;
@@ -84,10 +85,24 @@ function generateMoodBoxName(donuts) {
  return "Mixed Mood Medley";
 }
 
+function triggerConfetti() {
+ const script = document.createElement('script');
+ script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+ script.onload = () => {
+   confetti({
+     particleCount: 150,
+     spread: 100,
+     origin: { y: 0.6 }
+   });
+ };
+ document.body.appendChild(script);
+}
+
 function updateCurrentBox(donutName) {
  const today = getTodayDate();
  let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 
+ // TEMPORARY: Allow multiple per day for testing
  currentBox.push({ date: today, name: donutName });
 
  if (currentBox.length === 6) {
@@ -100,6 +115,8 @@ function updateCurrentBox(donutName) {
    sealedBoxes.unshift(newBox);
    localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
    localStorage.removeItem('donutMoodCurrent');
+
+   // Celebration
    triggerConfetti();
  } else {
    localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
@@ -109,6 +126,7 @@ function updateCurrentBox(donutName) {
 function displayCurrentBox() {
  const box = document.getElementById('mood-dozen-box');
  const boxName = document.getElementById('mood-box-name');
+
  if (!box || !boxName) return;
 
  const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
@@ -129,37 +147,6 @@ function displayCurrentBox() {
 
  const label = generateMoodBoxName(currentBox.map(e => e.name));
  boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
-}
-
-function triggerConfetti() {
- const script = document.createElement('script');
- script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
- script.onload = () => {
-   const duration = 2 * 1000;
-   const end = Date.now() + duration;
-
-   (function frame() {
-     confetti({
-       particleCount: 5,
-       angle: 60,
-       spread: 55,
-       origin: { x: 0 },
-       colors: ['#bb0000', '#ffffff', '#ffee00', '#008000', '#0000ff', '#ff69b4']
-     });
-     confetti({
-       particleCount: 5,
-       angle: 120,
-       spread: 55,
-       origin: { x: 1 },
-       colors: ['#bb0000', '#ffffff', '#ffee00', '#008000', '#0000ff', '#ff69b4']
-     });
-
-     if (Date.now() < end) {
-       requestAnimationFrame(frame);
-     }
-   })();
- };
- document.body.appendChild(script);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -212,9 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
  displayCurrentBox();
 });
 
-On May 16, 2025, at 8:34 PM, Leah Thompkins <leah.thompkins@gmail.com> wrote:
+On May 16, 2025, at 8:38 PM, Leah Thompkins <leah.thompkins@gmail.com> wrote:
 
-﻿// script.js (for index.html with sealing + confetti)
+﻿// script.js (for index.html with celebration + real-time sealing)
 
 let selectedDonut = null;
 
@@ -278,6 +265,7 @@ const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
 if (sorted.length === 0) return "Empty Box";
 
 const [topDonut, count] = sorted[0];
+
 if (donuts.length === 1) return `${topDonut} Vibes`;
 if (donuts.length === 2 && sorted.length === 1) return `Double ${topDonut}`;
 if (donuts.length === 2 && sorted.length === 2) return `Split Start: ${sorted[0][0]} & ${sorted[1][0]}`;
@@ -287,6 +275,7 @@ if (count === 4) return `Mostly ${topDonut}`;
 if (count === 3 && sorted.length === 2) return `Split Between ${sorted[0][0]} & ${sorted[1][0]}`;
 if (count === 2 && sorted.length === 3) return `Balanced Box`;
 if (sorted.length === 6) return `Rainbow Assortment`;
+
 if (moodCount.happy >= 4) return "Sweet Joys";
 if (moodCount.sad >= 3) return "Bittersweet Batch";
 if (moodCount.stressed >= 3) return "Box of Overwhelm";
@@ -298,75 +287,20 @@ if (moodCount.dreamy >= 3) return "Floating in Frosting";
 return "Mixed Mood Medley";
 }
 
-function triggerConfetti() {
-const canvas = document.createElement('canvas');
-canvas.style.position = 'fixed';
-canvas.style.top = 0;
-canvas.style.left = 0;
-canvas.style.width = '100%';
-canvas.style.height = '100%';
-canvas.style.pointerEvents = 'none';
-canvas.style.zIndex = 9999;
-document.body.appendChild(canvas);
-
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const confetti = Array.from({ length: 200 }, () => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height - canvas.height,
-  r: Math.random() * 6 + 4,
-  d: Math.random() * 20 + 10,
-  color: `hsl(${Math.random() * 360}, 100%, 70%)`,
-  tilt: Math.random() * 10 - 10
-}));
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  confetti.forEach(c => {
-    ctx.beginPath();
-    ctx.lineWidth = c.r / 2;
-    ctx.strokeStyle = c.color;
-    ctx.moveTo(c.x + c.tilt, c.y);
-    ctx.lineTo(c.x, c.y + c.tilt + c.r);
-    ctx.stroke();
-  });
-  update();
-}
-
-function update() {
-  confetti.forEach(c => {
-    c.y += Math.cos(c.d / 10) + 2;
-    c.x += Math.sin(c.d);
-    if (c.y > canvas.height) {
-      c.y = -10;
-      c.x = Math.random() * canvas.width;
-    }
-  });
-}
-
-let frame = setInterval(draw, 16);
-setTimeout(() => {
-  clearInterval(frame);
-  document.body.removeChild(canvas);
-}, 3000);
-}
-
 function updateCurrentBox(donutName) {
 const today = getTodayDate();
 let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 
-// TEMPORARY TESTING: Allow more than one donut per day
 currentBox.push({ date: today, name: donutName });
 
 if (currentBox.length === 6) {
   const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
-  sealedBoxes.unshift({
+  const newBox = {
     donuts: [...currentBox],
     name: generateMoodBoxName(currentBox.map(e => e.name)),
     sealed: today
-  });
+  };
+  sealedBoxes.unshift(newBox);
   localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
   localStorage.removeItem('donutMoodCurrent');
   triggerConfetti();
@@ -378,7 +312,6 @@ if (currentBox.length === 6) {
 function displayCurrentBox() {
 const box = document.getElementById('mood-dozen-box');
 const boxName = document.getElementById('mood-box-name');
-
 if (!box || !boxName) return;
 
 const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
@@ -399,6 +332,37 @@ currentBox.forEach(entry => {
 
 const label = generateMoodBoxName(currentBox.map(e => e.name));
 boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
+}
+
+function triggerConfetti() {
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+script.onload = () => {
+  const duration = 2 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+      colors: ['#bb0000', '#ffffff', '#ffee00', '#008000', '#0000ff', '#ff69b4']
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+      colors: ['#bb0000', '#ffffff', '#ffee00', '#008000', '#0000ff', '#ff69b4']
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+};
+document.body.appendChild(script);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -451,9 +415,9 @@ if (menuToggle && sideMenu) {
 displayCurrentBox();
 });
 
-On May 16, 2025, at 8:29 PM, Leah Thompkins <leah.thompkins@gmail.com> wrote:
+On May 16, 2025, at 8:34 PM, Leah Thompkins <leah.thompkins@gmail.com> wrote:
 
-// script.js (for index.html)
+﻿// script.js (for index.html with sealing + confetti)
 
 let selectedDonut = null;
 
@@ -517,20 +481,15 @@ const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
 if (sorted.length === 0) return "Empty Box";
 
 const [topDonut, count] = sorted[0];
-
-// Handle special small-box cases
 if (donuts.length === 1) return `${topDonut} Vibes`;
 if (donuts.length === 2 && sorted.length === 1) return `Double ${topDonut}`;
 if (donuts.length === 2 && sorted.length === 2) return `Split Start: ${sorted[0][0]} & ${sorted[1][0]}`;
-
-
 if (count === 6) return `${topDonut} Overload`;
 if (count === 5) return `Stacked with ${topDonut}`;
 if (count === 4) return `Mostly ${topDonut}`;
 if (count === 3 && sorted.length === 2) return `Split Between ${sorted[0][0]} & ${sorted[1][0]}`;
 if (count === 2 && sorted.length === 3) return `Balanced Box`;
 if (sorted.length === 6) return `Rainbow Assortment`;
-
 if (moodCount.happy >= 4) return "Sweet Joys";
 if (moodCount.sad >= 3) return "Bittersweet Batch";
 if (moodCount.stressed >= 3) return "Box of Overwhelm";
@@ -542,6 +501,61 @@ if (moodCount.dreamy >= 3) return "Floating in Frosting";
 return "Mixed Mood Medley";
 }
 
+function triggerConfetti() {
+const canvas = document.createElement('canvas');
+canvas.style.position = 'fixed';
+canvas.style.top = 0;
+canvas.style.left = 0;
+canvas.style.width = '100%';
+canvas.style.height = '100%';
+canvas.style.pointerEvents = 'none';
+canvas.style.zIndex = 9999;
+document.body.appendChild(canvas);
+
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const confetti = Array.from({ length: 200 }, () => ({
+ x: Math.random() * canvas.width,
+ y: Math.random() * canvas.height - canvas.height,
+ r: Math.random() * 6 + 4,
+ d: Math.random() * 20 + 10,
+ color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+ tilt: Math.random() * 10 - 10
+}));
+
+function draw() {
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ confetti.forEach(c => {
+   ctx.beginPath();
+   ctx.lineWidth = c.r / 2;
+   ctx.strokeStyle = c.color;
+   ctx.moveTo(c.x + c.tilt, c.y);
+   ctx.lineTo(c.x, c.y + c.tilt + c.r);
+   ctx.stroke();
+ });
+ update();
+}
+
+function update() {
+ confetti.forEach(c => {
+   c.y += Math.cos(c.d / 10) + 2;
+   c.x += Math.sin(c.d);
+   if (c.y > canvas.height) {
+     c.y = -10;
+     c.x = Math.random() * canvas.width;
+   }
+ });
+}
+
+let frame = setInterval(draw, 16);
+setTimeout(() => {
+ clearInterval(frame);
+ document.body.removeChild(canvas);
+}, 3000);
+}
+
 function updateCurrentBox(donutName) {
 const today = getTodayDate();
 let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
@@ -549,19 +563,7 @@ let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 // TEMPORARY TESTING: Allow more than one donut per day
 currentBox.push({ date: today, name: donutName });
 
-/*
-// ORIGINAL (Use this later to limit to one per day)
-const existingIndex = currentBox.findIndex(e => e.date === today);
-if (existingIndex >= 0) {
-currentBox[existingIndex].name = donutName;
-} else {
-currentBox.push({ date: today, name: donutName });
-}
-*/
-
-
-
-if (currentBox.length > 6) {
+if (currentBox.length === 6) {
  const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
  sealedBoxes.unshift({
    donuts: [...currentBox],
@@ -570,10 +572,12 @@ if (currentBox.length > 6) {
  });
  localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
  localStorage.removeItem('donutMoodCurrent');
+ triggerConfetti();
 } else {
  localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
 }
 }
+
 function displayCurrentBox() {
 const box = document.getElementById('mood-dozen-box');
 const boxName = document.getElementById('mood-box-name');
@@ -645,6 +649,65 @@ if (menuToggle && sideMenu) {
  menuToggle.addEventListener('click', () => {
    sideMenu.classList.toggle('open');
  });
+}
+
+displayCurrentBox();
+});
+freq[name] = (freq[name] || 0) + 1;
+const theme = moodThemes[name] || 'mystery';
+moodCount[theme]++;});
+localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
+localStorage.removeItem('donutMoodCurrent');
+} else {
+localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
+}
+}
+function displayCurrentBox() {
+const box = document.getElementById('mood-dozen-box');
+const boxName = document.getElementById('mood-box-name');
+
+if (!box || !boxName) return;
+
+const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
+if (currentBox.length === 0) {
+box.innerHTML = '<p>No donuts added yet.</p>';
+boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
+return;
+}
+
+currentBox.forEach(entry => {
+const img = document.createElement('img');
+img.src = findImagePath(entry.name);
+img.alt = entry.name;
+img.title = `${entry.name} \n${entry.date}`;
+img.classList.add('dozen-donut');
+box.appendChild(img);
+addButton.addEventListener('click', () => {
+if (!selectedDonut) return;
+updateCurrentBox(selectedDonut);
+selectionBox.textContent = `✅ ${selectedDonut} added!`;
+setTimeout(() => location.reload(), 1000);
+});
+
+const splide = new Splide('#donut-carousel', {
+type: 'loop',
+perPage: 5,
+perMove: 1,
+gap: '1rem',
+focus: 'center',
+breakpoints: {
+  768: { perPage: 3.5 },
+  480: { perPage: 3.5 }
+}
+});
+splide.mount();
+
+const menuToggle = document.getElementById('menu-toggle');
+const sideMenu = document.getElementById('side-menu');
+if (menuToggle && sideMenu) {
+menuToggle.addEventListener('click', () => {
+  sideMenu.classList.toggle('open');
+});
 }
 
 displayCurrentBox();
