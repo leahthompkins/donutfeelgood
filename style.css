@@ -190,22 +190,22 @@ p {
  background-size: contain;
  background-repeat: no-repeat;
  background-position: center;
- width: 300px;                      /* adjust to fit your image */
- height: 200px;                     /* adjust to fit your image */
+ width: 320px;                      /* adjust to fit your image */
+ height: 220px;                     /* adjust to fit your image */
  margin: 0 auto;
  display: flex;
  justify-content: center;
  align-items: center;
- position: relative;
 }
 
 .mood-dozen-box {
  display: grid;
  grid-template-columns: repeat(3, 1fr);
  grid-template-rows: repeat(2, 1fr);
- gap: 0.5rem;
- width: 220px;                      /* smaller than .donut-box-wrapper */
- height: 150px;
+ gap: 0.25rem;
+ width: 200px;                      /* smaller than .donut-box-wrapper */
+ height: 130px;
+ padding: 0;
 }
 
 .donut-slot {
@@ -216,7 +216,7 @@ p {
  display: flex;
  justify-content: center;
  align-items: center;
- box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
+ /*box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);*/
  margin: auto;
 }
 
