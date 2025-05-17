@@ -171,7 +171,7 @@ p {
  display: grid;
  grid-template-columns: repeat(3, 1fr);
  grid-template-rows: repeat(2, auto);
- gap: .1rem;
+ gap: 0rem;
  max-width: 320px;
  margin: 0.1rem auto;
  padding: 2.5rem;
@@ -253,6 +253,6 @@ background-image: url('images/box.png');
 @media (max-width: 480px) {
  .mood-dozen-box {
    grid-template-columns: repeat(3, 1fr);
-   gap: 0.1rem;
+   gap: 0rem;
  }
 }
