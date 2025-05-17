@@ -135,20 +135,32 @@ function displayCurrentBox() {
  if (!box || !boxName) return;
 
  const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
+
+ // Clear previous content in the box (in case this reruns)
+ box.innerHTML = '';
+
  if (currentBox.length === 0) {
    box.innerHTML = '<p>No donuts added yet.</p>';
    boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
    return;
  }
 
- currentBox.forEach(entry => {
-   const img = document.createElement('img');
-   img.src = findImagePath(entry.name);
-   img.alt = entry.name;
-   img.title = `${entry.name} \n${entry.date}`;
-   img.classList.add('dozen-donut');
-   box.appendChild(img);
- });
+ // Fill exactly 6 slots
+ for (let i = 0; i < 6; i++) {
+   const slot = document.createElement('div');
+   slot.classList.add('donut-slot');
+
+   if (currentBox[i]) {
+     const img = document.createElement('img');
+     img.src = findImagePath(currentBox[i].name);
+     img.alt = currentBox[i].name;
+     img.title = `${currentBox[i].name} \n${currentBox[i].date}`;
+     img.classList.add('dozen-donut');
+     slot.appendChild(img);
+   }
+
+   box.appendChild(slot);
+ }
 
  const label = generateMoodBoxName(currentBox.map(e => e.name));
  boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
