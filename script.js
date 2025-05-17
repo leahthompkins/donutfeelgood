@@ -163,3 +163,12 @@ function renderCalendar() {
     return `<h4>📅 ${date}</h4><ul>${donuts}</ul>`;
   }).join('');
 }
+
+
+const menuToggle = document.getElementById('menu-toggle');
+const sideMenu = document.getElementById('side-menu');
+
+menuToggle.addEventListener('click', () => {
+  sideMenu.classList.toggle('open');
+});
+
