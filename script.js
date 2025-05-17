@@ -66,7 +66,6 @@ function generateMoodBoxName(donuts) {
  if (donuts.length === 1) return `${topDonut} Vibes`;
  if (donuts.length === 2 && sorted.length === 1) return `Double ${topDonut}`;
  if (donuts.length === 2 && sorted.length === 2) return `Split Start: ${sorted[0][0]} & ${sorted[1][0]}`;
-
  if (count === 6) return `${topDonut} Overload`;
  if (count === 5) return `Stacked with ${topDonut}`;
  if (count === 4) return `Mostly ${topDonut}`;
@@ -86,38 +85,54 @@ function generateMoodBoxName(donuts) {
 }
 
 function triggerConfetti() {
- const script = document.createElement('script');
- script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
- script.onload = () => {
+ const duration = 2000;
+ const end = Date.now() + duration;
+ const colors = ['#ff9aa2', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
+
+ (function frame() {
    confetti({
-     particleCount: 150,
-     spread: 100,
-     origin: { y: 0.6 }
+     particleCount: 4,
+     angle: 60,
+     spread: 75,
+     origin: { x: 0 },
+     colors: colors
    });
- };
- document.body.appendChild(script);
+   confetti({
+     particleCount: 4,
+     angle: 120,
+     spread: 75,
+     origin: { x: 1 },
+     colors: colors
+   });
+   if (Date.now() < end) {
+     requestAnimationFrame(frame);
+   }
+ })();
 }
 
 function updateCurrentBox(donutName) {
  const today = getTodayDate();
  let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 
- // TEMPORARY: Allow multiple per day for testing
  currentBox.push({ date: today, name: donutName });
 
- if (currentBox.length === 6) {
+ if (currentBox.length >= 6) {
+   triggerConfetti();
+
    let sealedBoxes = [];
-try {
- const stored = localStorage.getItem('donutMoodHistory');
- sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
-} catch {
- sealedBoxes = [];
-   const newBox = {
+   try {
+     const stored = localStorage.getItem('donutMoodHistory');
+     sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
+   } catch {
+     sealedBoxes = [];
+   }
+
+   sealedBoxes.unshift({
      donuts: [...currentBox],
      name: generateMoodBoxName(currentBox.map(e => e.name)),
      sealed: today
-   };
-   sealedBoxes.unshift(newBox);
+   });
+
    localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
    localStorage.removeItem('donutMoodCurrent');
  } else {
@@ -132,17 +147,12 @@ function displayCurrentBox() {
  if (!box || !boxName) return;
 
  const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
-
- // Clear previous content in the box (in case this reruns)
- box.innerHTML = '';
-
  if (currentBox.length === 0) {
    box.innerHTML = '<p>No donuts added yet.</p>';
    boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
    return;
  }
 
- // Fill exactly 6 slots
  for (let i = 0; i < 6; i++) {
    const slot = document.createElement('div');
    slot.classList.add('donut-slot');
@@ -151,11 +161,10 @@ function displayCurrentBox() {
      const img = document.createElement('img');
      img.src = findImagePath(currentBox[i].name);
      img.alt = currentBox[i].name;
-     img.title = `${currentBox[i].name} \n${currentBox[i].date}`;
+     img.title = `${currentBox[i].name}\n${currentBox[i].date}`;
      img.classList.add('dozen-donut');
      slot.appendChild(img);
    }
-
    box.appendChild(slot);
  }
 
