@@ -106,7 +106,12 @@ function updateCurrentBox(donutName) {
  currentBox.push({ date: today, name: donutName });
 
  if (currentBox.length === 6) {
-   const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
+   let sealedBoxes = [];
+try {
+ const stored = localStorage.getItem('donutMoodHistory');
+ sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
+} catch {
+ sealedBoxes = [];
    const newBox = {
      donuts: [...currentBox],
      name: generateMoodBoxName(currentBox.map(e => e.name)),
