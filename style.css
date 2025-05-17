@@ -167,7 +167,7 @@ p {
 }
 
 /* Mood Dozen */
-.mood-dozen-box {
+/*.mood-dozen-box {
  display: grid;
  grid-template-columns: repeat(3, 1fr);
  grid-template-rows: repeat(2, auto);
@@ -182,6 +182,30 @@ p {
  background-repeat: no-repeat;
  background-position: center;
  min-height: 250px;
+}
+*/
+
+.donut-box-wrapper {
+ background-image: url('images/box.png'); /* your tray image */
+ background-size: contain;
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 300px;                      /* adjust to fit your image */
+ height: 200px;                     /* adjust to fit your image */
+ margin: 0 auto;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ position: relative;
+}
+
+.mood-dozen-box {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ grid-template-rows: repeat(2, 1fr);
+ gap: 0.5rem;
+ width: 220px;                      /* smaller than .donut-box-wrapper */
+ height: 150px;
 }
 
 .donut-slot {
