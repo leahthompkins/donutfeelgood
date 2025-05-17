@@ -92,12 +92,18 @@ function updateCurrentBox(donutName) {
   const today = getTodayDate();
   let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 
-  const existingIndex = currentBox.findIndex(e => e.date === today);
-  if (existingIndex >= 0) {
-    currentBox[existingIndex].name = donutName;
-  } else {
-    currentBox.push({ date: today, name: donutName });
-  }
+// TEMPORARY TESTING: Allow more than one donut per day
+currentBox.push({ date: today, name: donutName });
+
+/*
+// ORIGINAL (Use this later to limit to one per day)
+const existingIndex = currentBox.findIndex(e => e.date === today);
+if (existingIndex >= 0) {
+  currentBox[existingIndex].name = donutName;
+} else {
+  currentBox.push({ date: today, name: donutName });
+}
+*/
 
   if (currentBox.length >= 6) {
     const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
