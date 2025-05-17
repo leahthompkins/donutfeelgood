@@ -253,6 +253,6 @@ background-image: url('images/box.png');
 @media (max-width: 480px) {
  .mood-dozen-box {
    grid-template-columns: repeat(3, 1fr);
-   gap: 0.2rem;
+   gap: 0.1rem;
  }
 }
