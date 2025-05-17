@@ -86,44 +86,25 @@ function generateMoodBoxName(donuts) {
 document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('mood-dozen-box');
   const boxName = document.getElementById('mood-box-name');
-
-  const current = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
-  const today = new Date().toISOString().split('T')[0];
+  const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 
   if (!box || !boxName) return;
 
-  if (current.length === 0) {
-    box.innerHTML = '<p>No donuts added yet.</p>';
-    boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
+  if (!currentBox.length) {
+    box.innerHTML = '<p>No donuts yet. Add one from the homepage!</p>';
+    boxName.innerHTML = `Today’s Mix: <strong>Empty Box</strong>`;
     return;
   }
 
-  current.forEach((entry, i) => {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('donut-wrapper');
-
+  currentBox.forEach(entry => {
     const img = document.createElement('img');
     img.src = findImagePath(entry.name);
     img.alt = entry.name;
-    img.title = `${entry.name}\n${entry.date}`;
+    img.title = `${entry.name} on ${entry.date}`;
     img.classList.add('dozen-donut');
-
-    if (entry.date === today) {
-      const del = document.createElement('button');
-      del.textContent = '❌';
-      del.className = 'delete-donut';
-      del.onclick = () => {
-        const updated = current.filter((_, idx) => idx !== i);
-        localStorage.setItem('donutMoodCurrent', JSON.stringify(updated));
-        location.reload();
-      };
-      wrapper.appendChild(del);
-    }
-
-    wrapper.appendChild(img);
-    box.appendChild(wrapper);
+    box.appendChild(img);
   });
 
-  const label = generateMoodBoxName(current.map(e => e.name));
+  const label = generateMoodBoxName(currentBox.map(e => e.name));
   boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
 });
