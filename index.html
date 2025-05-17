@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Donut Feel Good</title>
-
+  
   <!-- Splide Carousel -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
 </head>
 <body>
+    <!-- Hamburger Menu -->
+  <nav class="hamburger">
+    <button id="menu-toggle">☰</button>
+    <ul id="side-menu" class="side-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="mood.html">Mood History</a></li>
+    </ul>
+  </nav>
+  
   <!-- Header with Logo -->
   <header class="logo-header">
     <img src="images/donut-logo.png" alt="Donut Feel Good logo" class="donut-logo" />
@@ -54,14 +63,7 @@
     <p class="mood-box-name" id="mood-box-name">Today’s Mix: <strong>Loading...</strong></p>
   </section>
   
-  <!-- Hamburger Menu -->
-  <nav class="hamburger">
-    <button id="menu-toggle">☰</button>
-    <ul id="side-menu" class="side-menu">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="mood.html">Mood History</a></li>
-    </ul>
-  </nav>
+
 
   
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
