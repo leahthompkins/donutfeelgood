@@ -1,3 +1,4 @@
+
 // script.js (for index.html)
 
 let selectedDonut = null;
@@ -105,6 +106,32 @@ function updateCurrentBox(donutName) {
   }
 }
 
+function displayCurrentBox() {
+  const box = document.getElementById('mood-dozen-box');
+  const boxName = document.getElementById('mood-box-name');
+
+  if (!box || !boxName) return;
+
+  const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
+  if (currentBox.length === 0) {
+    box.innerHTML = '<p>No donuts added yet.</p>';
+    boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
+    return;
+  }
+
+  currentBox.forEach(entry => {
+    const img = document.createElement('img');
+    img.src = findImagePath(entry.name);
+    img.alt = entry.name;
+    img.title = `${entry.name} \n${entry.date}`;
+    img.classList.add('dozen-donut');
+    box.appendChild(img);
+  });
+
+  const label = generateMoodBoxName(currentBox.map(e => e.name));
+  boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-to-today');
   const selectionBox = document.getElementById('donut-selection');
@@ -131,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => location.reload(), 1000);
   });
 
-  // Mount Splide
   const splide = new Splide('#donut-carousel', {
     type: 'loop',
     perPage: 5,
@@ -152,4 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
       sideMenu.classList.toggle('open');
     });
   }
+
+  displayCurrentBox();
 });
