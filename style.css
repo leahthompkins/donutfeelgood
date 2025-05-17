@@ -8,7 +8,8 @@ body {
   font-family: 'Baloo 2', cursive;
   background-color: #fff5f7;
   color: #5b3a2f;
-  padding: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   text-align: center;
 } 
 
@@ -27,7 +28,7 @@ p {
 /* Splide slide wrapper */
 .splide {
   max-width: 700px;
-  margin: 0 auto 2rem;
+  margin: 0 auto .5rem;
   padding: 1rem 0;
 }
 
@@ -233,8 +234,6 @@ margin: 0.5rem auto !important;
   max-width: 400px;
   margin: 2rem auto;
   padding: 1rem;
-  background-color: #fffafc;
-  border: 3px dashed #ffcfd2;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   background-image: url('images/box.png');
