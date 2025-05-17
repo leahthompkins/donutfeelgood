@@ -1,45 +1,4 @@
-// mood.js
-
-document.addEventListener('DOMContentLoaded', () => {
-  const box = document.getElementById('mood-dozen-box');
-  const boxName = document.getElementById('mood-box-name');
-
-  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
-  const entries = [];
-
-  // Flatten and sort donut entries by date (newest first)
-  Object.keys(history)
-    .sort((a, b) => new Date(b) - new Date(a))
-    .forEach(date => {
-      history[date].forEach(donut => {
-        entries.push({ date, donut });
-      });
-    });
-
-  const moodDozen = entries.slice(0, 12);
-
-  // Fill the donut box
-  moodDozen.forEach(entry => {
-    const img = document.createElement('img');
-    img.src = findImagePath(entry.donut);
-    img.alt = entry.donut;
-    img.title = `${entry.donut} \n${entry.date}`;
-    img.classList.add('dozen-donut');
-    box.appendChild(img);
-  });
-
-  // Generate a fun box name based on contents
-  const boxLabel = generateMoodBoxName(moodDozen.map(e => e.donut));
-  boxName.innerHTML = `Today’s Mix: <strong>${boxLabel}</strong>`;
-});
-
-function findImagePath(donutName) {
-  // Basic matching logic, update as needed
-  const slug = donutName.toLowerCase().replace(/[^a-z0-9]/g, '');
-  return `images/${slug}.png`;
-}
-
-// mood.js
+// mood.js (updated for sealed mood boxes)
 
 const imageMap = {
   "Pink Sprinkly Donut": "pink.jpg",
@@ -59,10 +18,6 @@ const imageMap = {
   "Twist": "twist.png"
 };
 
-function findImagePath(donutName) {
-  return `images/${imageMap[donutName] || 'placeholder.png'}`;
-}
-
 const moodThemes = {
   "Pink Sprinkly Donut": "happy",
   "Peaceful Pistachiot": "calm",
@@ -81,27 +36,22 @@ const moodThemes = {
   "Twist": "weird"
 };
 
+function findImagePath(donutName) {
+  return `images/${imageMap[donutName] || 'placeholder.png'}`;
+}
+
 function generateMoodBoxName(donuts) {
   const freq = {};
   const moodCount = {
-    happy: 0,
-    sad: 0,
-    calm: 0,
-    angry: 0,
-    stressed: 0,
-    dreamy: 0,
-    tired: 0,
-    conflicted: 0,
-    surprise: 0,
-    mystery: 0,
-    neutral: 0,
-    weird: 0,
+    happy: 0, sad: 0, calm: 0, angry: 0, stressed: 0,
+    dreamy: 0, tired: 0, conflicted: 0, surprise: 0,
+    mystery: 0, neutral: 0, weird: 0,
   };
 
   donuts.forEach(name => {
     freq[name] = (freq[name] || 0) + 1;
     const theme = moodThemes[name] || 'mystery';
-    moodCount[theme] = (moodCount[theme] || 0) + 1;
+    moodCount[theme]++;
   });
 
   const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
@@ -109,7 +59,6 @@ function generateMoodBoxName(donuts) {
 
   const [topDonut, count] = sorted[0];
 
-  // Specific patterns
   if (count === 6) return `${topDonut} Overload`;
   if (count === 5) return `Stacked with ${topDonut}`;
   if (count === 4) return `Mostly ${topDonut}`;
@@ -117,7 +66,6 @@ function generateMoodBoxName(donuts) {
   if (count === 2 && sorted.length === 3) return `Balanced Box`;
   if (sorted.length === 6) return `Rainbow Assortment`;
 
-  // Mood-based themes
   if (moodCount.happy >= 4) return "Sweet Joys";
   if (moodCount.sad >= 3) return "Bittersweet Batch";
   if (moodCount.stressed >= 3) return "Box of Overwhelm";
@@ -129,33 +77,30 @@ function generateMoodBoxName(donuts) {
   return "Mixed Mood Medley";
 }
 
+// Load most recent sealed box from storage and display
+
 document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('mood-dozen-box');
   const boxName = document.getElementById('mood-box-name');
 
-  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
-  const entries = [];
+  const boxes = JSON.parse(localStorage.getItem('donutMoodBoxes') || '[]');
+  const lastBox = boxes[boxes.length - 1];
 
-  Object.keys(history)
-    .sort((a, b) => new Date(b) - new Date(a))
-    .forEach(date => {
-      history[date].forEach(donut => {
-        entries.push({ date, donut });
-      });
-    });
+  if (!lastBox || !lastBox.donuts || lastBox.donuts.length === 0) {
+    box.innerHTML = '<p>No recent mood box found.</p>';
+    boxName.innerHTML = "Today's Mix: <strong>Nothing yet!</strong>";
+    return;
+  }
 
-  const moodDozen = entries.slice(0, 6);
-
-  moodDozen.forEach(entry => {
+  lastBox.donuts.forEach(donut => {
     const img = document.createElement('img');
-    img.src = findImagePath(entry.donut);
-    img.alt = entry.donut;
-    img.title = `${entry.donut} \n${entry.date}`;
+    img.src = findImagePath(donut);
+    img.alt = donut;
+    img.title = donut;
     img.classList.add('dozen-donut');
     box.appendChild(img);
   });
 
-  const boxLabel = generateMoodBoxName(moodDozen.map(e => e.donut));
-  boxName.innerHTML = `Today’s Mix: <strong>${boxLabel}</strong>`;
+  const label = generateMoodBoxName(lastBox.donuts);
+  boxName.innerHTML = `Your Box: <strong>${label}</strong>`;
 });
-
