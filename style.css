@@ -222,3 +222,42 @@ margin: 0.5rem auto !important;
   color: #5b3a2f;
   font-weight: bold;
 }
+
+
+
+/* Mood Dozen Layout */
+.mood-dozen-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* 3x4 box */
+  gap: 1rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fffafc;
+  border: 3px dashed #ffcfd2;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dozen-donut {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid #ffcfd2;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Box name below */
+.mood-box-name {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #7a4c46;
+}
+
+@media (max-width: 480px) {
+  .mood-dozen-box {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+}
