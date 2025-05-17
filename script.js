@@ -1,30 +1,42 @@
+// mood.js (active mood box in-progress view)
 
-// script.js (for index.html)
+const imageMap = {
+  "Pink Sprinkly Donut": "pink.jpg",
+  "Peaceful Pistachiot": "pistachio.png",
+  "Moody Chocolate": "chocolate.jpg",
+  "Cruller": "cruller.png",
+  "Vanilla Vibes": "vanilla.png",
+  "Complex": "baconmaple.png",
+  "Happy Glaze": "glazed.png",
+  "Creamy Daydream": "creme.png",
+  "Overwhelmed Oreo": "orea.png",
+  "Mellow Maple 🍁": "maple.png",
+  "Jelly Filled": "jelly.png",
+  "??": "powdered.png",
+  "Angry Apple": "apple.png",
+  "Sleepy Sugar": "beignet.png",
+  "Twist": "twist.png"
+};
 
-let selectedDonut = null;
-
-function getTodayDate() {
-  return new Date().toISOString().split('T')[0];
-}
+const moodThemes = {
+  "Pink Sprinkly Donut": "happy",
+  "Peaceful Pistachiot": "calm",
+  "Moody Chocolate": "sad",
+  "Cruller": "neutral",
+  "Vanilla Vibes": "calm",
+  "Complex": "conflicted",
+  "Happy Glaze": "happy",
+  "Creamy Daydream": "dreamy",
+  "Overwhelmed Oreo": "stressed",
+  "Mellow Maple 🍁": "calm",
+  "Jelly Filled": "surprise",
+  "??": "mystery",
+  "Angry Apple": "angry",
+  "Sleepy Sugar": "tired",
+  "Twist": "weird"
+};
 
 function findImagePath(donutName) {
-  const imageMap = {
-    "Pink Sprinkly Donut": "pink.jpg",
-    "Peaceful Pistachiot": "pistachio.png",
-    "Moody Chocolate": "chocolate.jpg",
-    "Cruller": "cruller.png",
-    "Vanilla Vibes": "vanilla.png",
-    "Complex": "baconmaple.png",
-    "Happy Glaze": "glazed.png",
-    "Creamy Daydream": "creme.png",
-    "Overwhelmed Oreo": "orea.png",
-    "Mellow Maple 🍁": "maple.png",
-    "Jelly Filled": "jelly.png",
-    "??": "powdered.png",
-    "Angry Apple": "apple.png",
-    "Sleepy Sugar": "beignet.png",
-    "Twist": "twist.png"
-  };
   return `images/${imageMap[donutName] || 'placeholder.png'}`;
 }
 
@@ -33,7 +45,7 @@ function generateMoodBoxName(donuts) {
   const moodCount = {
     happy: 0, sad: 0, calm: 0, angry: 0, stressed: 0,
     dreamy: 0, tired: 0, conflicted: 0, surprise: 0,
-    mystery: 0, neutral: 0, weird: 0
+    mystery: 0, neutral: 0, weird: 0,
   };
 
   donuts.forEach(name => {
@@ -47,12 +59,10 @@ function generateMoodBoxName(donuts) {
 
   const [topDonut, count] = sorted[0];
 
-  // Handle special small-box cases
   if (donuts.length === 1) return `${topDonut} Vibes`;
   if (donuts.length === 2 && sorted.length === 1) return `Double ${topDonut}`;
   if (donuts.length === 2 && sorted.length === 2) return `Split Start: ${sorted[0][0]} & ${sorted[1][0]}`;
 
-  // Regular naming logic
   if (count === 6) return `${topDonut} Overload`;
   if (count === 5) return `Stacked with ${topDonut}`;
   if (count === 4) return `Mostly ${topDonut}`;
@@ -71,103 +81,49 @@ function generateMoodBoxName(donuts) {
   return "Mixed Mood Medley";
 }
 
-function updateCurrentBox(donutName) {
-  const today = getTodayDate();
-  let currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
+// Show current box in progress
 
-  const existingIndex = currentBox.findIndex(e => e.date === today);
-  if (existingIndex >= 0) {
-    currentBox[existingIndex].name = donutName;
-  } else {
-    currentBox.push({ date: today, name: donutName });
-  }
-
-  if (currentBox.length >= 6) {
-    const sealedBoxes = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
-    sealedBoxes.unshift({
-      donuts: [...currentBox],
-      name: generateMoodBoxName(currentBox.map(e => e.name)),
-      sealed: today
-    });
-    localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
-    localStorage.removeItem('donutMoodCurrent');
-  } else {
-    localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
-  }
-}
-
-function displayCurrentBox() {
+document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('mood-dozen-box');
   const boxName = document.getElementById('mood-box-name');
 
+  const current = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
+  const today = new Date().toISOString().split('T')[0];
+
   if (!box || !boxName) return;
 
-  const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
-  if (currentBox.length === 0) {
+  if (current.length === 0) {
     box.innerHTML = '<p>No donuts added yet.</p>';
     boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
     return;
   }
 
-  currentBox.forEach(entry => {
+  current.forEach((entry, i) => {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('donut-wrapper');
+
     const img = document.createElement('img');
     img.src = findImagePath(entry.name);
     img.alt = entry.name;
-    img.title = `${entry.name} \n${entry.date}`;
+    img.title = `${entry.name}\n${entry.date}`;
     img.classList.add('dozen-donut');
-    box.appendChild(img);
-  });
 
-  const label = generateMoodBoxName(currentBox.map(e => e.name));
-  boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const addButton = document.getElementById('add-to-today');
-  const selectionBox = document.getElementById('donut-selection');
-
-  document.querySelectorAll('.donut-image').forEach(img => {
-    img.addEventListener('click', () => {
-      const donutName = img.alt || 'Unknown Donut';
-      if (selectedDonut === donutName) {
-        selectedDonut = null;
-        selectionBox.textContent = '';
-        addButton.style.display = 'none';
-      } else {
-        selectedDonut = donutName;
-        selectionBox.textContent = donutName;
-        addButton.style.display = 'inline-block';
-      }
-    });
-  });
-
-  addButton.addEventListener('click', () => {
-    if (!selectedDonut) return;
-    updateCurrentBox(selectedDonut);
-    selectionBox.textContent = `✅ ${selectedDonut} added!`;
-    setTimeout(() => location.reload(), 1000);
-  });
-
-  const splide = new Splide('#donut-carousel', {
-    type: 'loop',
-    perPage: 5,
-    perMove: 1,
-    gap: '1rem',
-    focus: 'center',
-    breakpoints: {
-      768: { perPage: 3.5 },
-      480: { perPage: 3.5 }
+    if (entry.date === today) {
+      const del = document.createElement('button');
+      del.textContent = '❌';
+      del.className = 'delete-donut';
+      del.onclick = () => {
+        const updated = current.filter((_, idx) => idx !== i);
+        localStorage.setItem('donutMoodCurrent', JSON.stringify(updated));
+        location.reload();
+      };
+      wrapper.appendChild(del);
     }
+
+    wrapper.appendChild(img);
+    box.appendChild(wrapper);
   });
-  splide.mount();
 
-  const menuToggle = document.getElementById('menu-toggle');
-  const sideMenu = document.getElementById('side-menu');
-  if (menuToggle && sideMenu) {
-    menuToggle.addEventListener('click', () => {
-      sideMenu.classList.toggle('open');
-    });
-  }
-
-  displayCurrentBox();
+  const label = generateMoodBoxName(current.map(e => e.name));
+  boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
 });
