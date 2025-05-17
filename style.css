@@ -137,18 +137,21 @@ p {
  margin-top: 0.5rem;
  font-size: 1.3rem;
  color: #5b3a2f;
+ min-height: 1.4em;
+ display: block;
 }
 
 /* Add Button */
 .add-button {
  margin-top: 0.25rem;
- padding: 0.5rem 1rem;
- font-size: 1rem;
+ padding: 0.4rem 0.8rem;
+ font-size: 95rem;
  background-color: #ffcfd2;
  border: none;
  border-radius: 8px;
  cursor: pointer;
  transition: background-color 0.2s ease;
+  display: block;
 }
 
 .add-button:hover {
