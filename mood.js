@@ -1,4 +1,4 @@
-// mood.js (updated for sealed mood boxes)
+// mood.js (active mood box in-progress view)
 
 const imageMap = {
   "Pink Sprinkly Donut": "pink.jpg",
@@ -77,30 +77,47 @@ function generateMoodBoxName(donuts) {
   return "Mixed Mood Medley";
 }
 
-// Load most recent sealed box from storage and display
+// Show current box in progress
 
 document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('mood-dozen-box');
   const boxName = document.getElementById('mood-box-name');
 
-  const boxes = JSON.parse(localStorage.getItem('donutMoodBoxes') || '[]');
-  const lastBox = boxes[boxes.length - 1];
+  const current = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
+  const today = new Date().toISOString().split('T')[0];
 
-  if (!lastBox || !lastBox.donuts || lastBox.donuts.length === 0) {
-    box.innerHTML = '<p>No recent mood box found.</p>';
-    boxName.innerHTML = "Today's Mix: <strong>Nothing yet!</strong>";
+  if (current.length === 0) {
+    box.innerHTML = '<p>No donuts added yet.</p>';
+    boxName.innerHTML = "Today’s Mix: <strong>Nothing yet!</strong>";
     return;
   }
 
-  lastBox.donuts.forEach(donut => {
+  current.forEach((entry, i) => {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('donut-wrapper');
+
     const img = document.createElement('img');
-    img.src = findImagePath(donut);
-    img.alt = donut;
-    img.title = donut;
+    img.src = findImagePath(entry.name);
+    img.alt = entry.name;
+    img.title = `${entry.name}\n${entry.date}`;
     img.classList.add('dozen-donut');
-    box.appendChild(img);
+
+    if (entry.date === today) {
+      const del = document.createElement('button');
+      del.textContent = '❌';
+      del.className = 'delete-donut';
+      del.onclick = () => {
+        const updated = current.filter((_, idx) => idx !== i);
+        localStorage.setItem('donutMoodCurrent', JSON.stringify(updated));
+        location.reload();
+      };
+      wrapper.appendChild(del);
+    }
+
+    wrapper.appendChild(img);
+    box.appendChild(wrapper);
   });
 
-  const label = generateMoodBoxName(lastBox.donuts);
-  boxName.innerHTML = `Your Box: <strong>${label}</strong>`;
+  const label = generateMoodBoxName(current.map(e => e.name));
+  boxName.innerHTML = `Today’s Mix: <strong>${label}</strong>`;
 });
