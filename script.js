@@ -55,40 +55,34 @@ document.addEventListener('DOMContentLoaded', () => {
     datePickerArea.style.display = 'block';
   });
 
-  addButton.addEventListener('click', () => {
-    if (!selectedDonut) return;
+ addButton.addEventListener('click', () => {
+  if (!selectedDonut) return;
 
-    const today = new Date().toISOString().split('T')[0];
-    const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
+  const today = new Date().toISOString().split('T')[0];
+  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
 
-    if (!history[today]) {
-      history[today] = [];
-    }
+  if (!history[today]) {
+    history[today] = [];
+  }
 
-    history[today].push(selectedDonut);
-    localStorage.setItem('donutMoodHistory', JSON.stringify(history));
+  history[today].push(selectedDonut);
+  localStorage.setItem('donutMoodHistory', JSON.stringify(history));
 
-    selectionBox.textContent = `✅ ${selectedDonut} added to ${today}`;
-    selectionBox.classList.add('fade-out');
-    selectionBox.classList.remove('hidden');
+  selectionBox.textContent = `✅ ${selectedDonut} added to ${today}`;
+  selectionBox.classList.add('fade-out');
+  selectionBox.classList.remove('hidden');
 
-    setTimeout(() => {
-      selectionBox.classList.add('hidden');
-    }, 2000);
+  setTimeout(() => selectionBox.classList.add('hidden'), 2000);
+  setTimeout(() => {
+    selectionBox.textContent = '';
+    selectionBox.classList.remove('fade-out', 'hidden');
+  }, 3000);
 
-    setTimeout(() => {
-      selectionBox.textContent = '';
-      selectionBox.classList.remove('fade-out', 'hidden');
-    }, 3000);
+  addButton.style.display = 'none';
+  dateToggle.style.display = 'none';
+  datePickerArea.style.display = 'none';
+});
 
-    addButton.style.display = 'none';
-    dateToggle.style.display = 'none';
-    datePickerArea.style.display = 'none';
-
-    if (isCalendarVisible) {
-      renderCalendar();
-    }
-  });
 
   addToDateBtn.addEventListener('click', () => {
     if (!selectedDonut) return;
@@ -131,38 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-const toggleButton = document.getElementById('toggle-calendar');
-const calendarDiv = document.getElementById('calendar-history');
-let isCalendarVisible = false;
 
-toggleButton.addEventListener('click', () => {
-  isCalendarVisible = !isCalendarVisible;
-
-  if (isCalendarVisible) {
-    toggleButton.textContent = "📖 Hide Mood History";
-    renderCalendar();
-    calendarDiv.style.display = 'block';
-  } else {
-    toggleButton.textContent = "📖 Show Mood History";
-    calendarDiv.style.display = 'none';
-  }
-});
-
-function renderCalendar() {
-  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '{}');
-  console.log("📅 renderCalendar reading:", history);
-  const dates = Object.keys(history).sort().reverse();
-
-  if (dates.length === 0) {
-    calendarDiv.innerHTML = "<p>No donut moods saved yet.</p>";
-    return;
-  }
-
-  calendarDiv.innerHTML = dates.map(date => {
-    const donuts = history[date].map(d => `<li>🍩 ${d}</li>`).join('');
-    return `<h4>📅 ${date}</h4><ul>${donuts}</ul>`;
-  }).join('');
-}
 
 
 const menuToggle = document.getElementById('menu-toggle');
