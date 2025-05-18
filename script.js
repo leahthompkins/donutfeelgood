@@ -79,7 +79,7 @@ function generateMoodBoxName(donuts) {
 }
 
 function triggerConfetti() {
-  const duration = 5000;
+  const duration = 3000;
   const end = Date.now() + duration;
   const colors = ['#ff9aa2', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
 
@@ -136,10 +136,28 @@ function triggerConfetti() {
   localStorage.removeItem('donutMoodCurrent');
 
   // ⏱ Delay before reload
-  setTimeout(() => {
-    if (lid) lid.classList.remove('visible');
-    location.reload();
-  }, 3000); // ✅ actually  3 seconds now
+setTimeout(() => {
+  if (lid) {
+    lid.classList.remove('visible');
+
+    // Wait one frame, then hard reset lid so it doesn't flash back
+    requestAnimationFrame(() => {
+      lid.classList.add('reset');
+    });
+  }
+
+  // Clear storage & reset UI
+  localStorage.removeItem('donutMoodCurrent');
+  selectedDonut = null;
+
+  const selectionBox = document.getElementById('donut-selection');
+  if (selectionBox) selectionBox.textContent = "";
+
+  const addButton = document.getElementById('add-to-today');
+  if (addButton) addButton.style.display = "none";
+
+  displayCurrentBox();
+}, 3000);
 }
 
 
@@ -174,6 +192,11 @@ const sealContainer = document.getElementById('seal-button-container');
 sealContainer.innerHTML = ''; // clear it every time
 
 if (currentBox.length === 6) {
+    const lid = document.getElementById('box-lid');
+    if (lid) {
+      lid.classList.remove('reset'); // 👈 Re-enable lid animation
+    }
+  
   const sealButton = document.createElement("button");
   sealButton.textContent = "Seal This Box";
   sealButton.className = "add-button";
