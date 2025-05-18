@@ -246,11 +246,16 @@ if (selectedDonut === donutName) {
     displayCurrentBox();
   });
 
+
+
+const slides = document.querySelectorAll('#donut-carousel .splide__slide');
+const randomStartIndex = Math.floor(Math.random() * slides.length);
   const splide = new Splide('#donut-carousel', {
     type: 'loop',
     perPage: 5,
     perMove: 1,
     gap: '1rem',
+    start: randomStartIndex, 
     focus: 'center',
     breakpoints: {
       768: { perPage: 3.5 },
