@@ -106,6 +106,7 @@ function triggerConfetti() {
   const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
   const boxName = generateMoodBoxName(currentBox.map(e => e.name));
+  
 
   // 🎉 Show the lid first
   const lid = document.getElementById('box-lid');
@@ -113,6 +114,7 @@ function triggerConfetti() {
 
   // 🎉 Confetti
   triggerConfetti();
+
 
   // ✅ Save sealed box
   const sealed = {
