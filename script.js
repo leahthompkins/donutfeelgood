@@ -102,20 +102,19 @@ function triggerConfetti() {
       requestAnimationFrame(frame);
     }
   })();
-}
-function sealCurrentBox() {
+}function sealCurrentBox() {
   const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
   const boxName = generateMoodBoxName(currentBox.map(e => e.name));
 
   // 🎉 Show the lid first
   const lid = document.getElementById('box-lid');
-  lid.classList.add('visible');
+  if (lid) lid.classList.add('visible');
 
   // 🎉 Confetti
   triggerConfetti();
 
-  // ✅ Save sealed box, but don’t reload yet
+  // ✅ Save sealed box
   const sealed = {
     donuts: currentBox,
     name: boxName,
@@ -136,9 +135,9 @@ function sealCurrentBox() {
 
   // ⏱ Delay before reload
   setTimeout(() => {
-    lid.classList.remove('visible');
+    if (lid) lid.classList.remove('visible');
     location.reload();
-  }, 3000); // wait 5 seconds
+  }, 3000); // ✅ actually  3 seconds now
 }
 
 
