@@ -210,20 +210,21 @@ p {
   gap: 0.25rem;
   width: 100%;
   margin: 0.1rem auto;
-  padding: 2rem 1rem 3rem 2.5rem;
+  padding: 2rem 1rem 3rem 2.5rem; /* desktop defaults */
   background-image: url('images/box.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   min-height: 240px;
   max-width: 320px;
-  opacity: 1;               /* ✅ Always visible by default */
-  visibility: visible;      /* ✅ Always visible by default */
+  opacity: 1;
+  visibility: visible;
   transition: opacity 0.3s ease;
-    backface-visibility: hidden;
+  backface-visibility: hidden;
   will-change: transform, opacity;
   transform: translateZ(0);
 }
+
 
 .mood-dozen-box.enter-from-bottom {
   animation: enterFromBottom 0.6s ease-out forwards;
@@ -368,12 +369,16 @@ p {
 /* Responsive */
 @media (max-width: 480px) {
   .mood-dozen-box {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+    grid-template-columns: repeat(3, 75px); /* Keep fixed size */
+    grid-template-rows: repeat(2, 75px);
+    gap: 0.25rem;
+    padding: 1.5rem 0.5rem 2.5rem 0.5rem; /* Less padding for mobile */
+    justify-content: center; /* Center grid within box */
+    background-position: top center; /* Adjust background image if needed */
   }
 }
+
 
 body.no-scroll {
   overflow: hidden;
 }
-
