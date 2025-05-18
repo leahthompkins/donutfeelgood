@@ -290,6 +290,8 @@ function sealCurrentBox() {
   const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
   const boxName = generateMoodBoxName(currentBox.map(e => e.name));
+   document.body.classList.add("no-scroll");  // ⛔ prevent scrolling during animation
+
 
   const lid = document.getElementById('box-lid');
   if (lid) lid.classList.add('visible');
@@ -330,6 +332,7 @@ function sealCurrentBox() {
     }
     selectedDonut = null;
     displayCurrentBox(true);
+     document.body.classList.remove("no-scroll");
   }, 3000);
 }
 
