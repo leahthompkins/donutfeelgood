@@ -79,7 +79,7 @@ function generateMoodBoxName(donuts) {
 }
 
 function triggerConfetti() {
-  const duration = 2000;
+  const duration = 5000;
   const end = Date.now() + duration;
   const colors = ['#ff9aa2', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
 
@@ -103,12 +103,19 @@ function triggerConfetti() {
     }
   })();
 }
-
 function sealCurrentBox() {
   const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
   const boxName = generateMoodBoxName(currentBox.map(e => e.name));
 
+  // 🎉 Show the lid first
+  const lid = document.getElementById('box-lid');
+  lid.classList.add('visible');
+
+  // 🎉 Confetti
+  triggerConfetti();
+
+  // ✅ Save sealed box, but don’t reload yet
   const sealed = {
     donuts: currentBox,
     name: boxName,
@@ -126,9 +133,14 @@ function sealCurrentBox() {
   sealedBoxes.unshift(sealed);
   localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
   localStorage.removeItem('donutMoodCurrent');
-  triggerConfetti();
-  location.reload();
+
+  // ⏱ Delay before reload
+  setTimeout(() => {
+    lid.classList.remove('visible');
+    location.reload();
+  }, 3000); // wait 5 seconds
 }
+
 
 function displayCurrentBox() {
   const box = document.getElementById('mood-dozen-box');
