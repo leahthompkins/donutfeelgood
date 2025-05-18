@@ -301,16 +301,28 @@ background-image: url('images/box.png');
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease-out;
   pointer-events: none;
   z-index: 10;
-  
-padding: 1rem 0 1rem 0;
-  
+  padding: 1rem 0;
 }
 
 .box-lid.visible {
   opacity: 1;
-  transform: translateY(0);
+  animation: dropLid 1s ease-out forwards;
 }
+
+/* 👇 Lid drop animation */
+@keyframes dropLid {
+  0% {
+    transform: translateY(-100%);
+  }
+  80% {
+    transform: translateY(5%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
