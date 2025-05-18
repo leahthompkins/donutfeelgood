@@ -63,7 +63,7 @@ function generateMoodBoxName(donuts) {
     weird: "Just a Little Off"
   };
 
-  const comboLabels = { /* ... same as before ... */ };
+  const comboLabels = { /* ... existing comboLabels ... */ };
 
   const freq = {}, moodCount = {};
   for (const mood in moodLabels) moodCount[mood] = 0;
@@ -227,26 +227,50 @@ if (donuts.length === 5) {
   }
 
   if (donuts.length === 6) {
-    if (sorted[0][1] === 6) return `${moodLabels[moodThemes[sorted[0][0]]]} Overload`;
-    if (sorted[0][1] === 5) return `Stacked with ${moodLabels[moodThemes[sorted[0][0]]]}`;
-    if (sorted[0][1] === 4) return `Mostly ${moodLabels[moodThemes[sorted[0][0]]]}`;
-    if (sorted[0][1] === 3 && sorted[1][1] === 3) return `${moodLabels[moodThemes[sorted[0][0]]]} vs ${moodLabels[moodThemes[sorted[1][0]]]}`;
-    if (sorted[0][1] === 2 && uniqueCount === 3) return `Balanced Box`;
-    if (uniqueCount === 6) return `Rainbow Assortment`;
+    const moods = donuts.map(d => moodThemes[d] || "mystery");
+    const counts = moods.reduce((acc, mood) => {
+      acc[mood] = (acc[mood] || 0) + 1;
+      return acc;
+    }, {});
+    const uniqueMoods = [...new Set(moods)];
+    const topMood = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+    const topCount = counts[topMood];
 
-    if (moodCount.happy >= 4) return "Sweet Joys";
-    if (moodCount.sad >= 3) return "Bittersweet Batch";
-    if (moodCount.stressed >= 3) return "Box of Overwhelm";
-    if (moodCount.calm >= 3) return "Peaceful Pickings";
-    if (moodCount.angry >= 2) return "Spicy Glaze";
-    if (moodCount.tired >= 2) return "Low-Energy Dozen";
-    if (moodCount.dreamy >= 3) return "Frosted Fantasies";
+    const hasAll = arr => arr.every(m => moods.includes(m));
+    const includesAny = arr => arr.some(m => moods.includes(m));
+
+    const soft = ['tired', 'dreamy', 'calm', 'neutral', 'mystery'];
+    const sharp = ['angry', 'stressed', 'sad', 'conflicted', 'surprise'];
+
+    // 🔥 Overloads
+    if (uniqueMoods.length === 1) return "Total Mood Overload";
+    if (topCount === 6) return "Max Glaze Zone";
+    if (topCount === 5) return `Mood Mountain`;
+
+    // 🌈 Variety
+    if (uniqueMoods.length === 6) return "Rainbow Assortment";
+    if (uniqueMoods.length >= 5 && includesAny(["weird", "mystery", "surprise"])) return "Mood Carousel";
+    if (uniqueMoods.length >= 4 && includesAny(["happy", "sad", "angry", "dreamy", "calm"])) return "Spectrum Sampler";
+
+    // 💢 Conflicts
+    if (counts.happy === 3 && counts.sad === 3) return "Mood Wars: Sweet v. Sour";
+    if (includesAny(["calm", "dreamy"]) && includesAny(["angry", "stressed"])) return "Frosting vs Fire";
+    if (includesAny(["conflicted", "sad", "dreamy", "stressed", "happy"])) return "Bittersweet Spiral";
+    if (includesAny(["conflicted", "angry", "tired", "stressed", "mystery"])) return "Inner Turmoil Box";
+
+    // ✨ Fun Closers
+    if (hasAll(["dreamy", "calm", "tired", "neutral", "mystery", "sad"])) return "Still Waters Box";
+    if (includesAny(["surprise", "angry", "weird", "happy"])) return "Chaos & Cream";
+    if (includesAny(["mystery", "weird", "surprise", "angry", "sad"])) return "Donut Apocalypse";
+    if (hasAll(["calm", "dreamy", "tired", "mystery", "happy", "neutral"])) return "Zenfinity";
+    if (hasAll(["happy", "surprise", "angry", "weird", "sad", "conflicted"])) return "Moodplosion";
 
     return "Mixed Mood Medley";
   }
 
   return "Donut Surprise";
 }
+
 
 
 
