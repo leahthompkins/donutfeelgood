@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donut Feel Good</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <button id="menu-toggle" class="burger-button">☰</button>
+  <div id="side-menu" class="side-menu">
+    <ul>
+      <li><a href="#main">🍩 Today's Mood</a></li>
+      <li><a href="mood.html">📖 Sealed Boxes of Feelings </a></li>
+      <li><a href="#builder">🎨 Make Your Own Donut</a></li>
+      <li><a href="#submit">➕ Submit a Donut</a></li>
+    </ul>
+  </div>
+
+  <header class="logo-header">
+    <img src="images/donut-logo.png" alt="Donut Feel Good logo" class="donut-logo" />
+  </header>
+
+  <p>Which donut do you feel like today?</p>
+
+  <div id="donut-carousel" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide"><img class="donut-image" src="images/pink.jpg" alt="Pink Sprinkly Donut" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/pistachio.png" alt="Peaceful Pistachiot" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/chocolate.jpg" alt="Moody Chocolate" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/cruller.png" alt="Cruller" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/vanilla.png" alt="Vanilla Vibes" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/baconmaple.png" alt="Complex" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/glazed.png" alt="Happy Glaze" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/creme.png" alt="Creamy Daydream" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/jelly.png" alt="Jelly Filled" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/powdered.png" alt="??" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/apple.png" alt="Angry Apple" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/beignet.png" alt="Sleepy Sugar" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/twist.png" alt="Twist" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/orea.png" alt="Overwhelmed Oreo" /></li>
+        <li class="splide__slide"><img class="donut-image" src="images/maple.png" alt="Mellow Maple 🍁" /></li>
+      </ul>
+    </div>
+  </div>
+
+<div id="donut-selection-wrapper">
+  <div id="donut-selection" class="donut-selection"></div>
+  <button id="add-to-today" class="add-button" style="display: none;">Add to Today’s Mood</button>
+</div>
+
+  <section id="mood-box-preview">
+    <div class="mood-dozen-box" id="mood-dozen-box"></div>
+    <div id="seal-button-container" class="seal-button-space"></div>
+    <p class="mood-box-name" id="mood-box-name">Half Dozen Mood Mix: <strong>Box #1</strong></p>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
