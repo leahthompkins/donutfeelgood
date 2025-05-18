@@ -326,3 +326,8 @@ background-image: url('images/box.png');
   }
 }
 
+.box-lid.reset {
+  opacity: 0 !important;
+  transform: translateY(-100%) !important;
+  transition: none !important;
+}
