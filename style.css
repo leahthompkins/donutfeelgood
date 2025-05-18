@@ -372,3 +372,8 @@ p {
     gap: 0;
   }
 }
+
+body.no-scroll {
+  overflow: hidden;
+}
+
