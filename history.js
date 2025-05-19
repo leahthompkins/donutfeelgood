@@ -82,7 +82,7 @@ function resetStackTransforms(stack) {
 
 
 
-localStorage.setItem('donutMoodHistory', JSON.stringify([
+/*localStorage.setItem('donutMoodHistory', JSON.stringify([
   {
     "name": "Mood Mosaic",
     "sealed": "2025-05-19",
@@ -145,7 +145,7 @@ localStorage.setItem('donutMoodHistory', JSON.stringify([
   }
   // (You can duplicate more blocks to reach 10 if needed.)
 ]));
-
+*/
 
 function generateMoodChart() {
     const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
@@ -254,7 +254,7 @@ new Chart(ctx, {
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize with sample data if empty
      const stored = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
-    if (!stored.length) {
+   /* if (!stored.length) {
     localStorage.setItem('donutMoodHistory', JSON.stringify([
       {
         "name": "Mood Mosaic",
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       // Add more if needed
     ]));
-  }
+  }*/
 
   displayDonutHistory();
   generateMoodChart();
