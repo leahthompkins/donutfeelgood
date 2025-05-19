@@ -388,6 +388,24 @@ p {
     height: 260px;
     margin: 1.5rem auto;
   }
+    .donut-builder .splide__slide img {
+    max-height: 75px;
+  }
+   #base-carousel {
+    top: 55%;
+    transform: translate(-50%, -50%);
+  }
+
+  #glaze-carousel {
+    top: 40%;
+    transform: translate(-50%, -50%);
+  }
+
+  #topping-carousel {
+    top: 25%;
+    transform: translate(-50%, -50%);
+  }
+}
 }
 
 
@@ -583,6 +601,7 @@ body.no-scroll {
     height: min(80vw, 400px);
   margin: 4rem auto;
   background-color: #fff5f7;
+  overflow: visible; /* or hidden if absolutely needed */
 }
 
 .donut-layer {
@@ -624,6 +643,7 @@ body.no-scroll {
   z-index: inherit;
   /* remove left + translateX */
   margin: 0;
+  
 }
 
 .donut-instructions {
@@ -659,7 +679,7 @@ body.no-scroll {
 }
 
 .randomize-button {
-  position: absolute;
+  position: fixed;
   top: 1rem;
   right: 1rem;
   background-color: #ffcfd2;
