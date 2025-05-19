@@ -611,7 +611,7 @@ body.no-scroll {
 }
 
 #topping-carousel {
-  top: 50%;
+  top: -55%;
  transform: translate(-50%, -50%);
   z-index: 3;
 }
