@@ -293,8 +293,14 @@ function sealCurrentBox() {
    document.body.classList.add("no-scroll");  // ⛔ prevent scrolling during animation
 
 
-  const lid = document.getElementById('box-lid');
-  if (lid) lid.classList.add('visible');
+const lid = document.getElementById('box-lid');
+if (lid) {
+  console.log("✅ Found lid element");
+  lid.classList.add('visible');
+} else {
+  console.warn("❌ Could not find lid element");
+}
+
 
   setTimeout(() => {
     const box = document.getElementById('mood-dozen-box');
