@@ -384,9 +384,10 @@ p {
     justify-content: center; /* Center grid within box */
     background-position: top center; /* Adjust background image if needed */
   }
-    .donut-builder {
-    height: min(90vw, 300px);
-    margin: 2rem auto;
+     .donut-builder {
+    height: 260px;
+    margin: 1.5rem auto;
+  }
 }
 
 
