@@ -570,4 +570,66 @@ body.no-scroll {
   margin-top: 2rem;
   text-align: center;
 }
+/* === Donut Builder Layers === */
 
+.donut-builder {
+  position: relative;
+  width: 100%;
+  /*max-width: 400px;*/
+  height: 400px;
+  margin: 4rem auto;
+  background-color: #fff5f7;
+}
+
+.donut-layer {
+  position: absolute;
+  top: 0; /* Each layer uses its own top value */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  width: auto; /* Don't force full width */
+}
+
+/* STACKING LAYERS USING top DIFFERENCE */
+#base-carousel {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+#glaze-carousel {
+  top: 7%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+#topping-carousel {
+  top: 50%;
+ transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* Scoped Splide for donut builder */
+.donut-builder .splide {
+  position: relative;
+  max-width: 300px;
+  padding: 0;
+  z-index: inherit;
+  /* remove left + translateX */
+  margin: 0;
+}
+
+.donut-builder .splide__track {
+  overflow: visible !important;
+}
+
+.donut-builder .splide__slide img {
+  max-height: 140px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
