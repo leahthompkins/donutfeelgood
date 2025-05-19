@@ -162,7 +162,7 @@ if (donuts.length === 5) {
     const sharp = ['angry', 'stressed', 'sad', 'conflicted', 'surprise'];
 
     // 🔥 Dominant
-    if (uniqueMoods.length === 1) return `Joy Jam`;
+    
     if (topCount === 5 && topMood === 'dreamy') return 'Dream Cloud';
     if (topCount === 5 && topMood === 'calm') return 'Zen Glaze';
     if (topCount === 5 && topMood === 'stressed') return 'Meltdown Mix';
@@ -243,7 +243,7 @@ if (donuts.length === 5) {
     const sharp = ['angry', 'stressed', 'sad', 'conflicted', 'surprise'];
 
     // 🔥 Overloads
-    if (uniqueMoods.length === 1) return "Total Mood Overload";
+    
     if (topCount === 6) return "Max Glaze Zone";
     if (topCount === 5) return `Mood Mountain`;
 
