@@ -385,3 +385,115 @@ p {
 body.no-scroll {
   overflow: hidden;
 }
+
+/* === Shared Styles === */
+
+.history-page {
+  font-family: monospace;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.history-page h1 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+
+/* === Receipt Card Base === */
+.donut-receipt {
+  font-family: monospace;
+  background: white;
+  padding: 0rem;
+  margin: 0rem;
+  width: 300px;
+}
+
+/* === Enhanced Receipt Style for History Stack === */
+.history-page .donut-receipt {
+  position: relative;
+  background: url('images/receipt-removebg-preview.png') no-repeat center top;
+  background-size: cover;
+  width: 320px;
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3rem 1.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* === Receipt Content === */
+.receipt-content {
+  width: 90%;
+  max-width: 240px;
+  text-align: left;
+}
+
+/* === Table === */
+.donut-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.donut-table th,
+.donut-table td {
+  padding: 4px 0;
+  border-bottom: 1px dotted #ccc;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+/* === Stack Container === */
+.receipt-stack {
+  position: relative;
+  width: 320px;
+  height: 520px;
+   margin: 0 auto; /* instead of margin: 2rem auto */
+  perspective: 1000px;
+}
+
+/* === Stacked Receipts === */
+.receipt-stack .donut-receipt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform-origin: center;
+  cursor: pointer;
+}
+
+/* Stack depth: trailing cards peeking out */
+.receipt-stack .donut-receipt:nth-child(1) {
+  z-index: 5;
+}
+
+.receipt-stack .donut-receipt:nth-child(2) {
+  transform: translateY(8px) translateX(-8px) scale(0.98);
+  z-index: 4;
+}
+.receipt-stack .donut-receipt:nth-child(3) {
+  transform: translateY(16px) translateX(-16px) scale(0.96);
+  z-index: 3;
+}
+.receipt-stack .donut-receipt:nth-child(4) {
+  transform: translateY(24px) translateX(-24px) scale(0.94);
+  z-index: 2;
+}
+.receipt-stack .donut-receipt:nth-child(5) {
+  transform: translateY(32px) translateX(-32px) scale(0.92);
+  z-index: ;
+}
+
+
+.receipt-content p strong {
+  font-size: 0.85rem;
+  font-weight: normal;
+  text-transform: uppercase; /* Optional for receipt feel */
+}
