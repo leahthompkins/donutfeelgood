@@ -148,6 +148,8 @@ localStorage.setItem('donutMoodHistory', JSON.stringify([
 
 
 function generateMoodChart() {
+    const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
+      const moodCounts = {};
   if (!history.length) {
   const chartCanvas = document.getElementById('moodChart');
   if (chartCanvas) {
@@ -174,8 +176,8 @@ function generateMoodChart() {
     "Twist": "weird"
   };
 
-  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
-  const moodCounts = {};
+
+
 
   history.forEach(entry => {
     entry.donuts.forEach(d => {
@@ -183,11 +185,6 @@ function generateMoodChart() {
       moodCounts[mood] = (moodCounts[mood] || 0) + 1;
     });
     
-deleteBtn.className = 'delete-receipt-btn';
-deleteBtn.textContent = '🗑 Delete';
-deleteBtn.onclick = () => deleteReceipt(index);
-div.appendChild(deleteBtn);
-
   });
 
   const labels = Object.keys(moodCounts);
