@@ -23,7 +23,7 @@ function findImagePath(donutName) {
     "Overwhelmed Oreo": "orea-removebg-preview.png",
     "Mellow Maple 🍁": "maple-removebg-preview.png",
     "Jelly Filled": "jelly-removebg-preview.png",
-    "??": "powdered-removebg-preview.png",
+    "Powdered Mess": "powdered-removebg-preview.png",
     "Angry Apple": "apple-removebg-preview.png",
     "Sleepy Sugar": "beignet-removebg-preview.png",
     "Twist": "twist-removebg-preview.png"
@@ -46,10 +46,10 @@ function generateMoodBoxName(donuts) {
     "Overwhelmed Oreo": "stressed",
     "Mellow Maple 🍁": "calm",
     "Jelly Filled": "surprise",
-    "??": "mystery",
+    "Powdered Mess": "stressed",
     "Angry Apple": "angry",
     "Sleepy Sugar": "tired",
-    "Twist": "weird"
+    "Twist": "conflicted"
   };
 
   const moodLabels = {
