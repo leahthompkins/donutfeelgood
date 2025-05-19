@@ -11,16 +11,17 @@ function initSplide(selector, images) {
   `;
 
   // Initialize Splide on that element
-  new Splide(selector, {
-    type: 'loop',
-    perPage: 1,
-    focus: 'center',
-    pagination: false,
-    arrows: false,
-    drag: true,
-    autoWidth: false,
-  }).mount();
-}
+new Splide(selector, {
+  type: 'loop',
+  perPage: 1,
+  focus: 'center',
+  pagination: false,
+  arrows: false,
+  drag: true,
+  gap: '1rem',          // space between slides
+  fixedWidth: 160,      // adjust to match your image size
+  autoWidth: false,
+}).mount();
 
 // Replace with actual paths to your donut layer images
 const baseImages = ['assets/base1.png', 'assets/base2.png', 'images/pink.jpg', 'images/pink.jpg'];
