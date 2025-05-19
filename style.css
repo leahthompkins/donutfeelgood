@@ -392,7 +392,7 @@ p {
     max-height: 75px;
   }
    #base-carousel {
-    top: 55%;
+    top: 30%;
     transform: translate(-50%, -50%);
   }
 
@@ -618,13 +618,13 @@ body.no-scroll {
 
 /* STACKING LAYERS USING top DIFFERENCE */
 #base-carousel {
-  top: 50%;
+  top: 100%;
   transform: translate(-50%, -50%);
   z-index: 1;
 }
 
 #glaze-carousel {
-  top: -8%;
+  top: 15%;
   transform: translate(-50%, -50%);
   z-index: 2;
 }
