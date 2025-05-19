@@ -1,9 +1,12 @@
 function displayDonutHistory() {
-  let history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
-  if (!history.length) return;
-
+  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
   const container = document.getElementById('history-container');
   container.innerHTML = '';
+
+  if (!history.length) {
+    container.innerHTML = `<p class="no-receipts-msg">No donut mood receipts yet 🍩</p>`;
+    return;
+  }
 
   const stack = document.createElement('div');
   stack.className = 'receipt-stack';
@@ -37,25 +40,36 @@ function displayDonutHistory() {
       </div>
     `;
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-receipt-btn';
+    deleteBtn.textContent = '🗑 Delete';
+    deleteBtn.onclick = () => deleteReceipt(index);
+    div.appendChild(deleteBtn);
+
     stack.appendChild(div);
   });
 
   container.appendChild(stack);
 
-  // Swipe/Click interaction
   stack.addEventListener('click', () => {
     const first = stack.firstElementChild;
     if (!first) return;
-
     first.style.transform = 'translateX(350px) rotate(5deg)';
     first.style.opacity = '0';
 
     setTimeout(() => {
-      stack.appendChild(first); // Move to end
+      stack.appendChild(first);
       resetStackTransforms(stack);
     }, 400);
   });
+
+  const clearBtn = document.createElement('button');
+  clearBtn.className = 'clear-all-btn';
+  clearBtn.textContent = '🧼 Clear All Receipts';
+  clearBtn.onclick = clearAllReceipts;
+  stack.appendChild(clearBtn);
 }
+
 
 function resetStackTransforms(stack) {
   const cards = stack.querySelectorAll('.donut-receipt');
@@ -67,7 +81,6 @@ function resetStackTransforms(stack) {
 }
 
 
-document.addEventListener('DOMContentLoaded', displayDonutHistory);
 
 localStorage.setItem('donutMoodHistory', JSON.stringify([
   {
@@ -132,3 +145,165 @@ localStorage.setItem('donutMoodHistory', JSON.stringify([
   }
   // (You can duplicate more blocks to reach 10 if needed.)
 ]));
+
+
+function generateMoodChart() {
+  if (!history.length) {
+  const chartCanvas = document.getElementById('moodChart');
+  if (chartCanvas) {
+    chartCanvas.style.display = 'none';
+  }
+  return;
+}
+
+  const moodThemes = {
+    "Pink Sprinkly Donut": "happy",
+    "Peaceful Pistachiot": "calm",
+    "Moody Chocolate": "sad",
+    "Cruller": "neutral",
+    "Vanilla Vibes": "calm",
+    "Complex": "conflicted",
+    "Happy Glaze": "happy",
+    "Creamy Daydream": "dreamy",
+    "Overwhelmed Oreo": "stressed",
+    "Mellow Maple 🍁": "calm",
+    "Jelly Filled": "surprise",
+    "??": "mystery",
+    "Angry Apple": "angry",
+    "Sleepy Sugar": "tired",
+    "Twist": "weird"
+  };
+
+  const history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
+  const moodCounts = {};
+
+  history.forEach(entry => {
+    entry.donuts.forEach(d => {
+      const mood = moodThemes[d.name] || "mystery";
+      moodCounts[mood] = (moodCounts[mood] || 0) + 1;
+    });
+    
+deleteBtn.className = 'delete-receipt-btn';
+deleteBtn.textContent = '🗑 Delete';
+deleteBtn.onclick = () => deleteReceipt(index);
+div.appendChild(deleteBtn);
+
+  });
+
+  const labels = Object.keys(moodCounts);
+  const data = Object.values(moodCounts);
+
+  const ctx = document.getElementById('moodChart').getContext('2d');
+  
+  Chart.defaults.font.family = 'Fredoka';
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Mood Frequency',
+      data,
+      fill: true,
+      backgroundColor: 'rgba(112, 190, 230, 0.2)',
+      borderColor: 'rgba(60, 168, 222, 1)',
+      pointBackgroundColor: 'rgba(60, 168, 222, 1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(60, 168, 222, 1)'
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        labels: {
+          font: {
+            family: 'Patrick Hand',
+            size: 14
+          },
+          color: '#444'
+        }
+      }
+    },
+    scales: {
+      r: {
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        },
+        angleLines: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        },
+        pointLabels: {
+          font: {
+            family: 'Patrick Hand',
+            size: 14
+          },
+          color: '#333'
+        },
+        ticks: {
+          display: false  // hides the radial axis numbers for a cleaner look
+        }
+      }
+    }
+  }
+});
+
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize with sample data if empty
+     const stored = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
+    if (!stored.length) {
+    localStorage.setItem('donutMoodHistory', JSON.stringify([
+      {
+        "name": "Mood Mosaic",
+        "sealed": "2025-05-19",
+        "donuts": [
+          { "name": "Sleepy Sugar", "date": "2025-05-19" },
+          { "name": "Jelly Filled", "date": "2025-05-19" },
+          { "name": "Angry Apple", "date": "2025-05-19" },
+          { "name": "Creamy Daydream", "date": "2025-05-19" },
+          { "name": "Peaceful Pistachiot", "date": "2025-05-19" },
+          { "name": "Cruller", "date": "2025-05-19" }
+        ]
+      },
+      {
+        "name": "Odd Blend",
+        "sealed": "2025-05-18",
+        "donuts": [
+          { "name": "Happy Glaze", "date": "2025-05-18" },
+          { "name": "Overwhelmed Oreo", "date": "2025-05-18" },
+          { "name": "Moody Chocolate", "date": "2025-05-18" },
+          { "name": "Cruller", "date": "2025-05-18" },
+          { "name": "Angry Apple", "date": "2025-05-18" },
+          { "name": "Peaceful Pistachiot", "date": "2025-05-18" }
+        ]
+      }
+      // Add more if needed
+    ]));
+  }
+
+  displayDonutHistory();
+  generateMoodChart();
+});
+
+
+function deleteReceipt(index) {
+  let history = JSON.parse(localStorage.getItem('donutMoodHistory') || '[]');
+  history.splice(index, 1);
+  localStorage.setItem('donutMoodHistory', JSON.stringify(history));
+  displayDonutHistory();  // Refresh UI
+  generateMoodChart();    // Update chart
+}
+
+function clearAllReceipts() {
+  if (confirm("Are you sure you want to delete all donut mood receipts?")) {
+    localStorage.removeItem('donutMoodHistory');
+    displayDonutHistory();
+    generateMoodChart();
+  }
+}
