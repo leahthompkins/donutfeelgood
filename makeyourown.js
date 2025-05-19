@@ -1,6 +1,7 @@
 function initSplide(selector, images) {
   const root = document.querySelector(selector);
 
+
   // Inject valid Splide HTML structure
   root.innerHTML = `
     <div class="splide__track">
@@ -21,7 +22,22 @@ function initSplide(selector, images) {
     autoWidth: false,
   
   });
+document.getElementById('finalize-donut').addEventListener('click', () => {
+  // Add collapse class to all donut layers
+  ['#base-carousel', '#glaze-carousel', '#topping-carousel'].forEach(id => {
+    const el = document.querySelector(id);
+    if (el) el.classList.add('collapse');
+  });
 
+  // Optionally fade out other buttons (like dice, finalize)
+  document.getElementById('randomize-donut')?.classList.add('fade-out');
+  document.getElementById('finalize-donut')?.classList.add('fade-out');
+
+  // Then reveal name + mood inputs after a short delay
+  setTimeout(() => {
+    document.querySelector('.donut-metadata-form')?.classList.add('visible');
+  }, 700);
+});
   splide.mount();
   return splide;
 }
@@ -42,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     const el = document.querySelector('.donut-instructions');
     if (el) el.style.opacity = '0';
-  }, 5000);
+  }, 2000);
 
   // 🎲 Randomizer
   const randomBtn = document.getElementById('randomize-donut');
