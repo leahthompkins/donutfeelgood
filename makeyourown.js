@@ -29,7 +29,7 @@ function initSplide(selector, images) {
 // Replace with actual paths to your donut layer images
 const baseImages = ['assets/base1.png', 'assets/base2.png', 'assets/base3.png'];
 const glazeImages = ['assets/glaze1.png', 'assets/glaze2.png', 'assets/glaze3.png'];
-const toppingImages = ['images/pink.jpg', 'images/pistachio.png', 'images/powdered.png'];
+const toppingImages = ['assets/topping1.png', 'assets/topping2.png', 'assets/topping3.png','assets/topping4.png' ];
 
 let baseSplide, glazeSplide, toppingSplide;
 
