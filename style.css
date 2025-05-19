@@ -507,7 +507,7 @@ body.no-scroll {
   border: none;
   border-top: 2px dashed #ccc;
   width: 80%;
-  margin: 2rem auto;
+  margin: 3rem auto;
 }
 
 .delete-receipt-btn {
@@ -523,7 +523,7 @@ body.no-scroll {
 
 .clear-all-btn {
   position: absolute;
-  bottom: -20px;
+  bottom: -50px;
   left: 40%;
   transform: translateX(-50%);
   background: none;
