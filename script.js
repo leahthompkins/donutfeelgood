@@ -11,7 +11,7 @@ function getTodayDate() {
 function findImagePath(donutName) {
   const imageMap = {
     "Pink Sprinkly Donut": "pink-removebg-preview.png",
-    'Party Powdered":rainbow-removebg-preview.png',
+    'Party Powdered": "rainbow-removebg-preview.png",
     "Peaceful Pistachiot": "pistachio-removebg-preview.png",
     "Moody Chocolate": "chocolate-removebg-preview.png",
     "Cruller": "cruller-removebg-preview.png",
@@ -33,7 +33,7 @@ function findImagePath(donutName) {
 function generateMoodBoxName(donuts) {
   const moodThemes = {
     "Pink Sprinkly Donut": "happy",
-    "Party Powdered":"happy",
+    "Party Powdered": "happy",
     "Peaceful Pistachiot": "calm",
     "Moody Chocolate": "sad",
     "Cruller": "neutral",
