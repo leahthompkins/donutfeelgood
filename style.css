@@ -576,7 +576,7 @@ body.no-scroll {
   position: relative;
   width: 100%;
   /*max-width: 400px;*/
-  height: 400px;
+    height: min(80vw, 400px);
   margin: 4rem auto;
   background-color: #fff5f7;
 }
