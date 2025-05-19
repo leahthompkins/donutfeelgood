@@ -316,16 +316,17 @@ if (lid) {
   }, 1000);
 
   const sealed = { donuts: currentBox, name: boxName, sealed: today };
-  let sealedBoxes = [];
-  try {
-    const stored = localStorage.getItem('donutMoodHistory');
-    sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
-  } catch {
-    sealedBoxes = [];
-  }
 
-  sealedBoxes.unshift(sealed);
-  localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
+let sealedBoxes;
+try {
+  const stored = localStorage.getItem('donutMoodHistory');
+  sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
+} catch {
+  sealedBoxes = [];
+}
+
+sealedBoxes.unshift(sealed);
+localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
   localStorage.removeItem('donutMoodCurrent');
 
   setTimeout(() => {
