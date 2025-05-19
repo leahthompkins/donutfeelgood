@@ -23,7 +23,7 @@ h1 {
 p {
   font-size: 1.2rem;
   color: #7a4c46;
-  margin: 0.25rem 0 1.25rem;
+  margin: 0.1rem 0 .5rem;
 }
 
 /* Logo */
@@ -88,7 +88,7 @@ p {
 .splide {
   max-width: 700px;
   margin: 0 auto 0rem;
-  padding: 0.5rem 0;
+  padding: 0rem 0;
 }
 
 .splide__pagination {
@@ -99,7 +99,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem 0;
+  padding:0 0 0.5rem 0;
 }
 
 /* Donut Buttons and Images */
@@ -136,16 +136,16 @@ p {
 
 /* Donut Selection Text */
 #donut-selection-wrapper {
-  min-height: 4.5rem;
+  min-height: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 0.5rem;
+  margin-top: 0rem;
 }
 
 .donut-selection {
-  margin-top: 0.5rem;
+  margin-top: 0rem;
   font-size: 1.3rem;
   color: #5b3a2f;
   min-height: 1.6em;
@@ -193,17 +193,15 @@ p {
 }
 
 .mood-dozen-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 320px;
   width: 100%;
-  position: relative;
-  min-height: 0px;
-  margin-bottom:0rem;
-  
 }
+
 
 .mood-dozen-box {
   display: grid;
@@ -258,7 +256,7 @@ p {
 
 .mood-box-name {
   position: absolute;              /* 👈 absolute positioning removes layout footprint */
-  bottom: -.3rem;                  /* 👈 stick to bottom edge of the box */
+  bottom: 1.5rem;             /* 👈 stick to bottom edge of the box */
   left: 50%;                       /* 👈 center horizontally */
   transform: translateX(-50%);     /* 👈 true centering */
   font-size: 1.2rem;
@@ -325,7 +323,7 @@ p {
 /* Lid */
 .box-lid {
   position: absolute;
-  top:0;
+  top:-1.3rem;
   left: 0;
   padding: 2rem 0;
   width: 100%;
