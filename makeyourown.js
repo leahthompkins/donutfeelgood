@@ -10,8 +10,8 @@ function initSplide(selector, images) {
     </div>
   `;
 
-  // Initialize Splide on that element
-  new Splide(selector, {
+  // Initialize and return Splide instance
+  const splide = new Splide(selector, {
     type: 'loop',
     perPage: 1,
     focus: 'center',
@@ -19,21 +19,44 @@ function initSplide(selector, images) {
     arrows: false,
     drag: true,
     autoWidth: false,
-  }).mount();
+  
+  });
+
+  splide.mount();
+  return splide;
 }
 
 // Replace with actual paths to your donut layer images
-const baseImages = ['assets/base1.png', 'assets/base2.png','assets/base3.png'];
-const glazeImages = ['assets/glaze1.png','assets/glaze2.png', 'assets/glaze3.png'];
+const baseImages = ['assets/base1.png', 'assets/base2.png', 'assets/base3.png'];
+const glazeImages = ['assets/glaze1.png', 'assets/glaze2.png', 'assets/glaze3.png'];
 const toppingImages = ['images/pink.jpg', 'images/pistachio.png', 'images/powdered.png'];
 
-document.addEventListener('DOMContentLoaded', () => {
-  initSplide('#base-carousel', baseImages);
-  initSplide('#glaze-carousel', glazeImages);
-  initSplide('#topping-carousel', toppingImages);
-});
+let baseSplide, glazeSplide, toppingSplide;
 
-setTimeout(() => {
-  const el = document.querySelector('.donut-instructions');
-  if (el) el.style.opacity = '0';
-}, 5000);
+document.addEventListener('DOMContentLoaded', () => {
+  baseSplide = initSplide('#base-carousel', baseImages);
+  glazeSplide = initSplide('#glaze-carousel', glazeImages);
+  toppingSplide = initSplide('#topping-carousel', toppingImages);
+
+  // Fade instructions after 5 seconds
+  setTimeout(() => {
+    const el = document.querySelector('.donut-instructions');
+    if (el) el.style.opacity = '0';
+  }, 5000);
+
+  // 🎲 Randomizer
+  const randomBtn = document.getElementById('randomize-donut');
+  if (randomBtn) {
+    randomBtn.addEventListener('click', () => {
+      function randomize(splide) {
+        const slides = splide.Components.Slides.get().length;
+        const index = Math.floor(Math.random() * slides);
+        splide.go(index);
+      }
+
+      randomize(baseSplide);
+      randomize(glazeSplide);
+      randomize(toppingSplide);
+    });
+  }
+});
