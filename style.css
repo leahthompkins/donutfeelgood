@@ -497,3 +497,72 @@ body.no-scroll {
   font-weight: normal;
   text-transform: uppercase; /* Optional for receipt feel */
 }
+
+.receipt-divider {
+  border: none;
+  border-top: 2px dashed #ccc;
+  width: 80%;
+  margin: 2rem auto;
+}
+
+.delete-receipt-btn {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #d44;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: monospace;
+  right: 0%;
+}
+
+.clear-all-btn {
+  position: absolute;
+  bottom: -20px;
+  left: 40%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.clear-all-btn:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+
+.delete-receipt-btn {
+  position: absolute;
+  bottom: 50px;
+  left: 75%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  color: #c33;
+  font-family: monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  pointer-events: auto; /* ensures it works inside stacked cards */
+}
+
+.delete-receipt-btn:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.no-receipts-msg {
+  font-family: monospace;
+  font-size: 1rem;
+  color: #666;
+  margin-top: 2rem;
+  text-align: center;
+}
+
