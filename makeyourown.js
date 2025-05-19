@@ -32,3 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSplide('#glaze-carousel', glazeImages);
   initSplide('#topping-carousel', toppingImages);
 });
+
+setTimeout(() => {
+  const el = document.querySelector('.donut-instructions');
+  if (el) el.style.opacity = '0';
+}, 5000);
