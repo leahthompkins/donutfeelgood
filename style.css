@@ -702,3 +702,40 @@ body.no-scroll {
   background-color: #f4a8aa;
   transform: scale(1.1);
 }
+
+
+.finalize-button {
+  margin: 1rem auto;
+  display: block;
+  background-color: #ffcfd2;
+  color: #5b3a2f;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  z-index: 20;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+#base-carousel.collapse {
+  top: 50% !important;
+  transform: translate(-50%, -50%) scale(0.95);
+  transition: all 0.6s ease;
+  z-index: 3;
+}
+
+#glaze-carousel.collapse {
+  top: -5% !important;
+  transform: translate(-50%, -50%) scale(0.95);
+  transition: all 0.6s ease;
+  z-index: 4;
+}
+
+#topping-carousel.collapse {
+  top: -55% !important;
+  transform: translate(-50%, -50%) scale(0.95);
+  transition: all 0.6s ease;
+  z-index: 5;
+}
