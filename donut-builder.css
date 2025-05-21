@@ -13,7 +13,7 @@ html, body {
   justify-content: flex-start; /* 👈 Anchor to the top */
   align-items: center;
   height: 100%;
-  padding-top: 40px; /* 👈 Gives space above the top carousel */
+  padding-top: 10px; /* 👈 Gives space above the top carousel */
   gap: 5px;
 }
 
@@ -21,7 +21,7 @@ html, body {
 .splide {
   width: 100%;
   max-width: 300px;
-  height: 120px;
+  height: 100px;
   overflow: hidden;
   margin: 0px;
   padding: 0px;
@@ -30,7 +30,7 @@ html, body {
 .splide__slide img {
   width: 100%;
   height: auto;
-  max-height: 120px;
+  max-height: 100px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
@@ -49,7 +49,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Wrapper to keep confirm button centered */
@@ -82,7 +82,7 @@ html, body {
   background-color: transparent;
   border: none;
   font-size: 20px;
-  padding: 8px 12px;
+  padding: 8px 30px;
   cursor: pointer;
   z-index: 10;
   transition: background-color 0.3s ease;
