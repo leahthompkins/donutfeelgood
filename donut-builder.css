@@ -133,7 +133,7 @@ html, body {
 
 /* Shift animation when confirmed */
 .shift-up #base-carousel {
-  transform: translateY(-190%);
+  transform: translateY(-185%);
 }
 
 .shift-up #topping-carousel {
