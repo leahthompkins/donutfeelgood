@@ -14,21 +14,23 @@ html, body {
   align-items: center;
   height: 100%;
   padding-top: 40px; /* 👈 Gives space above the top carousel */
-  gap: 20px;
+  gap: 5px;
 }
 
 
 .splide {
   width: 100%;
   max-width: 300px;
-  height: 150px;
+  height: 120px;
   overflow: hidden;
+  margin: 0px;
+  padding: 0px;
 }
 
 .splide__slide img {
   width: 100%;
   height: auto;
-  max-height: 150px;
+  max-height: 120px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
