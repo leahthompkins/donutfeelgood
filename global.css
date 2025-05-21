@@ -1,0 +1,90 @@
+/* style.css — fully integrated and optimized */
+
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Baloo 2', cursive;
+  background-color: #fff5f7;
+  color: #5b3a2f;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #d86f72;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #7a4c46;
+  margin: 0.1rem 0 .5rem;
+}
+
+/* Logo */
+.logo-header {
+  text-align: center;
+  margin: 0;
+}
+
+.donut-logo {
+  max-width: 250px;
+  height: auto;
+  display: block;
+  margin: 0.5rem auto;
+}
+
+/* Burger Menu */
+.burger-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 200px;
+  height: 100%;
+  background-color: #fff5f7;
+  color: #5b3a2f;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  padding: 2rem 1rem;
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  margin-bottom: 1.2rem;
+}
+
+.side-menu a {
+  text-decoration: none;
+  color: #5b3a2f;
+  font-weight: bold;
+}

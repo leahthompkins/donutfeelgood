@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donut Carousel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css" />
+  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="donut-builder.css" />
+</head>
+<body>
+
+  <button id="menu-toggle" class="burger-button">☰</button>
+  <div id="side-menu" class="side-menu">
+    <ul>
+      <li><a href="#main">🍩 Today's Mood</a></li>
+      <li><a href="history.html">📖 Sealed Boxes of Feelings </a></li>
+      <li><a href="makeyourown.html">🎨 Make Your Own Donut</a></li>
+      <li><a href="#submit">➕ Submit a Donut</a></li>
+    </ul>
+  </div>
+
+  <header class="logo-header">
+    <img src="images/donut-logo.png" alt="Donut Feel Good logo" class="donut-logo" />
+  </header>
+
+<div class="carousel-container">
+  <!-- Topping Carousel -->
+  <div id="topping-carousel" class="splide">
+
+<button id="edit-button" aria-label="Unlock" title="Click to edit" style="display: none;">
+  <img src="assets/lock.png" alt="Unlock" />
+</button>
+
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide"><img src="assets/topping1.png" alt="Topping 1" /></li>
+        <li class="splide__slide"><img src="assets/topping2.png" alt="Topping 2" /></li>
+        <li class="splide__slide"><img src="assets/topping3.png" alt="Topping 3" /></li>
+                <li class="splide__slide"><img src="assets/topping4.png" alt="Topping 3" /></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Glaze Carousel -->
+  <div id="glaze-carousel" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide"><img src="assets/glaze1.png" alt="Glaze 1" /></li>
+        <li class="splide__slide"><img src="assets/glaze2.png" alt="Glaze 2" /></li>
+        <li class="splide__slide"><img src="assets/glaze3.png" alt="Glaze 3" /></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Base Carousel -->
+<div id="base-carousel" class="splide">
+  <div class="splide__track">
+    <ul class="splide__list">
+      <li class="splide__slide"><img src="assets/base1.png" alt="Donut Base 1" /></li>
+      <li class="splide__slide"><img src="assets/base2.png" alt="Donut Base 2" /></li>
+      <li class="splide__slide"><img src="assets/base3.png" alt="Donut Base 3" /></li>
+    </ul>
+  </div>
+
+
+</div>
+  <!-- Attach donut details here -->
+  <div id="donut-details" class="donut-details" style="display: none;">
+    <input type="text" id="donut-name" placeholder="Name your donut..." />
+    <select id="donut-type">
+      <option value="">Choose a type</option>
+      <option value="classic">Classic</option>
+      <option value="filled">Filled</option>
+      <option value="fancy">Fancy</option>
+      <option value="vegan">Vegan</option>
+    </select>
+  </div>
+
+<!-- Action Buttons -->
+<div class="button-row">
+  <div class="main-button-wrapper">
+    <button id="confirm-button">Yum, Let’s Go!</button>
+  </div>
+  <button id="dice-button" aria-label="Randomize" title="Randomize">🎲</button>
+</div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+  <script src="donut-builder.js"></script>
+</body>
+</html>
