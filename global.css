@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+    background-color: #fff5f7;
 }
 
 html, body {
@@ -88,3 +89,6 @@ p {
   color: #5b3a2f;
   font-weight: bold;
 }
+
+
+
