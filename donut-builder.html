@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.getElementById('menu-toggle');
+    const sideMenu = document.getElementById('side-menu');
+
+    toggleButton.addEventListener('click', function () {
+      sideMenu.classList.toggle('open');
+    });
+  });
+</script>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,15 +17,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css" />
   <link rel="stylesheet" href="global.css" />
   <link rel="stylesheet" href="donut-builder.css" />
+  
 </head>
 <body>
 
   <button id="menu-toggle" class="burger-button">☰</button>
   <div id="side-menu" class="side-menu">
     <ul>
-      <li><a href="#main">🍩 Today's Mood</a></li>
+      <li><a href="index.html">🍩 Today's Mood</a></li>
       <li><a href="history.html">📖 Sealed Boxes of Feelings </a></li>
-      <li><a href="makeyourown.html">🎨 Make Your Own Donut</a></li>
+      <li><a href="donut-builder.html">🎨 Make Your Own Donut</a></li>
       <li><a href="#submit">➕ Submit a Donut</a></li>
     </ul>
   </div>
@@ -35,9 +46,11 @@
     <div class="splide__track">
       <ul class="splide__list">
         <li class="splide__slide" data-shape="round"><img src="assets/topping1.png" alt="Topping 1" /></li>
+        
         <li class="splide__slide" data-shape="round"><img src="assets/topping2.png" alt="Topping 2" /></li>
         <li class="splide__slide" data-shape="round"><img src="assets/topping3.png" alt="Topping 3" /></li>
                 <li class="splide__slide" data-shape="round"><img src="assets/topping4.png" alt="Topping 3" /></li>
+                
       </ul>
     </div>
   </div>
@@ -48,7 +61,7 @@
       <ul class="splide__list">
         <li class="splide__slide" data-shape="round"><img src="assets/glaze1.png" alt="Glaze 1" /></li>
         <li class="splide__slide" data-shape="round"><img src="assets/glaze2.png" alt="Glaze 2" /></li>
-        <li class="splide__slide" data-shape="long"><img src="assets/bar-glaze2.png" alt="Bar Glaze 2" /></li>
+        <li class="splide__slide" data-shape="long"><img src="assets/bar-topping1.png" alt="Bar Glaze 2" /></li>
         <li class="splide__slide" data-shape="round"><img src="assets/glaze3.png" alt="Glaze 3" /></li>
       </ul>
     </div>
