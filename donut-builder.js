@@ -23,9 +23,9 @@ const toppingOptions = {
     "assets/topping4.png"
   ],
   long: [
-    "assets/eclair-topping1.png",
-    "assets/eclair-topping2.png"
-  ]
+    "assets/bar-topping1.png",
+    "assets/bar-topping2.png",
+    "assets/bar-topping3.png"  ]
 };
 
 function rebuildCarousel(id, images, currentIndex) {
