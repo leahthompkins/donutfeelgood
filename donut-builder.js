@@ -25,7 +25,11 @@ const toppingOptions = {
   long: [
     "assets/bar-topping1.png",
     "assets/bar-topping2.png",
-    "assets/bar-topping3.png"  ]
+    "assets/bar-topping3.png",
+    "assets/bar-topping4.png"
+    ]
+    
+    
 };
 
 function rebuildCarousel(id, images, currentIndex) {
