@@ -163,17 +163,27 @@ function flattenDonutToCanvas() {
 
   return canvas;
 }
+
 function saveDonutToLocalStorage() {
   const canvas = flattenDonutToCanvas();
   const dataURL = canvas.toDataURL(); // PNG Base64
 
-  // Option 1: Save a single donut
-  localStorage.setItem('savedDonut', dataURL);
-
-  // Option 2: Save multiple donuts (e.g., a history)
+  // Save to gallery
   const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
   existing.push(dataURL);
   localStorage.setItem('donutGallery', JSON.stringify(existing));
-}
-document.getElementById('saveDonut').addEventListener('click', saveDonutToLocalStorage);
 
+  // Hide form and button
+  const nameInput = document.getElementById('donut-name');
+  const typeInput = document.getElementById('donut-type');
+  const saveButton = document.getElementById('saveDonut');
+
+  nameInput.style.display = 'none';
+  typeInput.style.display = 'none';
+
+  // Replace Save button with a "Saved!" message
+  const wrapper = document.getElementById('save-wrapper');
+  wrapper.innerHTML = '<span style="font-weight: bold; color: green;">Saved!</span>';
+}
+
+document.getElementById('saveDonut').addEventListener('click', saveDonutToLocalStorage);
