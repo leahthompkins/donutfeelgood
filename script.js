@@ -479,3 +479,41 @@ setTimeout(() => {
 
   displayCurrentBox();
 });
+
+
+
+function loadSavedDonutsIntoCarousel() {
+  const saved = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+  const list = document.getElementById('donutList');
+
+  saved.forEach((dataURL, index) => {
+    const li = document.createElement('li');
+    li.className = 'splide__slide';
+
+    const img = document.createElement('img');
+    img.src = dataURL;
+    img.alt = `Saved Donut ${index + 1}`;
+    img.title = `Saved Donut ${index + 1}`;
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    img.style.objectFit = 'contain';
+
+    // Optional: Make this clickable to re-select this donut
+    img.addEventListener('click', () => {
+      console.log(`Clicked saved donut ${index + 1}`);
+      // Call your selectDonut() or similar logic here
+    });
+
+    li.appendChild(img);
+    list.appendChild(li);
+  });
+
+  // Refresh Splide if already mounted
+  if (typeof Splide !== 'undefined' && window.baseSplide) {
+    window.baseSplide.refresh();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSavedDonutsIntoCarousel();
+});
