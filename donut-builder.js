@@ -144,3 +144,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+function flattenDonutToCanvas() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 300;
+  canvas.height = 300;
+  const ctx = canvas.getContext('2d');
+
+  const layers = [
+    document.querySelector('#baseDonut img'),
+    document.querySelector('#glaze img'),
+    document.querySelector('#toppings img')
+  ];
+
+  layers.forEach(img => {
+    if (img) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  });
+
+  return canvas;
+}
+function saveDonutToLocalStorage() {
+  const canvas = flattenDonutToCanvas();
+  const dataURL = canvas.toDataURL(); // PNG Base64
+
+  // Option 1: Save a single donut
+  localStorage.setItem('savedDonut', dataURL);
+
+  // Option 2: Save multiple donuts (e.g., a history)
+  const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+  existing.push(dataURL);
+  localStorage.setItem('donutGallery', JSON.stringify(existing));
+}
+document.getElementById('saveDonut').addEventListener('click', saveDonutToLocalStorage);
+
