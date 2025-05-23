@@ -26,7 +26,9 @@ function findImagePath(donutName) {
     "Powdered Mess": "powdered-removebg-preview.png",
     "Angry Apple": "apple-removebg-preview.png",
     "Sleepy Sugar": "beignet-removebg-preview.png",
-    "Twist": "twist-removebg-preview.png"
+    "Twist": "twist-removebg-preview.png",
+    "Luscious Lemon": "lemon-removebg-preview.png",
+    "Blueberry": "blueberry-removebg-preview.png"
   };
   return `images/${imageMap[donutName] || 'placeholder.png'}`;
 }
@@ -34,6 +36,7 @@ function findImagePath(donutName) {
 function generateMoodBoxName(donuts) {
   const moodThemes = {
     "Pink Sprinkly Donut": "happy",
+    "Blueberry": "calm",
     "Party Powdered": "happy",
     "Peaceful Pistachiot": "calm",
     "Moody Chocolate": "sad",
@@ -49,7 +52,8 @@ function generateMoodBoxName(donuts) {
     "Powdered Mess": "stressed",
     "Angry Apple": "angry",
     "Sleepy Sugar": "tired",
-    "Twist": "conflicted"
+    "Twist": "conflicted",
+    "Luscious Lemon": "happy"
   };
 
   const moodLabels = {
