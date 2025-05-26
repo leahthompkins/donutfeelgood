@@ -6,12 +6,16 @@ const glazeOptions = {
   round: [
     "assets/glaze1.png",
     "assets/glaze2.png",
-    "assets/glaze3.png"
+    "assets/glaze3.png",
+        "assets/glaze4.png",
+    "assets/glaze5.png",
+        "assets/glaze6.png"
   ],
   long: [
     "assets/bar-glaze1.png",
     "assets/bar-glaze2.png",
     "assets/bar-glaze3.png"
+
   ]
 };
 
@@ -146,18 +150,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function flattenDonutToCanvas() {
-  const canvas = document.createElement('canvas');
-  canvas.width = 300;
-  canvas.height = 300;
+  const canvas = document.getElementById('donutCanvas'); // Reuse existing canvas
   const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const layers = [
-    document.querySelector('#baseDonut img'),
-    document.querySelector('#glaze img'),
-    document.querySelector('#toppings img')
-  ];
+  const getCurrentImage = (splideInstance) => {
+    const slide = splideInstance.Components.Slides.getAt(splideInstance.index);
+    return slide ? slide.slide.querySelector('img') : null;
+  };
 
-  layers.forEach(img => {
+  const baseImg = getCurrentImage(baseSplide);
+  const glazeImg = getCurrentImage(glazeSplide);
+  const toppingImg = getCurrentImage(toppingSplide);
+
+  [baseImg, glazeImg, toppingImg].forEach(img => {
     if (img) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   });
 
@@ -168,22 +174,32 @@ function saveDonutToLocalStorage() {
   const canvas = flattenDonutToCanvas();
   const dataURL = canvas.toDataURL(); // PNG Base64
 
+  const nameInput = document.getElementById('donut-name');
+  const typeInput = document.getElementById('donut-type');
+
+  const donutName = nameInput.value.trim() || "Untitled Donut";
+  const donutMood = typeInput.value || "unspecified";
+
+  const donutData = {
+    name: donutName,
+    mood: donutMood,
+    image: dataURL,
+    date: new Date().toISOString()
+  };
+
   // Save to gallery
   const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
-  existing.push(dataURL);
+  existing.push(donutData);
   localStorage.setItem('donutGallery', JSON.stringify(existing));
 
   // Hide form and button
-  const nameInput = document.getElementById('donut-name');
-  const typeInput = document.getElementById('donut-type');
-  const saveButton = document.getElementById('saveDonut');
-
   nameInput.style.display = 'none';
   typeInput.style.display = 'none';
 
   // Replace Save button with a "Saved!" message
   const wrapper = document.getElementById('save-wrapper');
-  wrapper.innerHTML = '<span style="font-weight: bold; color: green;">Saved!</span>';
+  wrapper.innerHTML = `<span style="font-weight: bold; color: green;">Saved "${donutName}"!</span>`;
 }
+
 
 document.getElementById('saveDonut').addEventListener('click', saveDonutToLocalStorage);
