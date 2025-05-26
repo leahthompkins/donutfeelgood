@@ -383,7 +383,7 @@ if (currentBox[i]) {
 img.src =
   donut.image && donut.image.startsWith('data:image')
     ? donut.image
-    : (donut.image || findImagePath(donut.name));
+    : findImagePath(donut.name);
 
   img.alt = donut.name;
   img.title = `${donut.name}\n${donut.date}`;
@@ -429,7 +429,11 @@ document.addEventListener('DOMContentLoaded', () => {
         selectionBox.textContent = '';
         addButton.style.display = 'none';
       } else {
-        selectedDonut = donutName;
+        selectedDonut = {
+  name: donutName,
+  date: getTodayDate(),
+  image: findImagePath(donutName)
+};
         selectionBox.textContent = donutName;
         addButton.style.display = currentBox.length < 6 ? 'inline-block' : 'none';
       }
