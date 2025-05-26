@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentBox.push(selectedDonut);
     localStorage.setItem('donutMoodCurrent', JSON.stringify(currentBox));
 
-    selectionBox.textContent = `✅ ${selectedDonut} added!`;
+    selectionBox.textContent = `✅ ${selectedDonut.name} added!`;
     selectedDonut = null;
     addButton.style.display = 'none';
 
