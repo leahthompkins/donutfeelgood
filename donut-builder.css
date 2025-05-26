@@ -133,11 +133,11 @@ html, body {
 
 /* Shift animation when confirmed */
 .shift-up #base-carousel {
-  transform: translateY(-185%);
+  transform: translateY(-200%);
 }
 
 .shift-up #topping-carousel {
-  transform: translateY(7%);
+  transform: translateY(5%);
 }
 
 .shift-up #glaze-carousel {
@@ -173,3 +173,5 @@ html, body {
   width: 200px;
   text-align: center;
 }
+
+
