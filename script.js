@@ -4,9 +4,45 @@
 
 let selectedDonut = null;
 
+  window.moodThemes = {
+    "Pink Sprinkly Donut": "happy",
+    "Party Powdered": "happy",
+    "Peaceful Pistachiot": "calm",
+    "Moody Chocolate": "sad",
+    "Anxious Almond": "stressed",
+    "Cruller": "neutral",
+    "Vanilla Vibes": "calm",
+    "Complex": "conflicted",
+    "Happy Glaze": "happy",
+    "Creamy Daydream": "dreamy",
+    "Overwhelmed Oreo": "stressed",
+    "Mellow Maple 🍁": "calm",
+    "Jelly Filled": "surprise",
+    "Powdered Mess": "stressed",
+    "Angry Apple": "angry",
+    "Sleepy Sugar": "tired",
+    "Twist": "conflicted"
+  };
+
+  window.moodLabels = {
+    happy: "Burst of Joy",
+    calm: "Soft & Still",
+    sad: "One of Those Days",
+    neutral: "Fine, I Guess",
+    conflicted: "Feeling Mixed",
+    dreamy: "Head in the Clouds",
+    stressed: "Cracked & Glazed",
+    surprise: "Unexpected Twist",
+    angry: "Spicy Mood",
+    tired: "Powered Down",
+    mystery: "Unknown Mood",
+    weird: "Just a Little Off"
+  };
+
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
 }
+
 
 function findImagePath(donutName) {
   const imageMap = {
@@ -32,74 +68,59 @@ function findImagePath(donutName) {
 }
 
 function generateMoodBoxName(donuts) {
-  const moodThemes = {
-    "Pink Sprinkly Donut": "happy",
-    "Party Powdered": "happy",
-    "Peaceful Pistachiot": "calm",
-    "Moody Chocolate": "sad",
-    "Anxious Almond": "stressed",
-    "Cruller": "neutral",
-    "Vanilla Vibes": "calm",
-    "Complex": "conflicted",
-    "Happy Glaze": "happy",
-    "Creamy Daydream": "dreamy",
-    "Overwhelmed Oreo": "stressed",
-    "Mellow Maple 🍁": "calm",
-    "Jelly Filled": "surprise",
-    "Powdered Mess": "stressed",
-    "Angry Apple": "angry",
-    "Sleepy Sugar": "tired",
-    "Twist": "conflicted"
-  };
 
-  const moodLabels = {
-    happy: "Burst of Joy",
-    calm: "Soft & Still",
-    sad: "One of Those Days",
-    neutral: "Fine, I Guess",
-    conflicted: "Feeling Mixed",
-    dreamy: "Head in the Clouds",
-    stressed: "Cracked & Glazed",
-    surprise: "Unexpected Twist",
-    angry: "Spicy Mood",
-    tired: "Powered Down",
-    mystery: "Unknown Mood",
-    weird: "Just a Little Off"
-  };
+  
+const extractMood = donut => {
+  if (typeof donut === 'object') {
+    if (donut.mood) return donut.mood;
+    if (donut.name && moodThemes[donut.name]) return moodThemes[donut.name];
+  }
+  if (typeof donut === 'string' && moodThemes[donut]) return moodThemes[donut];
+  return "mystery";
+};
 
-  const comboLabels = { /* ... existing comboLabels ... */ };
+const comboLabels = { /* ... existing comboLabels ... */ };
 
-  const freq = {}, moodCount = {};
-  for (const mood in moodLabels) moodCount[mood] = 0;
+const freq = {}, moodCount = {};
+for (const mood in moodLabels) moodCount[mood] = 0;
 
-  donuts.forEach(name => {
-    freq[name] = (freq[name] || 0) + 1;
-    const theme = moodThemes[name] || "mystery";
-    moodCount[theme]++;
-  });
+donuts.forEach(donut => {
+  const name = typeof donut === 'string' ? donut : donut.name;
+  const mood = extractMood(donut); // 🧠 use the reliable extractor
+
+  freq[name] = (freq[name] || 0) + 1;
+  moodCount[mood]++;
+});
+
+
+console.log("🔍 Donut input:", donuts[0]);
 
   const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
   const uniqueCount = sorted.length;
 
   if (donuts.length === 0) return "Fill Me!";
 
-  if (donuts.length === 1) {
-    const donutName = donuts[0];
-    const mood = moodThemes[donutName] || "mystery";
-    return moodLabels[mood] || "Single Mood";
-  }
+if (donuts.length === 1) {
+  console.log("🔍 Single donut object:", donuts[0]);
+  const mood = extractMood(donuts[0]);
+  console.log("🎯 Extracted mood:", mood);
+  return moodLabels[mood] || "Single Mood";
+}
 
   if (donuts.length === 2) {
-    const moods = donuts.map(d => moodThemes[d] || "mystery").sort();
+    const moods = donuts.map(d => extractMood(d)).sort();
     const comboKey = moods.join("_");
     if (comboLabels[comboKey]) return comboLabels[comboKey];
 
-    if (uniqueCount === 1) return `Double ${moodLabels[moodThemes[sorted[0][0]]]}`;
-    return `${moodLabels[moodThemes[sorted[0][0]]]} & ${moodLabels[moodThemes[sorted[1][0]]]}`;
+const firstMood = extractMood(sorted[0][0]);
+const secondMood = extractMood(sorted[1][0] || sorted[0][0]); // fallback in case only one type
+if (uniqueCount === 1) return `Double ${moodLabels[firstMood]}`;
+return `${moodLabels[firstMood]} & ${moodLabels[secondMood]}`;
+
   }
 
   if (donuts.length === 3) {
-    const moods = donuts.map(d => moodThemes[d] || "mystery").sort();
+    const moods = donuts.map(d => extractMood(d)).sort();
     const uniqueMoods = [...new Set(moods)];
 
     if (uniqueMoods.length === 1) return `Triple ${moodLabels[uniqueMoods[0]]}`;
@@ -119,7 +140,7 @@ function generateMoodBoxName(donuts) {
   }
 
   if (donuts.length === 4) {
-    const moods = donuts.map(d => moodThemes[d] || "mystery");
+    const moods = donuts.map(d => extractMood(d));
     const counts = moods.reduce((acc, mood) => {
       acc[mood] = (acc[mood] || 0) + 1;
       return acc;
@@ -150,7 +171,7 @@ function generateMoodBoxName(donuts) {
 
 
 if (donuts.length === 5) {
-  const moods = donuts.map(d => moodThemes[d] || "mystery");
+  const moods = donuts.map(d => extractMood(d));
   const counts = moods.reduce((acc, mood) => {
     acc[mood] = (acc[mood] || 0) + 1;
     return acc;
@@ -231,7 +252,7 @@ if (donuts.length === 5) {
   }
 
   if (donuts.length === 6) {
-    const moods = donuts.map(d => moodThemes[d] || "mystery");
+    const moods = donuts.map(d => extractMood(d));
     const counts = moods.reduce((acc, mood) => {
       acc[mood] = (acc[mood] || 0) + 1;
       return acc;
@@ -293,7 +314,7 @@ function triggerConfetti() {
 function sealCurrentBox() {
   const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
-  const boxName = generateMoodBoxName(currentBox.map(e => e.name));
+  const boxName = generateMoodBoxName(currentBox);
    document.body.classList.add("no-scroll");  // ⛔ prevent scrolling during animation
 
 
@@ -394,7 +415,7 @@ img.src =
   box.appendChild(slot); // ✅ THIS WAS MISSING
 }
 
-  const label = generateMoodBoxName(currentBox.map(e => e.name));
+  const label = generateMoodBoxName(currentBox);
   boxName.innerHTML = `<strong>${label}</strong>`;
 
   const sealContainer = document.getElementById('seal-button-container');
@@ -433,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
   name: donutName,
   date: getTodayDate(),
   image: findImagePath(donutName)
+  
 };
         selectionBox.textContent = donutName;
         addButton.style.display = currentBox.length < 6 ? 'inline-block' : 'none';
@@ -489,10 +511,13 @@ saved.forEach((entry, index) => {
   img.addEventListener('click', () => {
     const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
 
+
     selectedDonut = {
       name: donutName,
       date: getTodayDate(),
-      image: donutImage
+      image: donutImage,
+      
+      mood: entry.mood || moodThemes[donutName] || "mystery"
     };
 
     selectionBox.textContent = selectedDonut.name;
