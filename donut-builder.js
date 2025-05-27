@@ -62,6 +62,24 @@ function rebuildCarousel(id, images, currentIndex) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  
+  const nameInput = document.getElementById('donut-name');
+const charCount = document.getElementById('char-count');
+
+nameInput.addEventListener('input', () => {
+  const length = nameInput.value.length;
+  charCount.textContent = `${length} / 20`;
+
+  if (length > 20) {
+    charCount.style.color = 'red';
+  } else if (length > 16) {
+    charCount.style.color = 'orange';
+  } else {
+    charCount.style.color = '#666';
+  }
+});
+
+  
   baseSplide = new Splide('#base-carousel', {
     type: 'loop',
     perPage: 1,
@@ -183,6 +201,12 @@ function saveDonutToLocalStorage() {
   // ❌ Require both name and mood
   if (!donutName || !donutMood) {
     alert("Please enter a donut name and select a mood before saving.");
+    return;
+  }
+  
+    // ❌ Enforce max character limit for name
+  if (donutName.length > 20) {
+    alert("Donut name must be 20 characters or fewer.");
     return;
   }
   
