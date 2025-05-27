@@ -1,3 +1,17 @@
+function pickSafe(options) {
+  console.log("🧪 Evaluating options:", options);
+  const short = options.filter(opt => opt.length <= 34);
+  console.log("✅ Short options:", short);
+  return short.length
+    ? short[Math.floor(Math.random() * short.length)]
+    : options[0].slice(0, 31) + '...';
+}
+const testOptions = [
+  "Short",
+  "Medium length label",
+  "This label is way too long and should be filtered out unless truncated",
+  "Another too-long name that exceeds thirty-four characters easily"
+];
 
 function generateMoodBoxName(donuts) {
 
@@ -53,7 +67,7 @@ if (donuts.length === 2) {
       `Twinned ${moodLabels[m1]}`,
       `Paired in ${moodLabels[m1]}`
     ];
-    return doubleOptions[Math.floor(Math.random() * doubleOptions.length)];
+    return pickSafe(doubleOptions);
   }
 
   const key = `${m1}_${m2}`;
@@ -111,7 +125,7 @@ if (donuts.length === 2) {
       `Two-Tone Treat`
     ];
 
-  return options[Math.floor(Math.random() * options.length)];
+  return pickSafe(options);
 }
 
 
@@ -136,33 +150,33 @@ if (donuts.length === 3) {
       `Two Scoops of ${moodLabels[topMood[0]]}`,
       `Leaning ${moodLabels[topMood[0]]}`
     ];
-    return mostlyOptions[Math.floor(Math.random() * mostlyOptions.length)];
+    return pickSafe(mostlyOptions);
   }
 
   // 🎯 Specific combos
   if (moods.includes("conflicted")) {
     const options = ["Mixed Signals", "Feeling Torn", "Glazed Confusion"];
-    return options[Math.floor(Math.random() * options.length)];
+    return pickSafe(options);
   }
 
   if (moods.includes("weird") || moods.includes("surprise")) {
     const options = ["Odd Blend", "Unexpected Trio", "Strange Mix"];
-    return options[Math.floor(Math.random() * options.length)];
+    return pickSafe(options);
   }
 
   if (moods.includes("happy") && moods.includes("sad") && moods.includes("angry")) {
     const whiplashOptions = ["Emotional Whiplash", "Happy-Sad-Mad", "The Mood Triangle"];
-    return whiplashOptions[Math.floor(Math.random() * whiplashOptions.length)];
+    return pickSafe(whiplashOptions);
   }
 
   if (moods.includes("calm") && moods.includes("dreamy") && moods.includes("tired")) {
     const chillOptions = ["Chill Vibes", "Dozy Dream Trio", "Low-Energy Sampler"];
-    return chillOptions[Math.floor(Math.random() * chillOptions.length)];
+    return pickSafe(chillOptions);
   }
 
   // 🧩 Fallback
   const medleyOptions = ["Mood Medley", "Three's a Mood", "Mini Mood Box"];
-  return medleyOptions[Math.floor(Math.random() * medleyOptions.length)];
+  return pickSafe(medleyOptions);
 }
 
 
@@ -185,7 +199,7 @@ if (donuts.length === 4) {
       `4x ${moodLabels[mood]} Stack`,
       `Box of ${moodLabels[mood]}`
     ];
-    return quadOptions[Math.floor(Math.random() * quadOptions.length)];
+    return pickSafe(quadOptions);
   }
 
   // 🎯 3 + 1
@@ -211,7 +225,7 @@ if (donuts.length === 4) {
       templates[`${intruder}_${dominant}`] ||
       templates.default;
 
-    return options[Math.floor(Math.random() * options.length)];
+    return pickSafe(options);
   }
 
   // 🎯 2 + 2
@@ -223,7 +237,7 @@ if (donuts.length === 4) {
       `Mood Split`,
       `50/50 Glaze`
     ];
-    return combos[Math.floor(Math.random() * combos.length)];
+    return pickSafe(combos);
   }
 
   // 🎯 2 + 1 + 1
@@ -234,7 +248,7 @@ if (donuts.length === 4) {
       `${moodLabels[dominant]} Core`,
       `Anchored in ${moodLabels[dominant]}`
     ];
-    return anchorOptions[Math.floor(Math.random() * anchorOptions.length)];
+    return pickSafe(anchorOptions);
   }
 
   // 🎯 4 unique
@@ -249,12 +263,12 @@ if (entries.length === 4) {
   for (const mood in moodSets) {
     if (moods.includes(mood)) {
       const options = moodSets[mood];
-      return options[Math.floor(Math.random() * options.length)];
+      return pickSafe(options);
     }
   }
 
   const fallbackOptions = ["Mood Mélange", "Vibe Sampler", "Tetra Mood Box", "Moodpot", "Box of Many Feelings"];
-  return fallbackOptions[Math.floor(Math.random() * fallbackOptions.length)];
+  return pickSafe(fallbackOptions);
 }
 
   return "Mood Quartet";
@@ -288,7 +302,7 @@ if (topCount === 5 && topMood === 'dreamy') {
     "Almost Asleep",
     "Floating on Frosting"
   ];
-  return dreamyOptions[Math.floor(Math.random() * dreamyOptions.length)];
+  return pickSafe(dreamyOptions);
 }
 
 if (topCount === 5 && topMood === 'calm') {
@@ -297,7 +311,7 @@ if (topCount === 5 && topMood === 'calm') {
     "Quiet Before the Sixth",
     "Peace in Progress"
   ];
-  return calmOptions[Math.floor(Math.random() * calmOptions.length)];
+  return pickSafe(calmOptions);
 }
 
 if (topCount === 5 && topMood === 'stressed') {
@@ -306,7 +320,7 @@ if (topCount === 5 && topMood === 'stressed') {
     "Pre-Meltdown Pack",
     "Stress Rising"
   ];
-  return stressedOptions[Math.floor(Math.random() * stressedOptions.length)];
+  return pickSafe(stressedOptions);
 }
 
 if (topCount === 5 && topMood === 'tired') {
@@ -315,7 +329,7 @@ if (topCount === 5 && topMood === 'tired') {
     "Low Battery Mode",
     "Sleepy Spiral"
   ];
-  return tiredOptions[Math.floor(Math.random() * tiredOptions.length)];
+  return pickSafe(tiredOptions);
 }
 
 if (topCount === 5 && topMood === 'sad') {
@@ -324,7 +338,7 @@ if (topCount === 5 && topMood === 'sad') {
     "Damp Dozen (Minus One)",
     "Five Shades of Blue"
   ];
-  return sadOptions[Math.floor(Math.random() * sadOptions.length)];
+  return pickSafe(sadOptions);
 }
 
 if (topCount === 5 && topMood === 'neutral') {
@@ -333,7 +347,7 @@ if (topCount === 5 && topMood === 'neutral') {
     "Fine, Almost",
     "Middle Mood Mass"
   ];
-  return neutralOptions[Math.floor(Math.random() * neutralOptions.length)];
+  return pickSafe(neutralOptions);
 }
 
 if (topCount === 5 && topMood === 'weird') {
@@ -342,7 +356,7 @@ if (topCount === 5 && topMood === 'weird') {
     "One Mood Short of Strange",
     "Almost Unhinged"
   ];
-  return weirdOptions[Math.floor(Math.random() * weirdOptions.length)];
+  return pickSafe(weirdOptions);
 }
 
 if (topCount === 5 && topMood === 'angry') {
@@ -351,7 +365,7 @@ if (topCount === 5 && topMood === 'angry') {
     "Just Warming Up",
     "Five Furies"
   ];
-  return angryOptions[Math.floor(Math.random() * angryOptions.length)];
+  return pickSafe(angryOptions);
 }
 
 if (topCount === 5 && topMood === 'conflicted') {
@@ -360,7 +374,7 @@ if (topCount === 5 && topMood === 'conflicted') {
     "Five-Way Tug-of-War",
     "Glazed Over"
   ];
-  return conflictedOptions[Math.floor(Math.random() * conflictedOptions.length)];
+  return pickSafe(conflictedOptions);
 }
 
 if (topCount === 5 && topMood === 'surprise') {
@@ -369,7 +383,7 @@ if (topCount === 5 && topMood === 'surprise') {
     "Pre-Twist Set",
     "Almost Unexpected"
   ];
-  return surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)];
+  return pickSafe(surpriseOptions);
 }
 
 if (topCount === 5 && topMood === 'happy') {
@@ -378,7 +392,7 @@ if (topCount === 5 && topMood === 'happy') {
     "Almost Euphoric",
     "Cheerstorm Incoming"
   ];
-  return happyOptions[Math.floor(Math.random() * happyOptions.length)];
+  return pickSafe(happyOptions);
 }
 
 
@@ -430,7 +444,7 @@ if (topCount === 4) {
     dominantMoodTemplates[topMood] ||
     [`Mostly ${moodLabels[topMood]}`, `Four Parts ${moodLabels[topMood]}`, `Dominant ${moodLabels[topMood]}`];
 
-  return options[Math.floor(Math.random() * options.length)];
+  return pickSafe(options);
 }
 
 
@@ -513,7 +527,7 @@ const moodTitleOptions = {
 
 if (topCount === 6) {
   const titles = moodTitleOptions[topMood] || [`Six-Pack of ${moodLabels[topMood]}`];
-  return titles[Math.floor(Math.random() * titles.length)];
+  return pickSafe(titles);
 }
 
 
@@ -522,24 +536,28 @@ if (topCount === 5) {
   const dominantMood = entries.find(([_, count]) => count === 5)?.[0];
   const intruderMood = entries.find(([_, count]) => count === 1)?.[0];
 
-  const fiveOneShortTemplates = [
-    (d, i) => `Mostly ${d}, But ${i}`,
-    (d, i) => `${i} in a Box of ${d}`,
-    (d, i) => `${d} With a Twist of ${i}`,
-    (d, i) => `${i} Broke the ${d} Mood`,
-    (d, i) => `${d}, Except That One ${i}`,
-    (d, i) => `All ${d}, Till ${i}`,
-    (d, i) => `${i} Poked the ${d} Mood`,
-    (d, i) => `${d} x5, Then ${i}`,
-    (d, i) => `1 ${i}, 5 ${d}`,
-    (d, i) => `${d} Mood, ${i} Leak`,
-    (d, i) => `Broken ${d} by ${i}`,
-  ];
+const fiveOneShortTemplates = [
+  (d, i) => `Mostly ${d}, but ${i}`,                  // shorter conjunction
+  (d, i) => `${i} in 5 ${d}`,                         // concise
+  (d, i) => `${d} + a Hint of ${i}`,                  // clear and short
+  (d, i) => `${i} Breaks ${d}`,                       // poetic
+  (d, i) => `5 ${d}, 1 ${i}`,                          // minimalist
+  (d, i) => `${i} Disrupts ${d}`,                     // short verb
+  (d, i) => `${d}... Mostly`,                         // playful
+  (d, i) => `${i} in the Mix`,                        // ambiguous but fun
+  (d, i) => `${d} Mood, ${i} Glaze`,                  // thematic
+  (d, i) => `${d} x5, then ${i}`,                     // simple pattern
+  (d, i) => `${i} vs. 5 ${d}`,                        // duality framing
+];
 
-  if (dominantMood && intruderMood && dominantMood !== intruderMood) {
-    const template = fiveOneShortTemplates[Math.floor(Math.random() * fiveOneShortTemplates.length)];
-    return template(moodLabels[dominantMood], moodLabels[intruderMood]);
-  }
+  
+if (dominantMood && intruderMood && dominantMood !== intruderMood) {
+  const dominantLabel = moodLabels[dominantMood];
+  const intruderLabel = moodLabels[intruderMood];
+
+  const rendered = fiveOneShortTemplates.map(t => t(dominantLabel, intruderLabel));
+  return pickSafe(rendered);
+}
 
   // Fallback: all 6 the same or unreadable
   return `${moodLabels[dominantMood] || "Max Mood"} Overload`;
@@ -560,7 +578,7 @@ if (uniqueMoods.length === 6) {
     "The Everything Set",
     "Colorwheel of Cravings"
   ];
-  return rainbowOptions[Math.floor(Math.random() * rainbowOptions.length)];
+  return pickSafe(rainbowOptions);
 }
 
 
@@ -577,7 +595,7 @@ if (uniqueMoods.length >= 5 && includesAny(["weird", "mystery", "surprise"])) {
     "Funhouse Glaze",
     "Tornado of Toppings"
   ];
-  return carouselOptions[Math.floor(Math.random() * carouselOptions.length)];
+  return pickSafe(carouselOptions);
 }
 
 if (uniqueMoods.length >= 4 && includesAny(["happy", "sad", "angry", "dreamy", "calm"])) {
@@ -593,7 +611,7 @@ if (uniqueMoods.length >= 4 && includesAny(["happy", "sad", "angry", "dreamy", "
     "Soul Sampler Pack",
     "The Feeling Lineup"
   ];
-  return spectrumOptions[Math.floor(Math.random() * spectrumOptions.length)];
+  return pickSafe(spectrumOptions);
 }
 
 
@@ -611,7 +629,7 @@ if (counts.happy === 3 && counts.sad === 3) {
     "Bitter Glaze Showdown",
     "Happiness in Rebellion"
   ];
-  return conflictOptions[Math.floor(Math.random() * conflictOptions.length)];
+  return pickSafe(conflictOptions);
 }
 
 if (includesAny(["calm", "dreamy"]) && includesAny(["angry", "stressed"])) {
@@ -622,7 +640,7 @@ if (includesAny(["calm", "dreamy"]) && includesAny(["angry", "stressed"])) {
     "Peace vs. Pressure",
     "Glazed But Furious"
   ];
-  return hotCold[Math.floor(Math.random() * hotCold.length)];
+  return pickSafe(hotCold);
 }
 
 if (includesAny(["conflicted", "sad", "dreamy", "stressed", "happy"])) {
@@ -634,7 +652,7 @@ if (includesAny(["conflicted", "sad", "dreamy", "stressed", "happy"])) {
     "Mixed Mood Mosaic",
     "Grin Through the Glaze"
   ];
-  return complexEmotionBlend[Math.floor(Math.random() * complexEmotionBlend.length)];
+  return pickSafe(complexEmotionBlend);
 }
 
 if (includesAny(["conflicted", "angry", "tired", "stressed", "sad"])) {
@@ -646,7 +664,7 @@ if (includesAny(["conflicted", "angry", "tired", "stressed", "sad"])) {
     "Mind Melt Sampler",
     "Cracks in the Frosting"
   ];
-  return turmoilOptions[Math.floor(Math.random() * turmoilOptions.length)];
+    return pickSafe(turmoilOptions);
 }
 
 // ✨ Fun Closers (Revised: removed "mystery")
