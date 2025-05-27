@@ -269,7 +269,27 @@ if (donuts.length === 5) {
 
     // 🔥 Overloads
     
-    if (topCount === 6) return "Max Glaze Zone";
+const moodTitleOptions = {
+  happy: ["Sugar Rush!", "Glazed in Glory", "Full of Giggles"],
+  calm: ["Total Zen", "Serenity Stack", "Meditation Box"],
+  sad: ["Full-On Funk", "Sad Stack", "Rainy Glaze Day"],
+  neutral: ["Plain and Proud", "The Okayest Box", "Neutral Ground"],
+  conflicted: ["Whirl of Worry", "Split Decision", "Internal Debate"],
+  dreamy: ["Dream Cloud", "Glaze Drift", "Midair Moods"],
+  stressed: ["Meltdown Mix", "Stressball Stack", "Overbaked Emotions"],
+  surprise: ["Plot Twist!", "Unexpected Glaze", "Oops All Surprise"],
+  angry: ["Rage Pack", "Red Hot Dozen", "Spice Storm"],
+  tired: ["Shutdown Stack", "Glazed & Dazed", "The Sleepy Six"],
+  mystery: ["Sweet Mystery", "Unknown Batch", "Encrypted Emotions"],
+  weird: ["Weird Parade", "Glaze Lab Experiment", "The Odd Batch"]
+};
+
+if (topCount === 6) {
+  const titles = moodTitleOptions[topMood] || [`Six-Pack of ${moodLabels[topMood]}`];
+  return titles[Math.floor(Math.random() * titles.length)];
+}
+
+
     if (topCount === 5) return `Mood Mountain`;
 
     // 🌈 Variety
