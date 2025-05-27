@@ -38,6 +38,8 @@ let selectedDonut = null;
     mystery: "Unknown Mood",
     weird: "Just a Little Off"
   };
+  
+
 
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
@@ -195,8 +197,7 @@ img.src =
   box.appendChild(slot); // ✅ THIS WAS MISSING
 }
 
-  const label = generateMoodBoxName(currentBox);
-  boxName.innerHTML = `<strong>${label}</strong>`;
+
 
   const sealContainer = document.getElementById('seal-button-container');
   sealContainer.innerHTML = '';
@@ -211,6 +212,10 @@ img.src =
     sealButton.addEventListener("click", sealCurrentBox);
     sealContainer.appendChild(sealButton);
   }
+  
+    const label = generateMoodBoxName(currentBox);
+  console.log("🔠 Final label rendered on box:", label);
+  boxName.innerHTML = `<strong>${label}</strong>`;
 }
 
 // The rest of your DOMContentLoaded setup stays unchanged...

@@ -1,17 +1,88 @@
-function pickSafe(options) {
-  console.log("🧪 Evaluating options:", options);
-  const short = options.filter(opt => opt.length <= 34);
-  console.log("✅ Short options:", short);
-  return short.length
-    ? short[Math.floor(Math.random() * short.length)]
-    : options[0].slice(0, 31) + '...';
+  // Shortened mood labels, for use when space is tight or in interrupter/intruder positions
+window.shortMoodLabels = {
+  happy: "Joy",
+  calm: "Calm",
+  sad: "Sad",
+  neutral: "Fine",
+  conflicted: "Mixed",
+  dreamy: "Dreamy",
+  stressed: "Cracked",
+  surprise: "Surprise",
+  angry: "Angry",
+  tired: "Tired",
+  mystery: "Mystery",
+  weird: "Weird"
+};
+
+
+function getMoodLabel(mood, { short = false } = {}) {
+  return short ? shortMoodLabels[mood] || mood : moodLabels[mood] || mood;
 }
-const testOptions = [
-  "Short",
-  "Medium length label",
-  "This label is way too long and should be filtered out unless truncated",
-  "Another too-long name that exceeds thirty-four characters easily"
+
+
+
+const testTemplates = [
+  (d, i) => `${i} Broke the ${d} Mood`,
+  (d, i) => `${d} With a Twist of ${i}`
 ];
+
+const dominantMood = 'stressed';
+const intruderMood = 'calm';
+
+const fullOptions = testTemplates.map(fn => fn(getMoodLabel(dominantMood), getMoodLabel(intruderMood)));
+console.log("🧪 FULL:", fullOptions);
+
+const result = pickSafe(fullOptions, dominantMood, intruderMood);
+console.log("✅ PICKED:", result);
+
+// PICK SAFE
+function pickSafe(options, dominantMood = null, intruderMood = null) {
+  const maxLength = 34;
+
+  // Try normal options first
+  const shortEnough = options.filter(opt => opt.length <= maxLength);
+  if (shortEnough.length && Math.random() < 0.3) {
+    const picked = shortEnough[Math.floor(Math.random() * shortEnough.length)];
+    console.log("✅ pickSafe: Used shortEnough:", picked);
+    return picked;
+  }
+
+  // Try again with short mood labels
+  if (dominantMood && intruderMood) {
+    const domLong = getMoodLabel(dominantMood);
+    const intrLong = getMoodLabel(intruderMood);
+    const domShort = getMoodLabel(dominantMood, { short: true });
+    const intrShort = getMoodLabel(intruderMood, { short: true });
+
+    const retried = options.map(str =>
+      str
+        .split(domLong).join(domShort)
+        .split(intrLong).join(intrShort)
+    );
+
+    const shortRetry = retried.filter(opt => opt.length <= maxLength);
+    console.log("🧪 FULL:", options);
+    console.log("🔁 Retried (shortened):", retried);
+    console.log("✅ Filtered shortRetry:", shortRetry);
+
+    if (shortRetry.length) {
+      const picked = shortRetry[Math.floor(Math.random() * shortRetry.length)];
+      console.log("✅ pickSafe: Used shortRetry:", picked);
+      return picked;
+    }
+
+    const fallback = retried[0].slice(0, maxLength - 3) + '...';
+    console.log("⚠️ pickSafe: Used fallback truncation:", fallback);
+    return fallback;
+  }
+
+  const fallback = options[0].slice(0, maxLength - 3) + '...';
+  console.log("⚠️ pickSafe: Used base fallback:", fallback);
+  return fallback;
+}
+
+
+
 
 function generateMoodBoxName(donuts) {
 
@@ -533,35 +604,39 @@ if (topCount === 6) {
 
 if (topCount === 5) {
   const entries = Object.entries(counts);
-  const dominantMood = entries.find(([_, count]) => count === 5)?.[0];
-  const intruderMood = entries.find(([_, count]) => count === 1)?.[0];
+  const dominantEntry = entries.find(([_, count]) => count === 5);
+  const intruderEntry = entries.find(([_, count]) => count === 1);
 
-const fiveOneShortTemplates = [
-  (d, i) => `Mostly ${d}, but ${i}`,                  // shorter conjunction
-  (d, i) => `${i} in 5 ${d}`,                         // concise
-  (d, i) => `${d} + a Hint of ${i}`,                  // clear and short
-  (d, i) => `${i} Breaks ${d}`,                       // poetic
-  (d, i) => `5 ${d}, 1 ${i}`,                          // minimalist
-  (d, i) => `${i} Disrupts ${d}`,                     // short verb
-  (d, i) => `${d}... Mostly`,                         // playful
-  (d, i) => `${i} in the Mix`,                        // ambiguous but fun
-  (d, i) => `${d} Mood, ${i} Glaze`,                  // thematic
-  (d, i) => `${d} x5, then ${i}`,                     // simple pattern
-  (d, i) => `${i} vs. 5 ${d}`,                        // duality framing
-];
+  const dominantMood = dominantEntry?.[0];
+  const intruderMood = intruderEntry?.[0];
 
-  
-if (dominantMood && intruderMood && dominantMood !== intruderMood) {
-  const dominantLabel = moodLabels[dominantMood];
-  const intruderLabel = moodLabels[intruderMood];
+  const fiveOneTemplates = [
+    (d, i) => `Mostly ${d}, But ${i}`,
+    (d, i) => `${i} in a Box of ${d}`,
+    (d, i) => `${d} With a Twist of ${i}`,
+    (d, i) => `${i} Broke the ${d} Mood`,
+    (d, i) => `${d}, Except That One ${i}`,
+    (d, i) => `All ${d}, Till ${i}`,
+    (d, i) => `${i} Poked the ${d} Mood`,
+    (d, i) => `${d} x5, Then ${i}`,
+    (d, i) => `1 ${i}, 5 ${d}`,
+    (d, i) => `${d} Mood, ${i} Leak`,
+    (d, i) => `Broken ${d} by ${i}`
+  ];
 
-  const rendered = fiveOneShortTemplates.map(t => t(dominantLabel, intruderLabel));
-  return pickSafe(rendered);
+  if (dominantMood && intruderMood && dominantMood !== intruderMood) {
+    const domLabel = getMoodLabel(dominantMood);
+    const intrLabel = getMoodLabel(intruderMood);
+    const options = fiveOneTemplates.map(t => t(domLabel, intrLabel));
+    return pickSafe(options, dominantMood, intruderMood); // ✅ RETURN IMMEDIATELY
+  }
+
+  // Optional fallback (if you want *something*, like in edge cases)
+  return "Glaze Mystery Box"; // Or delete this entirely
 }
 
-  // Fallback: all 6 the same or unreadable
-  return `${moodLabels[dominantMood] || "Max Mood"} Overload`;
-}
+
+
 
 
     // 🌈 Variety
