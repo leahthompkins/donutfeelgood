@@ -39,68 +39,228 @@ if (donuts.length === 1) {
   return moodLabels[mood] || "Single Mood";
 }
 
-  if (donuts.length === 2) {
-    const moods = donuts.map(d => extractMood(d)).sort();
-    const comboKey = moods.join("_");
-    if (comboLabels[comboKey]) return comboLabels[comboKey];
 
-const firstMood = extractMood(sorted[0][0]);
-const secondMood = extractMood(sorted[1][0] || sorted[0][0]); // fallback in case only one type
-if (uniqueCount === 1) return `Double ${moodLabels[firstMood]}`;
-return `${moodLabels[firstMood]} & ${moodLabels[secondMood]}`;
+//2 DONUTS
+if (donuts.length === 2) {
+  const moods = donuts.map(d => extractMood(d)).sort(); // sorted for consistency
+  const [m1, m2] = moods;
 
+  if (m1 === m2) {
+    const doubleOptions = [
+      `Double ${moodLabels[m1]}`,
+      `Two of ${moodLabels[m1]}`,
+      `${moodLabels[m1]} x2`,
+      `Twinned ${moodLabels[m1]}`,
+      `Paired in ${moodLabels[m1]}`
+    ];
+    return doubleOptions[Math.floor(Math.random() * doubleOptions.length)];
   }
 
-  if (donuts.length === 3) {
-    const moods = donuts.map(d => extractMood(d)).sort();
-    const uniqueMoods = [...new Set(moods)];
+  const key = `${m1}_${m2}`;
+  const reversedKey = `${m2}_${m1}`;
 
-    if (uniqueMoods.length === 1) return `Triple ${moodLabels[uniqueMoods[0]]}`;
-    if (moods.includes("conflicted")) return "Mixed Signals";
-    if (moods.includes("weird") || moods.includes("surprise")) return "Odd Blend";
-    if (moods.includes("happy") && moods.includes("sad") && moods.includes("angry")) return "Emotional Whiplash";
-    if (moods.includes("calm") && moods.includes("dreamy") && moods.includes("tired")) return "Chill Vibes";
+  const pairLabels = {
+    happy_sad: ["Bittersweet Bites", "Smiles & Sobs", "Sweet-Sour Duo"],
+    happy_angry: ["Joy vs. Fury", "Mood Clash", "Smiling Rage"],
+    happy_dreamy: ["Whimsical Joys", "Sweet Daydreams", "Cheerful Cloud"],
+    happy_calm: ["Sunny & Still", "Easy Breezy", "Bright and Mellow"],
+    happy_surprise: ["Delight Shock", "Cheer Jolt", "Unexpected Joy"],
+    happy_conflicted: ["Conflicted Cheer", "Happy Doubts", "Mixed Bliss"],
+    happy_weird: ["Happy but Huh?", "Eccentric Joy", "Smiling Oddity"],
 
-    const counts = moods.reduce((acc, mood) => {
-      acc[mood] = (acc[mood] || 0) + 1;
-      return acc;
-    }, {});
-    const topMood = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
-    if (topMood[1] === 2) return `Mostly ${moodLabels[topMood[0]]}`;
+    sad_angry: ["Glazed Fury", "Blue Rage", "Angry Tears"],
+    sad_tired: ["Sleepy Tears", "Sad Slump", "Exhausted Blues"],
+    sad_conflicted: ["Torn & Blue", "Sad Dilemma", "Emotional Mess"],
+    sad_weird: ["Weirdly Sad", "Odd Blues", "Peculiar Sorrow"],
 
-    return "Mood Medley";
+    angry_calm: ["Fire & Ice", "Rage Chilled", "Zen Meets Fury"],
+    angry_dreamy: ["Dreams on Fire", "Spicy Fantasy", "Burning Thoughts"],
+    angry_weird: ["Unhinged Glaze", "Rage & Random", "Anger Spiral"],
+
+    calm_dreamy: ["Gentle Drift", "Zen Dreams", "Soft-Glazed Vibes"],
+    calm_tired: ["Dozy & Chill", "Relaxed Exhaustion", "Low-Energy Mood"],
+    calm_weird: ["Still but Strange", "Quiet Quirks", "Odd Tranquility"],
+
+    dreamy_tired: ["Nap Ready", "Sleepy Thoughts", "Drowsy Vibes"],
+    dreamy_weird: ["Surreal Set", "Dreamy Strange", "Fantasy Glaze"],
+    dreamy_conflicted: ["Dreamy Dilemma", "Mind Maze", "Wishful Uncertainty"],
+
+    tired_stressed: ["Running Low", "Burnout Glaze", "Tense Fatigue"],
+    tired_weird: ["Tired & Twisted", "Sleepy Strange", "Zoned Out"],
+    tired_conflicted: ["Dragging Confusion", "Fatigue Fight", "Mood on Empty"],
+
+    stressed_conflicted: ["Crisis Glaze", "Stress Spiral", "Tense & Torn"],
+    stressed_weird: ["Nervous Oddity", "Cracked Glaze", "Fuzzy Freakout"],
+
+    surprise_weird: ["Unexpectedly Odd", "Random Shock", "Wildcard Mood"],
+    surprise_conflicted: ["Surprised & Split", "Twist & Tension", "WTF Glaze"],
+
+    // Optional bonus flavor
+    happy_neutral: ["Just Okay Joy", "Happy Meh", "Fine & Fun"],
+    sad_neutral: ["Fine But Sad", "Blah Blues", "Neutral Lows"],
+    tired_neutral: ["Barely Awake", "Almost Fine", "Quiet Glaze"],
+
+    // More can be added...
+  };
+
+  const options =
+    pairLabels[key] ||
+    pairLabels[reversedKey] || [
+      `${moodLabels[m1]} + ${moodLabels[m2]}`,
+      `Split Box: ${moodLabels[m1]} & ${moodLabels[m2]}`,
+      `Two-Tone Treat`
+    ];
+
+  return options[Math.floor(Math.random() * options.length)];
+}
+
+
+
+// 3 DONUTS
+if (donuts.length === 3) {
+  const moods = donuts.map(d => extractMood(d)).sort();
+  const uniqueMoods = [...new Set(moods)];
+
+  // 🟢 All three the same
+  if (uniqueMoods.length === 1) return `Triple ${moodLabels[uniqueMoods[0]]}`;
+
+  // 🌀 Two the same, one intruder
+  const counts = moods.reduce((acc, mood) => {
+    acc[mood] = (acc[mood] || 0) + 1;
+    return acc;
+  }, {});
+  const topMood = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  if (topMood[1] === 2) {
+    const mostlyOptions = [
+      `Mostly ${moodLabels[topMood[0]]}`,
+      `Two Scoops of ${moodLabels[topMood[0]]}`,
+      `Leaning ${moodLabels[topMood[0]]}`
+    ];
+    return mostlyOptions[Math.floor(Math.random() * mostlyOptions.length)];
   }
 
-  if (donuts.length === 4) {
-    const moods = donuts.map(d => extractMood(d));
-    const counts = moods.reduce((acc, mood) => {
-      acc[mood] = (acc[mood] || 0) + 1;
-      return acc;
-    }, {});
-    const entries = Object.entries(counts);
-
-    if (entries.length === 1) return `Quad ${moodLabels[entries[0][0]]}`;
-    if (entries.length === 2 && (entries[0][1] === 3 || entries[1][1] === 3)) {
-      const dominant = entries.find(([_, count]) => count === 3);
-      return `Mostly ${moodLabels[dominant[0]]}`;
-    }
-    if (entries.length === 2 && entries[0][1] === 2 && entries[1][1] === 2) {
-      return `Half & Half`;
-    }
-    if (entries.length === 3) {
-      const dominant = entries.find(([_, count]) => count === 2);
-      return `Mood Anchor: ${moodLabels[dominant[0]]}`;
-    }
-    if (entries.length === 4) {
-      if (moods.includes("happy")) return "Joy Overflow";
-      if (moods.includes("calm")) return "Zen Set";
-      if (moods.includes("angry")) return "Rage Rising";
-      if (moods.includes("weird")) return "Quirky Quartet";
-      return "Full Mood Sampler";
-    }
-    return "Quad Mood Mix";
+  // 🎯 Specific combos
+  if (moods.includes("conflicted")) {
+    const options = ["Mixed Signals", "Feeling Torn", "Glazed Confusion"];
+    return options[Math.floor(Math.random() * options.length)];
   }
 
+  if (moods.includes("weird") || moods.includes("surprise")) {
+    const options = ["Odd Blend", "Unexpected Trio", "Strange Mix"];
+    return options[Math.floor(Math.random() * options.length)];
+  }
+
+  if (moods.includes("happy") && moods.includes("sad") && moods.includes("angry")) {
+    const whiplashOptions = ["Emotional Whiplash", "Happy-Sad-Mad", "The Mood Triangle"];
+    return whiplashOptions[Math.floor(Math.random() * whiplashOptions.length)];
+  }
+
+  if (moods.includes("calm") && moods.includes("dreamy") && moods.includes("tired")) {
+    const chillOptions = ["Chill Vibes", "Dozy Dream Trio", "Low-Energy Sampler"];
+    return chillOptions[Math.floor(Math.random() * chillOptions.length)];
+  }
+
+  // 🧩 Fallback
+  const medleyOptions = ["Mood Medley", "Three's a Mood", "Mini Mood Box"];
+  return medleyOptions[Math.floor(Math.random() * medleyOptions.length)];
+}
+
+
+///4 DONUTS
+// 🍩 Four Donuts - Enhanced Logic
+if (donuts.length === 4) {
+  const moods = donuts.map(d => extractMood(d));
+  const counts = moods.reduce((acc, mood) => {
+    acc[mood] = (acc[mood] || 0) + 1;
+    return acc;
+  }, {});
+  const entries = Object.entries(counts);
+
+  // 🎯 4 of the same
+  if (entries.length === 1) {
+    const mood = entries[0][0];
+    const quadOptions = [
+      `All-In on ${moodLabels[mood]}`,
+      `Full ${moodLabels[mood]}`,
+      `4x ${moodLabels[mood]} Stack`,
+      `Box of ${moodLabels[mood]}`
+    ];
+    return quadOptions[Math.floor(Math.random() * quadOptions.length)];
+  }
+
+  // 🎯 3 + 1
+  if (entries.length === 2 && (entries[0][1] === 3 || entries[1][1] === 3)) {
+    const dominant = entries.find(([_, count]) => count === 3)[0];
+    const intruder = entries.find(([_, count]) => count === 1)[0];
+
+    const pairKey = `${dominant}_${intruder}`;
+    const templates = {
+      happy_sad: ["Bittersweet Box", "Joy Poked"],
+      calm_weird: ["Zen Disrupted", "Tranquil-ish"],
+      angry_tired: ["Spent Fury", "Exhausted Rage"],
+      dreamy_conflicted: ["Dream Doubt", "Mixed Visions"],
+      default: [
+        `Mostly ${moodLabels[dominant]}`,
+        `4x ${moodLabels[dominant]}`,
+        `Leaning ${moodLabels[dominant]}`
+      ]
+    };
+
+    const options =
+      templates[pairKey] ||
+      templates[`${intruder}_${dominant}`] ||
+      templates.default;
+
+    return options[Math.floor(Math.random() * options.length)];
+  }
+
+  // 🎯 2 + 2
+  if (entries.length === 2) {
+    const [m1, m2] = entries.map(([m]) => m);
+    const combos = [
+      `${moodLabels[m1]} & ${moodLabels[m2]}`,
+      `Two-Tone Box`,
+      `Mood Split`,
+      `50/50 Glaze`
+    ];
+    return combos[Math.floor(Math.random() * combos.length)];
+  }
+
+  // 🎯 2 + 1 + 1
+  if (entries.length === 3) {
+    const dominant = entries.find(([_, count]) => count === 2)[0];
+    const anchorOptions = [
+      `Mood Anchor: ${moodLabels[dominant]}`,
+      `${moodLabels[dominant]} Core`,
+      `Anchored in ${moodLabels[dominant]}`
+    ];
+    return anchorOptions[Math.floor(Math.random() * anchorOptions.length)];
+  }
+
+  // 🎯 4 unique
+if (entries.length === 4) {
+  const moodSets = {
+    happy: ["Joy Overflow", "Box of Cheer", "Bursting with Joy"],
+    calm: ["Zen Set", "Still & Sweet", "Peaceful Quartet"],
+    angry: ["Rage Rising", "Tempest in a Box", "Spicy Medley"],
+    weird: ["Quirky Quartet", "Weird & Wonderful", "Unusual Mix"]
+  };
+
+  for (const mood in moodSets) {
+    if (moods.includes(mood)) {
+      const options = moodSets[mood];
+      return options[Math.floor(Math.random() * options.length)];
+    }
+  }
+
+  const fallbackOptions = ["Mood Mélange", "Vibe Sampler", "Tetra Mood Box", "Moodpot", "Box of Many Feelings"];
+  return fallbackOptions[Math.floor(Math.random() * fallbackOptions.length)];
+}
+
+  return "Mood Quartet";
+}
+
+///5 donuts!
 
 if (donuts.length === 5) {
   const moods = donuts.map(d => extractMood(d));
@@ -120,25 +280,160 @@ if (donuts.length === 5) {
 
     // 🔥 Dominant
     
-    if (topCount === 5 && topMood === 'dreamy') return 'Dream Cloud';
-    if (topCount === 5 && topMood === 'calm') return 'Zen Glaze';
-    if (topCount === 5 && topMood === 'stressed') return 'Meltdown Mix';
-    if (topCount === 5 && topMood === 'tired') return 'Total Shutdown';
-    if (topCount === 5 && topMood === 'sad') return 'Full-On Funk';
-    if (topCount === 5 && topMood === 'neutral') return 'Neutral Overload';
-    if (topCount === 5 && topMood === 'weird') return 'Weird Parade';
-    if (topCount === 5 && topMood === 'angry') return 'Rage Pack';
-    if (topCount === 5 && topMood === 'mystery') return 'Sweet Mystery';
+// 🎯 When donuts.length === 5 && topCount === 5 — 5 of the same mood, no intruder yet
 
-    // 🎯 4+1
-    if (topCount === 4 && topMood === 'calm') return 'Mostly Mellow';
-    if (topCount === 4 && moods.includes('angry')) return 'Rage Interrupted';
-    if (topCount === 4 && moods.includes('stressed')) return 'Cracked Calm';
-    if (topCount === 4 && moods.includes('angry')) return 'Spiked Joy';
-    if (topCount === 4 && moods.includes('surprise')) return 'Tired Surprise';
-    if (topCount === 4 && moods.includes('conflicted')) return 'Conflicted Core';
-    if (topCount === 4 && moods.includes('happy')) return 'Bittersweet Edge';
-    if (topCount === 4 && moods.includes('weird')) return 'Focused Chaos';
+if (topCount === 5 && topMood === 'dreamy') {
+  const dreamyOptions = [
+    "Dream Cloud",
+    "Almost Asleep",
+    "Floating on Frosting"
+  ];
+  return dreamyOptions[Math.floor(Math.random() * dreamyOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'calm') {
+  const calmOptions = [
+    "Zen Glaze",
+    "Quiet Before the Sixth",
+    "Peace in Progress"
+  ];
+  return calmOptions[Math.floor(Math.random() * calmOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'stressed') {
+  const stressedOptions = [
+    "Meltdown Mix",
+    "Pre-Meltdown Pack",
+    "Stress Rising"
+  ];
+  return stressedOptions[Math.floor(Math.random() * stressedOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'tired') {
+  const tiredOptions = [
+    "Total Shutdown",
+    "Low Battery Mode",
+    "Sleepy Spiral"
+  ];
+  return tiredOptions[Math.floor(Math.random() * tiredOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'sad') {
+  const sadOptions = [
+    "Full-On Funk",
+    "Damp Dozen (Minus One)",
+    "Five Shades of Blue"
+  ];
+  return sadOptions[Math.floor(Math.random() * sadOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'neutral') {
+  const neutralOptions = [
+    "Neutral Overload",
+    "Fine, Almost",
+    "Middle Mood Mass"
+  ];
+  return neutralOptions[Math.floor(Math.random() * neutralOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'weird') {
+  const weirdOptions = [
+    "Weird Parade",
+    "One Mood Short of Strange",
+    "Almost Unhinged"
+  ];
+  return weirdOptions[Math.floor(Math.random() * weirdOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'angry') {
+  const angryOptions = [
+    "Rage Pack",
+    "Just Warming Up",
+    "Five Furies"
+  ];
+  return angryOptions[Math.floor(Math.random() * angryOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'conflicted') {
+  const conflictedOptions = [
+    "Circling the Glaze",
+    "Five-Way Tug-of-War",
+    "Glazed Over"
+  ];
+  return conflictedOptions[Math.floor(Math.random() * conflictedOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'surprise') {
+  const surpriseOptions = [
+    "Shock Pack (Pending)",
+    "Pre-Twist Set",
+    "Almost Unexpected"
+  ];
+  return surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)];
+}
+
+if (topCount === 5 && topMood === 'happy') {
+  const happyOptions = [
+    "Joy Rising",
+    "Almost Euphoric",
+    "Cheerstorm Incoming"
+  ];
+  return happyOptions[Math.floor(Math.random() * happyOptions.length)];
+}
+
+
+// 🎯 4+1
+if (topCount === 4) {
+  const intruder = moods.find(m => m !== topMood);
+  if (!intruder) return `Mostly ${moodLabels[topMood]}`;
+
+  const key = `${topMood}_${intruder}`;
+  const reverseKey = `${intruder}_${topMood}`;
+
+  const templates = {
+    calm_angry: ["Zen Interrupted", "Tranquility Shaken", "Storm in the Calm"],
+    calm_conflicted: ["Wavering Peace", "Serene but Struggling", "Calm with a Catch"],
+    calm_surprise: ["Chill Shock", "Calm Surprise", "Unexpected Breeze"],
+    calm_weird: ["Still Waters Run Odd", "Chill & Strange", "The Glazed Unknown"],
+
+    happy_sad: ["Bittersweet Box", "Sunshine & Rain", "Smile Through the Tears"],
+    happy_conflicted: ["Jubilant Jumble", "Happiness... Mostly", "Mostly Sweet"],
+    happy_weird: ["Delightfully Strange", "Joy with a Twist", "Sprinkles of Strange"],
+    happy_angry: ["Sweet & Spicy", "Smiles Disrupted", "Mood Clash: Joy vs. Rage"],
+
+    angry_calm: ["Rage Contained", "Smoldering Edge", "Anger in Restraint"],
+    angry_tired: ["Burnt Out Box", "Anger Fatigue", "Running on Fumes"],
+    angry_weird: ["Unstable Glaze", "Rage & Random", "Anger Spiral"],
+
+    tired_surprise: ["Sleepy Startle", "Tired Surprise", "Nap Interrupted"],
+    stressed_dreamy: ["Glazed Daydreams", "Stress Mirage", "Tension in a Dream"],
+    sad_conflicted: ["Mopey & Mixed", "Blue Confusion", "Tears & Turmoil"]
+  };
+
+  const dominantMoodTemplates = {
+    calm: ["Mostly Mellow", "Four Calm Layers", "Serenity with a Twist"],
+    happy: ["Bittersweet Edge", "Joy Interrupted", "Mostly Cheerful"],
+    sad: ["Melancholy Medley", "Blue But Not Alone", "Sadcore Deluxe"],
+    angry: ["Rage Interrupted", "Mostly Mad", "Anger with a Side Glaze"],
+    tired: ["Running on Glaze", "Mostly Asleep", "Tired but Not Alone"],
+    dreamy: ["Sleepy Spiral", "Dream With Disruption", "Waking Up Slowly"],
+    stressed: ["Tension Stack", "Stress Mix", "Under Pressure, Mostly"],
+    conflicted: ["Mostly Confused", "Inner Conflict Box", "Mixed But Heavy"],
+    neutral: ["Fine, Mostly", "Neutral Majority", "Undecided Box"],
+    surprise: ["Mostly Expected", "Calm Before Surprise", "Mostly Predictable"],
+    weird: ["Unusual Majority", "Mostly Offbeat", "Mostly Strange"]
+  };
+
+  const options =
+    templates[key] ||
+    templates[reverseKey] ||
+    dominantMoodTemplates[topMood] ||
+    [`Mostly ${moodLabels[topMood]}`, `Four Parts ${moodLabels[topMood]}`, `Dominant ${moodLabels[topMood]}`];
+
+  return options[Math.floor(Math.random() * options.length)];
+}
+
+
 
     // ⚖️ Balanced
     if (uniqueMoods.length === 5) return 'Mood Mosaic';
@@ -269,21 +564,98 @@ if (uniqueMoods.length === 6) {
 }
 
 
-    if (uniqueMoods.length >= 5 && includesAny(["weird", "mystery", "surprise"])) return "Mood Carousel";
-    if (uniqueMoods.length >= 4 && includesAny(["happy", "sad", "angry", "dreamy", "calm"])) return "Spectrum Sampler";
+if (uniqueMoods.length >= 5 && includesAny(["weird", "mystery", "surprise"])) {
+  const carouselOptions = [
+    "Mood Carousel",
+    "Rollercoaster of Feels",
+    "Emotional Tilt-a-Whirl",
+    "Surprise Spin",
+    "Whimsy Wheel",
+    "The Unexpected Ride",
+    "Mystery Munchies",
+    "Flavor Ferris Wheel",
+    "Funhouse Glaze",
+    "Tornado of Toppings"
+  ];
+  return carouselOptions[Math.floor(Math.random() * carouselOptions.length)];
+}
+
+if (uniqueMoods.length >= 4 && includesAny(["happy", "sad", "angry", "dreamy", "calm"])) {
+  const spectrumOptions = [
+    "Spectrum Sampler",
+    "Mood Gradient Box",
+    "Taste the Moodbow",
+    "Full Flavor Range",
+    "Emotional Palette",
+    "Feelings from A to Glaze",
+    "Chromatic Cravings",
+    "Donut of Many Colors",
+    "Soul Sampler Pack",
+    "The Feeling Lineup"
+  ];
+  return spectrumOptions[Math.floor(Math.random() * spectrumOptions.length)];
+}
+
 
     // 💢 Conflicts
-    if (counts.happy === 3 && counts.sad === 3) return "Mood Wars: Sweet v. Sour";
-    if (includesAny(["calm", "dreamy"]) && includesAny(["angry", "stressed"])) return "Frosting vs Fire";
-    if (includesAny(["conflicted", "sad", "dreamy", "stressed", "happy"])) return "Bittersweet Spiral";
-    if (includesAny(["conflicted", "angry", "tired", "stressed", "mystery"])) return "Inner Turmoil Box";
+if (counts.happy === 3 && counts.sad === 3) {
+  const conflictOptions = [
+    "Mood Wars: Sweet v. Sour",
+    "Battle of the Feels",
+    "Sugar vs. Sadness",
+    "Joy vs. the Void",
+    "A Tale of Two Moods",
+    "Emotional Civil War",
+    "Split Glaze Decision",
+    "Smiles v. Sobs",
+    "Bitter Glaze Showdown",
+    "Happiness in Rebellion"
+  ];
+  return conflictOptions[Math.floor(Math.random() * conflictOptions.length)];
+}
 
-    // ✨ Fun Closers
-    if (hasAll(["dreamy", "calm", "tired", "neutral", "mystery", "sad"])) return "Still Waters Box";
-    if (includesAny(["surprise", "angry", "weird", "happy"])) return "Chaos & Cream";
-    if (includesAny(["mystery", "weird", "surprise", "angry", "sad"])) return "Donut Apocalypse";
-    if (hasAll(["calm", "dreamy", "tired", "mystery", "happy", "neutral"])) return "Zenfinity";
-    if (hasAll(["happy", "surprise", "angry", "weird", "sad", "conflicted"])) return "Moodplosion";
+if (includesAny(["calm", "dreamy"]) && includesAny(["angry", "stressed"])) {
+  const hotCold = [
+    "Frosting vs Fire",
+    "Serenity Smackdown",
+    "Chill Meets Chaos",
+    "Peace vs. Pressure",
+    "Glazed But Furious"
+  ];
+  return hotCold[Math.floor(Math.random() * hotCold.length)];
+}
+
+if (includesAny(["conflicted", "sad", "dreamy", "stressed", "happy"])) {
+  const complexEmotionBlend = [
+    "Bittersweet Spiral",
+    "Melancholy Mashup",
+    "Happy on the Outside",
+    "Emotional Glazestorm",
+    "Mixed Mood Mosaic",
+    "Grin Through the Glaze"
+  ];
+  return complexEmotionBlend[Math.floor(Math.random() * complexEmotionBlend.length)];
+}
+
+if (includesAny(["conflicted", "angry", "tired", "stressed", "sad"])) {
+  const turmoilOptions = [
+    "Inner Turmoil Box",
+    "Emotionally Glazed",
+    "Overbaked Feelings",
+    "Stuffed and Stressed",
+    "Mind Melt Sampler",
+    "Cracks in the Frosting"
+  ];
+  return turmoilOptions[Math.floor(Math.random() * turmoilOptions.length)];
+}
+
+// ✨ Fun Closers (Revised: removed "mystery")
+if (hasAll(["dreamy", "calm", "tired", "neutral", "sad"])) return "Still Waters Box";
+if (includesAny(["surprise", "angry", "weird", "happy"])) return "Chaos & Cream";
+if (includesAny(["weird", "surprise", "angry", "sad"])) return "Donut Apocalypse";
+if (hasAll(["calm", "dreamy", "tired", "happy", "neutral"])) return "Zenfinity";
+if (hasAll(["happy", "surprise", "angry", "weird", "sad", "conflicted"])) return "Moodplosion";
+
 
     return "Mixed Mood Medley";
   }
