@@ -84,10 +84,20 @@ function triggerConfetti() {
   })();
 }
 function sealCurrentBox() {
-  const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
   const boxName = generateMoodBoxName(currentBox);
-  document.body.classList.add("no-scroll");  // ⛔ prevent scrolling during animation
+  document.body.classList.add("no-scroll");
+
+  // ✅ Strip out base64 before saving to history
+  const donutsNoImages = currentBox.map(d => ({
+    name: d.name,
+    mood: d.mood,
+    date: d.date
+  }));
+
+  // ✅ Get earliest donut date, fallback to today
+  const validDates = donutsNoImages.map(d => d.date).filter(Boolean).sort();
+  const earliestDate = validDates[0] || getTodayDate();
 
   const lid = document.getElementById('box-lid');
   if (lid) {
@@ -110,17 +120,10 @@ function sealCurrentBox() {
     }
   }, 1000);
 
-  // ✅ Strip out base64 before saving to history
-  const donutsNoImages = currentBox.map(d => ({
-    name: d.name,
-    mood: d.mood,
-    date: d.date
-  }));
-
   const sealed = {
     donuts: donutsNoImages,
     name: boxName,
-    sealed: today
+    sealed: earliestDate
   };
 
   let sealedBoxes;
@@ -237,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         selectedDonut = {
   name: donutName,
-  date: getTodayDate(),
+   date: getTodayDate(),
   image: findImagePath(donutName)
   
 };
