@@ -177,9 +177,15 @@ function saveDonutToLocalStorage() {
   const nameInput = document.getElementById('donut-name');
   const typeInput = document.getElementById('donut-type');
 
-  const donutName = nameInput.value.trim() || "Untitled Donut";
-  const donutMood = typeInput.value || "unspecified";
+  const donutName = nameInput.value.trim();
+  const donutMood = typeInput.value;
 
+  // ❌ Require both name and mood
+  if (!donutName || !donutMood) {
+    alert("Please enter a donut name and select a mood before saving.");
+    return;
+  }
+  
   const donutData = {
     name: donutName,
     mood: donutMood,
