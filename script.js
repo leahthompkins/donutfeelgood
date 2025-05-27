@@ -310,22 +310,19 @@ function triggerConfetti() {
     if (Date.now() < end) requestAnimationFrame(frame);
   })();
 }
-
 function sealCurrentBox() {
   const today = getTodayDate();
   const currentBox = JSON.parse(localStorage.getItem('donutMoodCurrent') || '[]');
   const boxName = generateMoodBoxName(currentBox);
-   document.body.classList.add("no-scroll");  // ⛔ prevent scrolling during animation
+  document.body.classList.add("no-scroll");  // ⛔ prevent scrolling during animation
 
-
-const lid = document.getElementById('box-lid');
-if (lid) {
-  console.log("✅ Found lid element");
-  lid.classList.add('visible');
-} else {
-  console.warn("❌ Could not find lid element");
-}
-
+  const lid = document.getElementById('box-lid');
+  if (lid) {
+    console.log("✅ Found lid element");
+    lid.classList.add('visible');
+  } else {
+    console.warn("❌ Could not find lid element");
+  }
 
   setTimeout(() => {
     const box = document.getElementById('mood-dozen-box');
@@ -340,18 +337,29 @@ if (lid) {
     }
   }, 1000);
 
-  const sealed = { donuts: currentBox, name: boxName, sealed: today };
+  // ✅ Strip out base64 before saving to history
+  const donutsNoImages = currentBox.map(d => ({
+    name: d.name,
+    mood: d.mood,
+    date: d.date
+  }));
 
-let sealedBoxes;
-try {
-  const stored = localStorage.getItem('donutMoodHistory');
-  sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
-} catch {
-  sealedBoxes = [];
-}
+  const sealed = {
+    donuts: donutsNoImages,
+    name: boxName,
+    sealed: today
+  };
 
-sealedBoxes.unshift(sealed);
-localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
+  let sealedBoxes;
+  try {
+    const stored = localStorage.getItem('donutMoodHistory');
+    sealedBoxes = Array.isArray(JSON.parse(stored)) ? JSON.parse(stored) : [];
+  } catch {
+    sealedBoxes = [];
+  }
+
+  sealedBoxes.unshift(sealed);
+  localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
   localStorage.removeItem('donutMoodCurrent');
 
   setTimeout(() => {
@@ -364,9 +372,10 @@ localStorage.setItem('donutMoodHistory', JSON.stringify(sealedBoxes));
     }
     selectedDonut = null;
     displayCurrentBox(true);
-     document.body.classList.remove("no-scroll");
+    document.body.classList.remove("no-scroll");
   }, 3000);
 }
+
 
 function displayCurrentBox(animate = false) {
   const box = document.getElementById('mood-dozen-box');
