@@ -188,9 +188,16 @@ function saveDonutToLocalStorage() {
   };
 
   // Save to gallery
-  const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
-  existing.push(donutData);
-  localStorage.setItem('donutGallery', JSON.stringify(existing));
+const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+
+// Add new donut to the front
+existing.unshift(donutData);
+
+// Keep only the most recent 10
+const trimmed = existing.slice(0, 10);
+
+// Save it back
+localStorage.setItem('donutGallery', JSON.stringify(trimmed));
 
   // Hide form and button
   nameInput.style.display = 'none';
@@ -202,4 +209,15 @@ function saveDonutToLocalStorage() {
 }
 
 
-document.getElementById('saveDonut').addEventListener('click', saveDonutToLocalStorage);
+const saveButton = document.getElementById('saveDonut');
+const warning = document.getElementById('save-warning');
+const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+
+if (existing.length >= 10) {
+  saveButton.style.display = 'none';
+  warning.style.display = 'block';
+} else {
+  saveButton.style.display = 'inline-block';
+  warning.style.display = 'none';
+  saveButton.addEventListener('click', saveDonutToLocalStorage);
+}
