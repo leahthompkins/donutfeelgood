@@ -167,11 +167,56 @@ html, body {
 #donut-name,
 #donut-type {
   font-size: 16px;
-  padding: 8px 12px;
+  padding: 5px 5px;
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 200px;
   text-align: center;
 }
 
+.name-wrapper {
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+}
 
+#donut-name {
+  width: 100%;
+  padding-right: 50px; /* makes room for char count */
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#char-count {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  font-size: 0.8em;
+  color: #666;
+  pointer-events: none;
+}
+
+
+#saveDonut {
+  background: linear-gradient(to bottom right, #ffb347, #ffcc33); /* frosted yellow-orange */
+  border: none;
+  border-radius: 25px;
+  padding: 5px 24px;
+  font-size: 16px;
+  color: #4b2800;
+  font-weight: bold;
+  font-family: 'Baloo 2', cursive;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #c97f16, 0 6px 12px rgba(0,0,0,0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+#saveDonut:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 0 #c97f16, 0 8px 16px rgba(0,0,0,0.25);
+}
+
+#saveDonut:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 0 #c97f16 inset;
+}
