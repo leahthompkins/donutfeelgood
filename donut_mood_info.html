@@ -35,7 +35,7 @@
 <p>Psychologists have found that we don’t just express emotions through language—we also feel them through <strong>color, texture, shape, and symbolic representation</strong>. These connections are <strong>highly individual</strong>, shaped by culture, memory, and personal experience.</p>
 <p>That’s why this app lets <em>you</em> choose what a “happy” or “anxious” donut looks like. Your emotional world is yours to define.</p>
 
-<button class="accordion-header">🎨 Colors and Emotions</button>
+<button class="accordion-header"><span class="arrow">▼</span> Colors and Emotions</button>
 <div class="accordion-body">
   <p>Colors have long been associated with emotions—think of <em>“feeling blue”</em> or <em>“seeing red.”</em> However, these associations are not universal; they vary significantly across individuals and cultures.</p>
 
@@ -79,7 +79,7 @@
   </ol>
 </div>
 
-<button class="accordion-header">🌀 Shapes and Feelings</button>
+<button class="accordion-header"><span class="arrow">▼</span> Shapes and Feelings</button>
 <div class="accordion-body">
   <p>We don’t just feel colors—we respond emotionally to <strong>shapes</strong>. Psychological experiments show that <strong>soft, rounded shapes</strong> are generally associated with safety, happiness, and approachability, while <strong>angular or sharp shapes</strong> can induce feelings of alertness or even threat.</p>
 
@@ -117,7 +117,7 @@
     </li>
   </ol>
 </div>
-<button class="accordion-header">🍩 Donuts as Symbols</button>
+<button class="accordion-header"><span class="arrow">▼</span> Donuts as Symbols</button>
 <div class="accordion-body">
   <p>The act of turning your emotions into symbols—a drawing, a color, a donut—isn’t just playful. It’s deeply psychological. This is known as <strong>symbolic encoding</strong>, and it plays a vital role in emotional development, communication, and regulation.</p>
 
@@ -170,7 +170,8 @@
 </div>
 
 
-<button class="accordion-header">📊 Why Track with Donuts?</button>
+<button class="accordion-header"><span class="arrow">▼</span> Why Track with Donuts?</button>
+
 <div class="accordion-body">
 <p>You don’t always need a long journal entry to say how you feel. Sometimes, a bright pink, sprinkle-covered donut with the label <em>“excited but overwhelmed”</em> says it better.</p>
 
@@ -191,24 +192,11 @@
 <p>That’s not just expressive—it’s <strong>emotional fluency</strong>.</p>
 </div>
 </div>
-</div><script>
-document.querySelectorAll('.accordion-header').forEach(header => {
-  header.addEventListener('click', () => {
-    const body = header.nextElementSibling;
-    body.style.display = body.style.display === 'block' ? 'none' : 'block';
-  });
-});
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleButton = document.getElementById('menu-toggle');
-    const sideMenu = document.getElementById('side-menu');
-
-    toggleButton.addEventListener('click', function () {
-      sideMenu.classList.toggle('open');
-    });
-  });
-</script>
 </div>
+
+</div>
+
+
+<script src="donut-info.js"></script>
 </body>
 </html>
