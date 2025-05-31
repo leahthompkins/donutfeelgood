@@ -646,6 +646,10 @@ body.no-scroll {
   
 }
 
+.splide__arrows {
+  display: none !important;
+}
+
 .donut-instructions {
   position: absolute;
   top: 1rem;

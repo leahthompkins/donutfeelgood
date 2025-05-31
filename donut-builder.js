@@ -194,28 +194,34 @@ function flattenDonutToCanvas() {
   return canvas;
 }
 
+
 function saveDonutToLocalStorage() {
   const canvas = flattenDonutToCanvas();
   const dataURL = canvas.toDataURL(); // PNG Base64
 
   const nameInput = document.getElementById('donut-name');
   const typeInput = document.getElementById('donut-type');
+  const charCount = document.getElementById('char-count');
+  const editButton = document.getElementById('edit-button');
+  const confirmButton = document.getElementById('confirm-button');
+  const diceButton = document.getElementById('dice-button');
+  const saveWrapper = document.getElementById('save-wrapper');
+  const donutDetails = document.getElementById('donut-details');
+  const carouselContainer = document.querySelector('.carousel-container');
 
   const donutName = nameInput.value.trim();
   const donutMood = typeInput.value;
 
-  // ❌ Require both name and mood
   if (!donutName || !donutMood) {
     alert("Please enter a donut name and select a mood before saving.");
     return;
   }
-  
-    // ❌ Enforce max character limit for name
+
   if (donutName.length > 20) {
     alert("Donut name must be 20 characters or fewer.");
     return;
   }
-  
+
   const donutData = {
     name: donutName,
     mood: donutMood,
@@ -223,27 +229,34 @@ function saveDonutToLocalStorage() {
     date: new Date().toISOString()
   };
 
-  // Save to gallery
-const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+  const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+  existing.unshift(donutData);
+  const trimmed = existing.slice(0, 10);
+  localStorage.setItem('donutGallery', JSON.stringify(trimmed));
 
-// Add new donut to the front
-existing.unshift(donutData);
+  // 🔒 Hide all interactive elements
+  if (nameInput) nameInput.style.display = 'none';
+  if (typeInput) typeInput.style.display = 'none';
+  if (charCount) charCount.style.display = 'none';
+  if (editButton) editButton.style.display = 'none';
+  if (confirmButton) confirmButton.style.display = 'none';
+  if (diceButton) diceButton.style.display = 'none';
+  if (saveWrapper) saveWrapper.innerHTML = '';
 
-// Keep only the most recent 10
-const trimmed = existing.slice(0, 10);
+  // ❌ Remove any event listeners (by replacing with clones)
+  confirmButton?.replaceWith(confirmButton.cloneNode(true));
+  diceButton?.replaceWith(diceButton.cloneNode(true));
+  editButton?.replaceWith(editButton.cloneNode(true));
+  saveButton?.replaceWith(saveButton.cloneNode(true));
 
-// Save it back
-localStorage.setItem('donutGallery', JSON.stringify(trimmed));
+const confirmation = document.createElement('div');
+confirmation.innerHTML = `<p style="font-size: 1.2em; color: green; font-weight: bold;">🎉 "${donutName}" saved!</p>`;
+confirmation.style.marginTop = '20px';
+confirmation.style.textAlign = 'center';
 
-  // Hide form and button
-  nameInput.style.display = 'none';
-  typeInput.style.display = 'none';
-
-  // Replace Save button with a "Saved!" message
-  const wrapper = document.getElementById('save-wrapper');
-  wrapper.innerHTML = `<span style="font-weight: bold; color: green;">Saved "${donutName}"!</span>`;
+// Append to donut-details (or another always-visible section)
+document.getElementById('donut-details').appendChild(confirmation);
 }
-
 
 const saveButton = document.getElementById('saveDonut');
 const warning = document.getElementById('save-warning');
