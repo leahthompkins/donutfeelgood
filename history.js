@@ -51,17 +51,18 @@ function displayDonutHistory() {
 
   container.appendChild(stack);
 
-  stack.addEventListener('click', () => {
-    const first = stack.firstElementChild;
-    if (!first) return;
-    first.style.transform = 'translateX(350px) rotate(5deg)';
-    first.style.opacity = '0';
+stack.addEventListener('click', () => {
+  const firstReceipt = stack.querySelector('.donut-receipt');
+  if (!firstReceipt) return;
 
-    setTimeout(() => {
-      stack.appendChild(first);
-      resetStackTransforms(stack);
-    }, 400);
-  });
+  firstReceipt.style.transform = 'translateX(350px) rotate(5deg)';
+  firstReceipt.style.opacity = '0';
+
+  setTimeout(() => {
+    stack.appendChild(firstReceipt);
+    resetStackTransforms(stack);
+  }, 400);
+});
 
   const clearBtn = document.createElement('button');
   clearBtn.className = 'clear-all-btn';
@@ -304,3 +305,5 @@ function clearAllReceipts() {
     generateMoodChart();
   }
 }
+
+
