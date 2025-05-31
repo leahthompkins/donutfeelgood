@@ -47,7 +47,7 @@
 }
 
 .donut-grid img {
-  width: 20vw !important;
+  width: 17vw !important;
   height: auto !important;
   max-width: 100px; /* optional limit */
    transform: translate(-50%, -50%); /* centers image on its point */
