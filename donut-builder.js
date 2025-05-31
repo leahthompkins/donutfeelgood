@@ -60,10 +60,10 @@ function rebuildCarousel(id, images, currentIndex) {
     pagination: false,
     arrows: true,
     drag: true,
+    start: currentIndex  // ✅ This ensures correct image on load
   });
 
   newSplide.mount();
-  newSplide.go(currentIndex);
   return newSplide;
 }
 
