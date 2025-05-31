@@ -74,11 +74,11 @@ const charCount = document.getElementById('char-count');
 
 nameInput.addEventListener('input', () => {
   const length = nameInput.value.length;
-  charCount.textContent = `${length} / 20`;
+  charCount.textContent = `${length} / 15`;
 
-  if (length > 20) {
+  if (length > 15) {
     charCount.style.color = 'red';
-  } else if (length > 16) {
+  } else if (length > 10) {
     charCount.style.color = 'orange';
   } else {
     charCount.style.color = '#666';
@@ -217,8 +217,8 @@ function saveDonutToLocalStorage() {
     return;
   }
 
-  if (donutName.length > 20) {
-    alert("Donut name must be 20 characters or fewer.");
+  if (donutName.length > 15) {
+    alert("Donut name must be 15 characters or fewer.");
     return;
   }
 

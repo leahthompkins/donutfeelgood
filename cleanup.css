@@ -43,7 +43,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* allows clicks to fall through unless you want interaction */
+    z-index: 2; /* Make sure it's on top */
 }
 
 .donut-grid img {
@@ -54,4 +54,102 @@
   justify-self: center;
   align-self: center;
   pointer-events: auto;
+    cursor: pointer;
 }
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+
+.modal-content img {
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 6%;
+  right: 6%;
+  font-size: 1.8rem;
+  color: #333;
+  border-radius: 50%;
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+
+.modal-content {
+ /* background-image: url("images/price-tag.png");*/
+  background-color: white; /* no white fallback */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.modal-body img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.modal-text {
+  text-align: left;
+}
+
+.modal-text h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-text p {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+
+.price-tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: black;
+  position: relative;
+  margin-top: 1rem;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1rem;
+}
+
