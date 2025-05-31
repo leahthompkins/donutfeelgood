@@ -1,10 +1,15 @@
-function showModal(imageSrc, name, mood) {
+let currentDonutIndex = null;
+
+
+function showModal(imageSrc, name, mood, index) {
+  currentDonutIndex = index;
   const modal = document.getElementById('donutModal');
   document.getElementById('modalImage').src = imageSrc;
   document.getElementById('modalName').textContent = name;
   document.getElementById('modalMood').textContent = `Mood: ${mood}`;
   modal.classList.remove('hidden');
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const list = document.getElementById('donutGalleryList');
@@ -88,7 +93,7 @@ saved.forEach((entry, index) => {
   img.style.cursor = 'pointer';
 
 img.addEventListener('click', () => {
-  showModal(donutImage, name, mood);
+  showModal(donutImage, name, mood, index);
 });
 
   overlay.appendChild(img);  // ✅ THIS MUST BE INSIDE the loop
@@ -96,6 +101,17 @@ img.addEventListener('click', () => {
 
 }
 
+});
+
+
+document.getElementById('deleteDonut').addEventListener('click', () => {
+  if (currentDonutIndex !== null) {
+    const saved = JSON.parse(localStorage.getItem('donutGallery') || '[]');
+    saved.splice(currentDonutIndex, 1);
+    localStorage.setItem('donutGallery', JSON.stringify(saved));
+    document.getElementById('donutModal').classList.add('hidden');
+    location.reload(); // or call your render() again if you're not reloading
+  }
 });
 
 

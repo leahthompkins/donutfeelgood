@@ -231,7 +231,7 @@ function saveDonutToLocalStorage() {
 
   const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
   existing.unshift(donutData);
-  const trimmed = existing.slice(0, 10);
+  const trimmed = existing.slice(0, 9);
   localStorage.setItem('donutGallery', JSON.stringify(trimmed));
 
   // 🔒 Hide all interactive elements
@@ -262,7 +262,7 @@ const saveButton = document.getElementById('saveDonut');
 const warning = document.getElementById('save-warning');
 const existing = JSON.parse(localStorage.getItem('donutGallery') || '[]');
 
-if (existing.length >= 10) {
+if (existing.length >= 9) {
   saveButton.style.display = 'none';
   warning.style.display = 'block';
 } else {
