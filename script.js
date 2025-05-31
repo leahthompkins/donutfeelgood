@@ -21,7 +21,8 @@ let selectedDonut = null;
     "Powdered Mess": "stressed",
     "Angry Apple": "angry",
     "Sleepy Sugar": "tired",
-    "Twist": "conflicted"
+    "Twist": "conflicted",
+    "Blueberry Blues": "sad"
   };
 
   window.moodLabels = {
@@ -64,7 +65,8 @@ function findImagePath(donutName) {
     "Powdered Mess": "powdered-removebg-preview.png",
     "Angry Apple": "apple-removebg-preview.png",
     "Sleepy Sugar": "beignet-removebg-preview.png",
-    "Twist": "twist-removebg-preview.png"
+    "Twist": "twist-removebg-preview.png",
+    "Blueberry Blues": "blueberry-removebg-preview.png"
   };
   return `images/${imageMap[donutName] || 'placeholder.png'}`;
 }

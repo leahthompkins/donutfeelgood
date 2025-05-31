@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make Your Own Donut</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css" />
+</head>
+<body>
+  <div class="donut-builder">
+    <button id="randomize-donut" class="randomize-button" aria-label="Randomize Donut">
+  🎲
+</button>
+    <div id="base-carousel" class="splide donut-layer"></div>
+    <div id="glaze-carousel" class="splide donut-layer"></div>
+    <div id="topping-carousel" class="splide donut-layer"></div>
+    <div class="donut-instructions">
+  <p>Swipe each layer</p>
+
+</div>
+  
+
+
+  </div>
+    <button id="finalize-donut" class="finalize-button">✅ Choose This Donut</button>
+
+<div class="donut-metadata-form">
+  <input type="text" id="donut-name" placeholder="Give your donut a name" />
+  <select id="donut-mood">
+    <option value="">Pick a mood</option>
+    <option value="Joyful">Joyful</option>
+    <option value="Melancholy">Melancholy</option>
+    <option value="Spicy">Spicy</option>
+    <option value="Zen">Zen</option>
+    <option value="Chaotic">Chaotic</option>
+  </select>
+  <button id="save-donut">💾 Save</button>
+</div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+  <script src="makeyourown.js"></script>
+</body>
+</html>

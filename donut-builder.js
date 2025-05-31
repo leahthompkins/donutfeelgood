@@ -7,14 +7,18 @@ const glazeOptions = {
     "assets/glaze1.png",
     "assets/glaze2.png",
     "assets/glaze3.png",
-        "assets/glaze4.png",
+    "assets/glaze4.png",
     "assets/glaze5.png",
-        "assets/glaze6.png"
+    "assets/glaze6.png"
   ],
   long: [
     "assets/bar-glaze1.png",
     "assets/bar-glaze2.png",
-    "assets/bar-glaze3.png"
+    "assets/bar-glaze3.png",
+    "assets/bar-glaze4.png",
+    "assets/bar-glaze5.png",
+    "assets/bar-glaze6.png",
+    "assets/bar-glaze7.png"
 
   ]
 };
@@ -30,7 +34,9 @@ const toppingOptions = {
     "assets/bar-topping1.png",
     "assets/bar-topping2.png",
     "assets/bar-topping3.png",
-    "assets/bar-topping4.png"
+    "assets/bar-topping4.png",
+    "assets/bar-topping5.png",
+    "assets/bar-topping6.png"
     ]
     
     
