@@ -1,0 +1,102 @@
+/*Overriding the global */
+
+h1 {
+  font-size: 1.5rem;
+  color: #d86f72;
+}
+
+p {
+  font-size: 1rem;
+  color: #7a4c46;
+  margin: 0.1rem 0 .5rem;
+}
+
+
+.info-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+}
+
+.info-block {
+  margin: 1rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #f5d9d9;
+  background-color: #fffaf9;
+}
+
+.info-block summary {
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #ffeae8;
+  color: #c75050;
+}
+
+.info-block summary::marker {
+  color: #c75050;
+}
+
+.info-block div {
+  padding: 1rem;
+  color: #5b3a2f;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 400px) {
+  .info-container {
+    padding: 0.75rem;
+  }
+
+  .info-block summary, .info-block div {
+    padding: 0.75rem;
+  }
+}
+
+
+.accordion {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+}
+.accordion-header {
+  background: #ffe4ec;
+  border: none;
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  font-family: 'Baloo 2', sans-serif;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s ease;
+}
+.accordion-header:hover {
+  background: #ffd5e6;
+}
+.accordion-body {
+  display: none;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #eee;
+}
+.accordion-body p {
+  margin-top: 0;
+}
+
+.page-wrapper {
+  max-width: 450px;
+  margin: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
