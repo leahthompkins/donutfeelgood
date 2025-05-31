@@ -18,17 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
       img.style.height = '100px';
       img.style.objectFit = 'contain';
 
-      const btn = document.createElement('button');
-    btn.textContent = 'Delete';
-      btn.addEventListener('click', () => {
-        saved.splice(index, 1);
-        localStorage.setItem('donutGallery', JSON.stringify(saved));
-        render();
-      });
-
       li.appendChild(img);
-   //   li.appendChild(document.createTextNode(` ${donutName} `));
-    //  li.appendChild(btn);
+      // Name and delete hidden for now
+      // li.appendChild(document.createTextNode(` ${donutName} `));
+      // const btn = document.createElement('button');
+      // btn.textContent = 'Delete';
+      // btn.addEventListener('click', () => {
+      //   saved.splice(index, 1);
+      //   localStorage.setItem('donutGallery', JSON.stringify(saved));
+      //   render();
+      // });
+      // li.appendChild(btn);
       list.appendChild(li);
     });
   }
@@ -42,42 +42,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   render();
+
+  // -------------------------------
+  // 🎯 Custom positioned donut overlay
+  // -------------------------------
+  const donutPositions = [
+    { top: "25%", left: "20%" },
+    { top: "25%", left: "45%" },
+    { top: "25%", left: "70%" },
+    { top: "45%", left: "20%" },
+    { top: "45%", left: "45%" },
+    { top: "45%", left: "70%" },
+    { top: "60%", left: "20%" },
+    { top: "60%", left: "45%" },
+    { top: "60%", left: "70%" }
+  ];
+
+  const overlay = document.querySelector('.donut-grid');
+  if (overlay) {
+    overlay.innerHTML = ''; // clear previous donuts
+
+    saved.forEach((entry, index) => {
+      const donutImage = typeof entry === 'string' ? entry : entry.image;
+      const position = donutPositions[index] || { top: "80%", left: "50%" };
+
+      const img = document.createElement('img');
+      img.src = donutImage;
+      img.alt = `Donut ${index + 1}`;
+      img.style.position = 'absolute';
+      img.style.top = position.top;
+      img.style.left = position.left;
+      img.style.transform = 'translate(-50%, -50%)';
+      img.style.width = '10vw';
+      img.style.maxWidth = '100px';
+
+      overlay.appendChild(img);
+    });
+  }
 });
-
-const grid = document.querySelector(".donut-grid");
-
-const donutImg = document.createElement("img");
-donutImg.src = "assets/my-donut.png";
-donutImg.alt = "Donut Mood";
-grid.appendChild(donutImg);
-
-
-
-// Example donut sources (use your actual donut data here)
-const donutImages = [
-  "assets/donut1.png",
-  "assets/donut2.png",
-  "assets/donut3.png",
-  "assets/donut4.png",
-  "assets/donut5.png",
-  "assets/donut6.png"
-];
-
-donutImages.forEach(src => {
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = "Donut";
-  grid.appendChild(img);
-});
-
-
-const gallery = document.getElementById("donutGalleryList");
-gallery.innerHTML = "";
-
-storedDonuts.forEach(src => {
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = "Donut";
-  gallery.appendChild(img);
-});
-
