@@ -1,9 +1,9 @@
 #donutGalleryList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr)); /* ~20% of screen width per donut */
-  gap: 1vw; /* small spacing between items */
+  gap: 0vw; /* small spacing between items */
   padding: 5vw;
-  padding-right: 10vw; /* optional side padding */
+  padding-right: 15vw; /* optional side padding */
   list-style: none;
   justify-items: center;
   background-color: transparent;
@@ -39,10 +39,10 @@
 
 .donut-grid {
   position: absolute;
-  top: 10%;          /* % from top of the wrapper */
+  top: 9%;          /* % from top of the wrapper */
   left: 5%;          /* % from left */
   width: 90%;        /* width relative to image */
-  height: 80%;       /* height relative to image */
+  height: 50%;       /* height relative to image */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
